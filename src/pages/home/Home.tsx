@@ -28,10 +28,11 @@ const HomeBox = styled.div`
 
 const PopularCityBox = styled.div`
   border: none;
-  padding: 1% 10%;
+  padding: 1% 8%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-around;
+  align-items: flex-start;
   column-gap: 80px;
   width: 100%;
 `;
@@ -54,7 +55,7 @@ const MostUsedBox = styled.a`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  align-content: space-around;
+  align-items: flex-start;
   width: 100%;
 `;
 
@@ -75,7 +76,7 @@ const MostTicketBox = styled.a`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  align-content: space-around;
+  align-items: flex-start;
   width: 100%;
 `;
 

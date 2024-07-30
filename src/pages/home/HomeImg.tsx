@@ -9,11 +9,11 @@ type Season = "spring" | "summer" | "fall" | "winter";
 
 function getSeason(date: Date): "spring" | "summer" | "fall" | "winter" {
   const month = date.getMonth();
-  if (month >= 2 && month <= 4) {
+  if (month >= 3 && month <= 5) {
     return "spring";
-  } else if (month >= 5 && month <= 7) {
+  } else if (month >= 6 && month <= 8) {
     return "summer";
-  } else if (month >= 8 && month <= 10) {
+  } else if (month >= 9 && month <= 11) {
     return "fall";
   } else {
     return "winter";
