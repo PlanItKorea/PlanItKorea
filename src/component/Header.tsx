@@ -7,7 +7,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { style } from "@mui/system";
 import { NavLink } from "react-router-dom";
 
-
 const Box = styled.div`
   padding: 0px 20px;
   margin: 10px 70px 0 70px;
@@ -177,11 +176,13 @@ export default function Header() {
   const modalRef = useRef<HTMLDivElement | null>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
-    if (
-      modalRef.current && 
-      !modalRef.current.contains(event.target as Node)) {
-        setShowMenuModal(false)
-      }
+    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+      setShowMenuModal(false);
+    }
+  };
+
+  const ModalClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setShowMenuModal(!showMenuModal)
   }
 
   useEffect(() => {
@@ -190,8 +191,6 @@ export default function Header() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
-
 
   return (
     <>
@@ -204,35 +203,37 @@ export default function Header() {
         </LogoBox>
         <OptionBox>
           {/* //! 고객센터 버튼*/}
-            <NavLink to="/CustomerService">
-          <CustomerServiceButton>
-            <span> 고객센터 </span>
-          </CustomerServiceButton>
-            </NavLink>
+          <NavLink to="/CustomerService">
+            <CustomerServiceButton>
+              <span> 고객센터 </span>
+            </CustomerServiceButton>
+          </NavLink>
 
           {/* //! 로그인 버튼 */}
-          <NavLink to='SignIn'>
-          <SingInButton>
-            <span>로그인 & 회원가입</span>
-          </SingInButton>
+          <NavLink to="SignIn">
+            <SingInButton>
+              <span>로그인 & 회원가입</span>
+            </SingInButton>
           </NavLink>
 
           {/* //! 햄버거 바 */}
           <MenuBox>
-            <MenuButton onClick={() => setShowMenuModal(!showMenuModal)}>
+            <MenuButton onClick={ModalClick}>
               <MenuIcon />
             </MenuButton>
             {showMenuModal && (
               <MenuBar ref={modalRef}>
-                <MenuCustomerServiceButton>
-                <NavLink to='CustomerService'>
-                  <span> 고객센터 </span>
+                <NavLink to="SignIn">
+                  <MenuSingInButton>
+                    <span>로그인 & 회원가입</span>
+                  </MenuSingInButton>
                 </NavLink>
-                </MenuCustomerServiceButton>
-                <NavLink to='SignIn'>
-                <MenuSingInButton>
-                  <span>로그인 & 회원가입</span>
-                </MenuSingInButton>
+                <NavLink to="MyPage">
+                  <MenuCustomerServiceButton
+                    style={{ padding: "6px 41px", margin: "5px 0" }}
+                  >
+                    <span> 마이페이지 </span>
+                  </MenuCustomerServiceButton>
                 </NavLink>
                 <GroupLine />
                 <MenuGroup>국내 숙소</MenuGroup>

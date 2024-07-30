@@ -11,6 +11,7 @@ import SignIn from './pages/Login/Signin'
 import SignUp from './pages/Login/Signup'
 import IdSearch from './pages/Login/IdSearch'
 import PasswordSearch from './pages/Login/PasswordSearch'
+import MyPage from "./pages/MyPage/MyPageMain"
 
 
 
@@ -27,6 +28,7 @@ function App() {
       <Route path='/IdSearch' element={<IdSearch/>}/>
       <Route path='/PasswordSearch' element={<PasswordSearch/>}/>
       <Route path='/SignUp' element={<SignUp/>}/>
+      <Route path='/MyPage' element={<MyPage/>}/>
       </Routes>
 
       <Footer />
