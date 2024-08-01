@@ -203,7 +203,7 @@ export default function Header() {
         </LogoBox>
         <OptionBox>
           {/* //! 고객센터 버튼*/}
-          <NavLink to="/CustomerService">
+          <NavLink to="/Notification">
             <CustomerServiceButton>
               <span> 고객센터 </span>
             </CustomerServiceButton>

@@ -5,72 +5,7 @@ import logoImg from "../../assets/images/logo.png";
 import theme from "../../styles/theme";
 import { NavLink, useNavigate } from "react-router-dom";
 import useStore from "../../stores/useStore";
-
-export const AllDiv = styled.div`
-  padding: 8% 10%;
-  display: block;
-  height: 80vh;
-  overflow: auto;
-`;
-
-export const SignInDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
-`;
-
-export const InputField = styled.input`
-  background-color: #f4f4f4f4;
-  border-radius: 15px;
-  border: none;
-  height: 47px;
-  max-width: 1500px;
-  width: 100%;
-  padding-left: 5%;
-  margin-bottom: 20px;
-  &:hover {
-    background-color: #e0e0e0;
-  }
-`;
-
-export const InputLabel = styled.label`
-  font-size: 14px;
-  margin-bottom: 5px;
-  font-weight: bold;
-  display: flex;
-  align-self: flex-start;
-`;
-
-export const InputContainer = styled.div`
-  width: 50%;
-  max-width: 1000px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-`;
-
-export const ErrorMessage = styled.div`
-  color: red;
-  font-size: 12px;
-  margin-bottom: 10px;
-`;
-
-export const Button = styled.button`
-  border: none;
-  background-color: ${theme.palette.primary.main};
-  border-radius: 15px;
-  height: 47px;
-  max-width: 1500px;
-  width: 100%;
-  padding-left: 5%;
-  margin-bottom: 20px;
-  color: white;
-  margin-top: 20px;
-  &:hover {
-    background-color: ${theme.palette.primary.dark};
-  }
-`;
+import {AllDiv, SignInDiv, InputField, InputLabel, InputContainer, ErrorMessage, Button, GroupLine} from "../../styles/Sign"
 
 const OptionDiv = styled.div`
   display: flex;
@@ -148,6 +83,7 @@ export default function Signin() {
 
   return (
     <>
+    <GroupLine />
       <AllDiv>
         <LogoDIv style={{ marginBottom: "40px", alignItems: "center" }}>
           <Logo src={logoImg} alt="logo" />

@@ -1,3 +1,4 @@
+import Inquiry from "../pages/MyPage/Inquiry";
 
 //! 유저 타입
 export interface User {
@@ -15,6 +16,38 @@ export interface Reservation {
   phoneNumber: string;
   reservationNumber: number
 }
+
+//! 숙소 검색 바
+export interface SearchBarFilter {
+  city: Location;
+  date: Date;
+  person: number;
+} 
+
+//! 공지사항 
+export type Announcement = {
+  id: number
+  title: string;
+  content: string;
+  author: string;
+  useFade: boolean;
+}
+
+//! 문의 사항
+export type Inquiry = {
+  id: string;
+  category: InquiryType
+  title: string;
+  content: string;
+  image: File | null
+  date: Date;
+}
+
+//! 문의사항 유형 선택
+export type InquiryType = 
+  | 'payment' 
+  | 'cancellation' 
+  | 'refund'
 
 //! 여행지 타입
 export type Location =
@@ -68,7 +101,7 @@ export type Ticket =
     name: string;
     price: string;
     //? 지역 카테고리
-    city: Location[]
+    city: Location
     //? 숙소 카테고리
     accommodationCategory: Accommodation[];
     //? 편의시설 카테고리
@@ -82,8 +115,8 @@ export type Ticket =
     name: string;
     price: string;
     //? 지역 카테고리
-    city: Location[]
+    city: Location
     //? 티켓 카테고리
-    TicketCategory: Ticket[];
+    TicketCategory: Ticket;
 
   }

@@ -4,7 +4,10 @@ import {
   SignInDiv as SignUpDiv,
   InputContainer,
   ErrorMessage,
-} from "./Signin";
+  InputIdField, InputPasswordField, InputNameField, InputBirthDateField, InputPhoneField,
+  ModalText,
+  GroupLine, 
+} from "../../styles/Sign";
 import { Logo, LogoDIv, LogoName } from "../../styles/logo";
 import logoImg from "../../assets/images/logo.png";
 import styled from "styled-components";
@@ -13,116 +16,9 @@ import { NavLink } from "react-router-dom";
 import Modal from "./Modal";
 
 
-const InputIdField = styled.input<{ hasIdError: boolean }>`
-  background-color: #f4f4f4;
-  border-radius: 15px;
-  border: ${(props) =>
-    props.hasIdError ? `2px solid ${theme.palette.secondary.main}` : "none"};
-  height: 47px;
-  max-width: 1500px;
-  width: 100%;
-  padding-left: 5%;
-  margin-bottom: 15px;
-  &:hover {
-    background-color: #e0e0e0;
-  }
-  &:focus {
-    border: ${(props) =>
-      props.hasIdError ? `2px solid ${theme.palette.secondary.main}` : "none"};
-    outline: none;
-  }
-`;
-const InputPasswordField = styled.input<{ hasPasswordError: boolean }>`
-  background-color: #f4f4f4;
-  border-radius: 15px;
-  border: ${(props) =>
-    props.hasPasswordError
-      ? `2px solid ${theme.palette.secondary.main}`
-      : "none"};
-  height: 47px;
-  max-width: 1500px;
-  width: 100%;
-  padding-left: 5%;
-  margin-bottom: 15px;
-  &:hover {
-    background-color: #e0e0e0;
-  }
-  &:focus {
-    border: ${(props) =>
-      props.hasPasswordError
-        ? `2px solid ${theme.palette.secondary.main}`
-        : "none"};
-    outline: none;
-  }
-`;
-const InputNameField = styled.input<{ hasNameError: boolean }>`
-  background-color: #f4f4f4;
-  border-radius: 15px;
-  border: ${(props) =>
-    props.hasNameError ? `2px solid ${theme.palette.secondary.main}` : "none"};
-  height: 47px;
-  max-width: 1500px;
-  width: 100%;
-  padding-left: 5%;
-  margin-bottom: 15px;
-  &:hover {
-    background-color: #e0e0e0;
-  }
-  &:focus {
-    border: ${(props) =>
-      props.hasNameError
-        ? `2px solid ${theme.palette.secondary.main}`
-        : "none"};
-    outline: none;
-  }
-`;
 
-const InputBirthDateField = styled.input<{ hasBirthDateError: boolean }>`
-  background-color: #f4f4f4;
-  border-radius: 15px;
-  border: ${(props) =>
-    props.hasBirthDateError
-      ? `2px solid ${theme.palette.secondary.main}`
-      : "none"};
-  height: 47px;
-  max-width: 1500px;
-  width: 100%;
-  padding-left: 5%;
-  margin-bottom: 15px;
-  &:hover {
-    background-color: #e0e0e0;
-  }
-  &:focus {
-    border: ${(props) =>
-      props.hasBirthDateError
-        ? `2px solid ${theme.palette.secondary.main}`
-        : "none"};
-    outline: none;
-  }
-`;
-const InputPhoneField = styled.input<{ hasPhoneError: boolean }>`
-  background-color: #f4f4f4;
-  border-radius: 15px;
-  border: ${(props) =>
-    props.hasPhoneError ? `2px solid ${theme.palette.secondary.main}` : "none"};
-  height: 47px;
-  max-width: 1500px;
-  width: 100%;
-  padding-left: 5%;
-  margin-bottom: 15px;
-  &:hover {
-    background-color: #e0e0e0;
-  }
-  &:focus {
-    border: ${(props) =>
-      props.hasPhoneError
-        ? `2px solid ${theme.palette.secondary.main}`
-        : "none"};
-    outline: none;
-  }
-`;
 
-const Button = styled.button`
+export const Button = styled.button`
   border: none;
   background-color: ${theme.palette.primary.main};
   border-radius: 15px;
@@ -137,17 +33,17 @@ const Button = styled.button`
   }
 `;
 
-const Overlay = styled.div`
+export const Overlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* 배경 어둡게 */
-  z-index: 999; /* 모달 위에 위치하도록 */
+  background: rgba(0, 0, 0, 0.5); 
+  z-index: 999; 
 `;
 
-const ModalButton = styled.button`
+export const ModalButton = styled.button`
   border: none;
   background-color: ${theme.palette.primary.main};
   border-radius: 15px;
@@ -244,7 +140,7 @@ export default function Signup() {
     const phoneNumberRegex = /^\d{9,11}$/;
 
     if (phoneNumber && !phoneNumberRegex.test(phoneNumber)) {
-      setPhoneNumberError("숫자 8자리 입력해주세요");
+      setPhoneNumberError("전화번호 8자리 입력해주세요");
     } else {
       setPhoneNumberError("");
     }
@@ -260,7 +156,7 @@ export default function Signup() {
       valid = false;
     }
     if (!password) {
-      setPasswordError("비밀번호를 입력해주세요.");
+      setPasswordError("비밀번호는 8자 이상, 특수문자가 포함되어야 합니다.");
       valid = false;
     } else {
       const passwordRegex = /^(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
@@ -332,14 +228,8 @@ export default function Signup() {
 
   return (
     <>
-      <span
-        style={{
-          border: `1px solid ${theme.palette.primary.light}`,
-          width: "100%",
-          display: "flex",
-        }}
-      />
-      <AllDiv style={{padding: '25px 10%'}}>
+      <GroupLine/>
+      <AllDiv style={{padding: '8% 10%'}}>
         <LogoDIv style={{ marginBottom: "20px", alignItems: "center"}}>
           <Logo src={logoImg} alt="logo" />
           <LogoName>Plan It Korea</LogoName>
@@ -443,7 +333,7 @@ export default function Signup() {
           <Modal
             isOpen={isModalOpen}
           >
-            <h1 style={{textAlign:'center', fontWeight:'bold', color:`${theme.palette.text.secondary}`, fontSize: '20px', margin:'40px 0'}}>가입이 완료되었습니다!</h1>
+            <ModalText>가입이 완료되었습니다!</ModalText>
             <NavLink to="/SignIn">
             <ModalButton onClick={() => setIsModalOpen(false)}>확인</ModalButton>
             </NavLink>
