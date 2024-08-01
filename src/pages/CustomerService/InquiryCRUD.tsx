@@ -1,7 +1,10 @@
 import React from 'react'
+import { ContentDiv } from '../../styles/customer'
 
 export default function InquiryCRUD() {
   return (
-    <div>InquiryCRUD</div>
+    <>
+    <ContentDiv>문의</ContentDiv>
+    </>
   )
 }

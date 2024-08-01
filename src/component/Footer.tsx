@@ -11,14 +11,9 @@ const FooterDiv = styled.div`
   padding: 0 5%;
   padding: "0 30px";
   background-color: ${theme.palette.primary.light};
+  
 `;
 
-const GroupLine = styled.span`
-  display: flex;
-  border: 1px dashed #eee;
-  margin: 0;
-  margin-bottom: 10px;
-`;
 
 const CustomerServiceButtonDiv = styled.div`
   margin: 0;
@@ -59,12 +54,12 @@ const BottomDiv = styled.div`
     padding: 5px 20px;
     display: flex;
     justify-content: space-between;
-    align-content: space-around;
 `;
 
 const LogoBox = styled.div`
   display: flex;
   align-items: center;
+  flex-direction: column;
 `;
 const GitHubBox = styled.div`
   display: flex;
@@ -75,7 +70,6 @@ const Logo = styled.img`
   width: 35px;
   height: 35px;
   margin: 0;
-  padding: 0;
 `;
 const GitHubLogo = styled.img`
   width: 60px;
@@ -88,6 +82,7 @@ const LogoName = styled.h1`
   font-family: "TTTogether";
   font-size: 16px;
   color: ${theme.palette.text.secondary};
+  padding-right: 30px;
 `;
 
 const LogoLink = styled.a`
@@ -102,7 +97,7 @@ export default function Footer() {
     <>
       <FooterDiv>
         <CustomerServiceButtonDiv>
-          <NavLink to="CustomerService">
+          <NavLink to="Notification">
             <CustomerServiceButton>고객센터</CustomerServiceButton>
           </NavLink>
         </CustomerServiceButtonDiv>
@@ -110,19 +105,22 @@ export default function Footer() {
         {/* <GroupLine /> */}
 
         <CaptionDIv>
+          <NavLink to="/Notification">
           <Caption>이용약관</Caption>
           <Caption>개인정보 처리 방침</Caption>
           <Caption>취소 및 환불</Caption>
+          </NavLink>
         </CaptionDIv>
 
         <BottomDiv>
           <LogoBox>
+          <p style={{marginBottom: '10px', fontSize:'12px',color:'white', paddingLeft: '10px'}}>© Plan It Korea. All rights reserved.</p>
           <LogoLink href="./">
             <Logo src={LogoImg} alt="Logo" />
             <LogoName>Plan It Korea</LogoName>
           </LogoLink>
           </LogoBox>
-
+          
           <GitHubBox>
             <LogoLink href="https://github.com/youngjun9909" target="_blank">
             <GitHubLogo src={GitHubImg}/>
