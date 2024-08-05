@@ -9,8 +9,8 @@ import GitHubImg from "../assets/images/github.png"
 const FooterDiv = styled.div`
   margin: 0;
   padding: 0 5%;
-  padding: "0 30px";
   background-color: ${theme.palette.primary.light};
+  
   
 `;
 

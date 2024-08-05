@@ -4,19 +4,20 @@ import {
   SignInDiv as SignUpDiv,
   InputContainer,
   ErrorMessage,
-  InputIdField, InputPasswordField, InputNameField, InputBirthDateField, InputPhoneField,
+  InputIdField,
+  InputPasswordField,
+  InputNameField,
+  InputBirthDateField,
+  InputPhoneField,
   ModalText,
-  GroupLine, 
+  GroupLine,
 } from "../../styles/Sign";
 import { Logo, LogoDIv, LogoName } from "../../styles/logo";
 import logoImg from "../../assets/images/logo.png";
 import styled from "styled-components";
 import theme from "../../styles/theme";
 import { NavLink } from "react-router-dom";
-import Modal from "./Modal";
-
-
-
+import Modal, { ModalButton, Overlay } from "../../component/Modal";
 
 export const Button = styled.button`
   border: none;
@@ -33,30 +34,7 @@ export const Button = styled.button`
   }
 `;
 
-export const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); 
-  z-index: 999; 
-`;
 
-export const ModalButton = styled.button`
-  border: none;
-  background-color: ${theme.palette.primary.main};
-  border-radius: 15px;
-  height: 47px;
-  max-width: 1500px;
-  width: 100%;
-  margin-bottom: 20px;
-  color: white;
-  margin-top: 20px;
-  &:hover {
-    background-color: ${theme.palette.primary.dark};
-  }
-`;
 
 export default function Signup() {
   const [id, setId] = useState<string>("");
@@ -133,7 +111,6 @@ export default function Signup() {
     }
   };
 
-
   const handlePhoneNumberChange = (event: ChangeEvent<HTMLInputElement>) => {
     const phoneNumberValue = event.target.value;
     setPhoneNumber(phoneNumberValue);
@@ -148,9 +125,9 @@ export default function Signup() {
 
   const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-  
+
     let valid = true;
-  
+
     if (!id) {
       setIdError("아이디를 입력해주세요.");
       valid = false;
@@ -165,7 +142,7 @@ export default function Signup() {
         valid = false;
       }
     }
-  
+
     if (!passwordConfirm) {
       setPasswordConfirmError("비밀번호 확인을 입력해주세요.");
       valid = false;
@@ -173,7 +150,7 @@ export default function Signup() {
       setPasswordConfirmError("비밀번호가 일치하지 않습니다.");
       valid = false;
     }
-  
+
     if (!name) {
       setNameError("이름을 입력해주세요.");
       valid = false;
@@ -184,7 +161,7 @@ export default function Signup() {
         valid = false;
       }
     }
-  
+
     if (!birthDate) {
       setBirthDateError("생년월일을 입력해주세요.");
       valid = false;
@@ -195,7 +172,7 @@ export default function Signup() {
         valid = false;
       }
     }
-  
+
     if (!phoneNumber) {
       setPhoneNumberError("핸드폰 번호를 입력해주세요.");
       valid = false;
@@ -206,7 +183,7 @@ export default function Signup() {
         valid = false;
       }
     }
-  
+
     if (valid) {
       setIsModalOpen(true);
 
@@ -216,21 +193,20 @@ export default function Signup() {
         password,
         name,
         birthDate,
-        phoneNumber
+        phoneNumber,
       };
-    
+
       console.log(signUpData);
     } else {
       return;
     }
   };
 
-
   return (
     <>
-      <GroupLine/>
-      <AllDiv style={{padding: '8% 10%'}}>
-        <LogoDIv style={{ marginBottom: "20px", alignItems: "center"}}>
+      <GroupLine />
+      <AllDiv style={{ padding: "8% 10%" }}>
+        <LogoDIv style={{ marginBottom: "20px", alignItems: "center" }}>
           <Logo src={logoImg} alt="logo" />
           <LogoName>Plan It Korea</LogoName>
         </LogoDIv>
@@ -322,7 +298,7 @@ export default function Signup() {
             )}
           </InputContainer>
           <InputContainer>
-          <Button onClick={handleSubmit}>회원가입 완료</Button>
+            <Button onClick={handleSubmit}>회원가입 완료</Button>
           </InputContainer>
         </SignUpDiv>
       </AllDiv>
@@ -330,12 +306,12 @@ export default function Signup() {
       {isModalOpen && (
         <>
           <Overlay />
-          <Modal
-            isOpen={isModalOpen}
-          >
+          <Modal isOpen={isModalOpen}>
             <ModalText>가입이 완료되었습니다!</ModalText>
             <NavLink to="/SignIn">
-            <ModalButton onClick={() => setIsModalOpen(false)}>확인</ModalButton>
+              <ModalButton onClick={() => setIsModalOpen(false)}>
+                확인
+              </ModalButton>
             </NavLink>
           </Modal>
         </>

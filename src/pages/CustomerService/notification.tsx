@@ -1,13 +1,11 @@
 import * as React from 'react';
-import Accordion, { AccordionSlots } from '@mui/material/Accordion';
+import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Fade from '@mui/material/Fade';
-import { Announcement } from '../../types/type'; // 타입 정의를 임포트
 import { ContentDiv } from '../../styles/customer';
-import { announcement } from '../../mocks';
+import { announcement } from '../../mocks/announcement';
 
 export default function Notification() {
   const [expanded, setExpanded] = React.useState<number | false>(false);
@@ -28,7 +26,8 @@ export default function Notification() {
           sx={{
             margin:1,'& .MuiAccordion-region': { height: expanded === item.id ? 'auto' : 0 },
             '& .MuiAccordionDetails-root': { display: expanded === item.id ? 'block' : 'none' }, 
-            overflow: 'auto'
+            overflow: 'auto', 
+            
           }}
         >
           <AccordionSummary
