@@ -15,7 +15,7 @@ import {
   ModalText,
 } from "../../styles/Sign";
 import { Logo, LogoDIv, LogoName } from "../../styles/logo";
-import Modal from "./Modal";
+import Modal from "../../component/Modal";
 import { NavLink } from "react-router-dom";
 
 export default function PasswordSearch() {
@@ -206,13 +206,12 @@ export default function PasswordSearch() {
       {isModalOpen && (
         <>
           <Overlay />
-          <Modal
-            isOpen={isModalOpen}
-          >
-            <ModalText> 비밀번호 변경이 완료되었습니다!
-            </ModalText>
+          <Modal isOpen={isModalOpen}>
+            <ModalText> 비밀번호 변경이 완료되었습니다!</ModalText>
             <NavLink to="/SignIn">
-            <ModalButton onClick={() => setIsModalOpen(false)}>확인</ModalButton>
+              <ModalButton onClick={() => setIsModalOpen(false)}>
+                확인
+              </ModalButton>
             </NavLink>
           </Modal>
         </>

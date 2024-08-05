@@ -7,7 +7,6 @@ import busan from "../../assets/images/1/busan.jpg";
 import gyengju from "../../assets/images/1/gyengju.jpg";
 import seoul from "../../assets/images/1/seoul.jpg";
 
-
 const GroupLine = styled.div`
   width: 100%;
   margin-top: 5%;
@@ -49,7 +48,7 @@ const City = styled.div`
   box-sizing: border-box;
 `;
 
-const MostUsedBox = styled.a`
+const MostUsedBox = styled.div`
   border: none;
   padding: 1% 10%;
   display: flex;
@@ -57,6 +56,7 @@ const MostUsedBox = styled.a`
   justify-content: space-around;
   align-items: flex-start;
   width: 100%;
+
 `;
 
 const MostUsed = styled.div`
@@ -68,9 +68,10 @@ const MostUsed = styled.div`
   align-items: center;
   min-width: 180px;
   box-sizing: border-box;
+  margin: 5px 5px;
 `;
 
-const MostTicketBox = styled.a`
+const MostTicketBox = styled.div`
   border: none;
   padding: 1% 10%;
   display: flex;
@@ -89,6 +90,8 @@ const MostTicket = styled.div`
   align-items: center;
   min-width: 180px;
   box-sizing: border-box;
+  margin: 5px 5px;
+
 `;
 
 const CityImg = styled.img`
@@ -139,10 +142,11 @@ export default function Home() {
           <GroupLabel>인기 숙소</GroupLabel>
         </GroupLine>
         <MostUsedBox>
-            <MostUsed></MostUsed>
-            <MostUsed></MostUsed>
-            <MostUsed></MostUsed>
-            <MostUsed></MostUsed>
+          <MostUsed></MostUsed>
+          <MostUsed></MostUsed>
+
+          <MostUsed></MostUsed>
+          <MostUsed></MostUsed>
         </MostUsedBox>
 
         <GroupLine>
@@ -151,6 +155,7 @@ export default function Home() {
         <MostTicketBox>
           <MostTicket></MostTicket>
           <MostTicket></MostTicket>
+
           <MostTicket></MostTicket>
           <MostTicket></MostTicket>
         </MostTicketBox>

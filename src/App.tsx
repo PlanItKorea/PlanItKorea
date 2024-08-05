@@ -16,6 +16,18 @@ import FrequentlyQuestion from "./pages/CustomerService/FrequentlyQuestion";
 import InquiryCRUD from "./pages/CustomerService/InquiryCRUD";
 import styled from "styled-components";
 import Notification from "./pages/CustomerService/Notification";
+import InquiryHistory from "./pages/CustomerService/InquiryHistory";
+
+const AppContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* 전체 페이지 높이를 100vh로 설정 */
+`;
+
+const MainContent = styled.main`
+  flex: 1; /* 가능한 모든 공간을 차지하도록 설정 */
+`;
+
 
 function App() {
   const location = useLocation();
@@ -23,18 +35,20 @@ function App() {
   const noFooterRoutes = ["/SignUp", "/IdSearch", "/PasswordSearch"];
   const showFooter = !noFooterRoutes.includes(location.pathname);
   
-  const noSearchBar = ["/Notification", "/InquiryCRUD", "/FrequentlyQuestion"];
+  const noSearchBar = ["/Notification", "/InquiryCRUD", "/FrequentlyQuestion", "/InquiryHistory"];
   const showSearch = !noSearchBar.includes(location.pathname);
   
-  const CustomerLine = ["/Notification", "/InquiryCRUD", "/FrequentlyQuestion"];
+  const CustomerLine = ["/Notification", "/InquiryCRUD", "/FrequentlyQuestion", '/InquiryHistory'];
   const showCustomer = CustomerLine.includes(location.pathname);
 
 
   return (
     <>
+    <AppContainer>
       <Header />
       {showSearch && <SearchBar />}
       {showCustomer && <CustomerMenu />}
+      <MainContent>
 
       <Routes>
         <Route path="/" element={<IndexHome />} />
@@ -46,11 +60,13 @@ function App() {
 
         <Route path="/FrequentlyQuestion" element={<FrequentlyQuestion />} />
         <Route path="/InquiryCRUD" element={<InquiryCRUD />} />
+        <Route path="/InquiryHistory" element={<InquiryHistory />} />
         <Route path="/Notification" element={<Notification />} />
       </Routes>
+      </MainContent>
 
       {showFooter && <Footer />}
-      
+    </AppContainer>
     </>
   );
 }

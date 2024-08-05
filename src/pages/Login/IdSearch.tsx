@@ -1,9 +1,21 @@
 import React, { ChangeEvent, useState } from "react";
 import logo from "../../assets/images/logo.png";
-import { AllDiv, InputContainer, ErrorMessage, InputNameField, InputPhoneField, Button, Overlay, ModalButton, GroupLine, SearchDiv, ModalText } from "../../styles/Sign";
+import {
+  AllDiv,
+  InputContainer,
+  ErrorMessage,
+  InputNameField,
+  InputPhoneField,
+  Button,
+  Overlay,
+  ModalButton,
+  GroupLine,
+  SearchDiv,
+  ModalText,
+} from "../../styles/Sign";
 import { Logo, LogoDIv, LogoName } from "../../styles/logo";
 import theme from "../../styles/theme";
-import Modal from "./Modal";
+import Modal from "../../component/Modal";
 import { NavLink } from "react-router-dom";
 
 export default function IdSearch() {
@@ -27,58 +39,58 @@ export default function IdSearch() {
     }
   };
 
-    const handlePhoneNumberChange = (event: ChangeEvent<HTMLInputElement>) => {
-      const phoneNumberValue = event.target.value;
-      setPhoneNumber(phoneNumberValue);
-      const phoneNumberRegex = /^\d{9,11}$/;
+  const handlePhoneNumberChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const phoneNumberValue = event.target.value;
+    setPhoneNumber(phoneNumberValue);
+    const phoneNumberRegex = /^\d{9,11}$/;
 
-      if (phoneNumber && !phoneNumberRegex.test(phoneNumber)) {
-        setPhoneNumberError("숫자 9~11 자리 입력해주세요");
-      } else {
-        setPhoneNumberError("");
-      }
-    };
+    if (phoneNumber && !phoneNumberRegex.test(phoneNumber)) {
+      setPhoneNumberError("숫자 9~11 자리 입력해주세요");
+    } else {
+      setPhoneNumberError("");
+    }
+  };
 
-    const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
-      event.preventDefault();
+  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
 
-      let valid = true;
+    let valid = true;
 
-      if(!name) {
-        setNameError("한글, 영문 대/소문자 사용(특수기호, 공백 사용 불가)")
+    if (!name) {
+      setNameError("한글, 영문 대/소문자 사용(특수기호, 공백 사용 불가)");
+      valid = false;
+    } else {
+      const nameRegex = /^[가-힣A-Za-z]+$/;
+      if (!nameRegex.test(name)) {
+        setNameError("한글, 영문 대/소문자 사용(특수기호, 공백 사용 불가)");
         valid = false;
-      } else {
-        const nameRegex = /^[가-힣A-Za-z]+$/;
-        if (!nameRegex.test(name)) {
-          setNameError("한글, 영문 대/소문자 사용(특수기호, 공백 사용 불가)");
-          valid = false;
-        }
-      }
-      if (!phoneNumber) {
-        setPhoneNumberError("핸드폰 번호를 입력해주세요.");
-        valid = false;
-      } else {
-        const phoneNumberRegex = /^\d{9,11}$/;
-        if (!phoneNumberRegex.test(phoneNumber)) {
-          setPhoneNumberError("핸드폰 번호는 9~11자리의 숫자로 입력해주세요.");
-          valid = false;
-        }
-      }
-      if (valid) {
-        setIsModalOpen(true);
-  
-        //! 아이디찾기 정보!!!
-        const idSearchData = {
-          name,
-          phoneNumber
-        };
-      
-        console.log(idSearchData);
       }
     }
+    if (!phoneNumber) {
+      setPhoneNumberError("핸드폰 번호를 입력해주세요.");
+      valid = false;
+    } else {
+      const phoneNumberRegex = /^\d{9,11}$/;
+      if (!phoneNumberRegex.test(phoneNumber)) {
+        setPhoneNumberError("핸드폰 번호는 9~11자리의 숫자로 입력해주세요.");
+        valid = false;
+      }
+    }
+    if (valid) {
+      setIsModalOpen(true);
+
+      //! 아이디찾기 정보!!!
+      const idSearchData = {
+        name,
+        phoneNumber,
+      };
+
+      console.log(idSearchData);
+    }
+  };
   return (
     <>
-      <GroupLine/>
+      <GroupLine />
       <AllDiv>
         <LogoDIv style={{ marginBottom: "100px", alignItems: "center" }}>
           <Logo src={logo} alt="logo" />
@@ -114,19 +126,19 @@ export default function IdSearch() {
             )}
           </InputContainer>
           <InputContainer>
-          <Button onClick={handleSubmit}>아이디 찾기</Button>
+            <Button onClick={handleSubmit}>아이디 찾기</Button>
           </InputContainer>
         </SearchDiv>
       </AllDiv>
       {isModalOpen && (
         <>
           <Overlay />
-          <Modal
-            isOpen={isModalOpen}
-          >
+          <Modal isOpen={isModalOpen}>
             <ModalText>아이디 확인</ModalText>
             <NavLink to="/SignIn">
-            <ModalButton onClick={() => setIsModalOpen(false)}>확인</ModalButton>
+              <ModalButton onClick={() => setIsModalOpen(false)}>
+                확인
+              </ModalButton>
             </NavLink>
           </Modal>
         </>

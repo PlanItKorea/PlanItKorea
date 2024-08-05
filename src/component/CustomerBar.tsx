@@ -33,7 +33,7 @@ const DetailMenu = styled(NavLink)<{ isSelected: boolean }>`
 `;
 
 export default function Notification() {
-  const [selectedMenu, setSelectedMenu] = useState<string | null>("공지사항");
+  const [selectedMenu, setSelectedMenu] = useState<string | null>();
 
   const handleMenuClick = (item: string) => {
     setSelectedMenu(item);

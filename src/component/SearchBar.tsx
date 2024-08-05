@@ -9,7 +9,6 @@ import {
   MenuItem,
   Select,
   SwipeableDrawer,
-  TextField,
   useMediaQuery,
 } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
@@ -20,7 +19,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../styles/date.css";
 import { format } from "date-fns";
-import theme from "../styles/theme";
 import SearchIcon from "@mui/icons-material/Search";
 
 const SearchBarDiv = styled("div")(({ theme }) => ({
@@ -113,7 +111,7 @@ const HiddenBox = styled("form")(({ theme }) => ({
 
 const HiddenForm = styled("form")(({ theme }) => ({}));
 
-export default function Serach() {
+export default function Search() {
   const BootstrapInput = styled(InputBase)(({ theme }) => ({
     "label + &": {
       marginTop: theme.spacing(3),
@@ -222,6 +220,35 @@ export default function Serach() {
 
       setIsOpen(open);
     };
+
+    const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+
+      let valid = true;
+      if(!city) {
+        valid = false;
+      }
+      if(!startDate && !endDate) {
+        valid = false;
+      }
+      if(!personCount) {
+        valid = false;
+      }
+
+      if(valid) {
+        const startDay = startDate ? format(startDate, 'yyyy-MM-dd') : null;
+        const endDay = endDate ? format(endDate, 'yyyy-MM-dd') : null;
+
+        const searchData = {
+          city,
+          startDay,
+          endDay,
+          personCount
+        }
+
+        console.log(searchData);
+      }
+    }
 
   const list = () => (
     <Box sx={{ width: "auto", height: "500px", p: 5 }} role="presentation">
@@ -408,8 +435,9 @@ export default function Serach() {
             )}
           </SearchPerson>
           <Divider />
-          <SubmitHiddenButton>
-            <p style={{ margin: 0, color: "#fff" }}>검색</p>
+          <SubmitHiddenButton onClick={handleSubmit}>
+            <p style={{ margin: 0, color: "#fff" }}
+            >검색</p>
           </SubmitHiddenButton>
         </List>
       </HiddenForm>
@@ -600,8 +628,9 @@ export default function Serach() {
             </SearchPerson>
 
             <SubmitDiv>
-              <SubmitButton>
-                <p style={{ margin: 0, color: "#fff" }}>검색</p>
+              <SubmitButton onClick={handleSubmit}>
+                <p style={{ margin: 0, color: "#fff" }}
+                >검색</p>
               </SubmitButton>
             </SubmitDiv>
           </SearchBarDiv>

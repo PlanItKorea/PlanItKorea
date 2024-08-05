@@ -20,7 +20,7 @@ export interface Reservation {
 //! 숙소 검색 바
 export interface SearchBarFilter {
   city: Location;
-  date: Date;
+  date: string;
   person: number;
 } 
 
@@ -40,7 +40,6 @@ export type Inquiry = {
   title: string;
   content: string;
   image: File | null
-  date: Date;
 }
 
 //! 문의사항 유형 선택
