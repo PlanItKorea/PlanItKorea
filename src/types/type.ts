@@ -1,6 +1,6 @@
-import Inquiry from "../pages/MyPage/Inquiry";
 
-//! 유저 타입
+
+//! 유저 타입(회원 가입 시)
 export interface User {
   id: string;
   password: string;
@@ -9,13 +9,24 @@ export interface User {
   phoneNumber: string;
 }
 
-//! 예약확인 타입
+//! 예약할때 타입
 export interface Reservation {
-  id: string;
-  name: string;
-  phoneNumber: string;
-  reservationNumber: number
+  // 유저에서 가지고 올 데이터
+  name: string; //이름
+  phoneNumber: string; // 전화번호
+  // 숙소상품에서 가지고 올 데이터
+  id: number; // 숙소 고유id
+  productName: string; // 숙소 이름
+  price: string; // 가격
+  reservationNumber: number; // 예약 번호
+  startDate: string //날짜
+  endDate: string //날짜
+  person:number; // 인원
+  img: string // 숙소이미지
 }
+
+// 예약 확인
+// 예약번호, 체크인,체크아웃, 인원, 숙소 이미지, 제목, 가격
 
 //! 숙소 검색 바
 export interface SearchBarFilter {
@@ -30,7 +41,6 @@ export type Announcement = {
   title: string;
   content: string;
   author: string;
-  useFade: boolean;
 }
 
 //! 문의 사항
@@ -39,7 +49,7 @@ export type Inquiry = {
   category: InquiryType
   title: string;
   content: string;
-  image: File | null
+  image: string | null
 }
 
 //! 문의사항 유형 선택

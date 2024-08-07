@@ -236,3 +236,4 @@ export const ModalText = styled.h1`
   font-size: 20px;
   margin: 40px 0;
 `;
+

@@ -13,7 +13,6 @@ export const announcement: Announcement[] = [
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     `,
     author: '작성자',
-    useFade: false
   },
   {
     id: 2,
@@ -27,7 +26,6 @@ export const announcement: Announcement[] = [
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@`,
     
     author: '작성자',
-    useFade: false
   },
   {
     id: 3,
@@ -41,7 +39,6 @@ export const announcement: Announcement[] = [
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@`,
     author: '작성자',
-    useFade: false
   },
   {
     id: 4,
@@ -55,7 +52,6 @@ export const announcement: Announcement[] = [
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@`,
     author: '작성자',
-    useFade: false
   },
   {
     id: 5,
@@ -70,7 +66,6 @@ export const announcement: Announcement[] = [
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@`,
     author: '작성자',
-    useFade: false
   },
   {
     id: 6,
@@ -85,6 +80,5 @@ export const announcement: Announcement[] = [
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@`,
     author: '작성자',
-    useFade: false
   }
 ];

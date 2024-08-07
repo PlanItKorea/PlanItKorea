@@ -1,33 +1,35 @@
-import * as React from 'react';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { ContentDiv } from '../../styles/customer';
-import { frequentlyQuestion } from '../../mocks/FrequentlyQuestion';
+import * as React from "react";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { ContentDiv } from "../../styles/customer";
+import { frequentlyQuestion } from "../../mocks/FrequentlyQuestion";
 
 export default function Notification() {
   const [expanded, setExpanded] = React.useState<number | false>(false);
 
-  const handleExpansion = (panel: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-    setExpanded(isExpanded ? panel : false);
-  };
-
-  
+  const handleExpansion =
+    (panel: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+      setExpanded(isExpanded ? panel : false);
+    };
 
   return (
-    <ContentDiv style={{overflow: 'auto',boxSizing:'border-box'}}>
+    <ContentDiv>
       {frequentlyQuestion.map((item) => (
         <Accordion
           key={item.id}
           expanded={expanded === item.id}
           onChange={handleExpansion(item.id)}
           sx={{
-            margin:1,'& .MuiAccordion-region': { height: expanded === item.id ? 'auto' : 0 },
-            '& .MuiAccordionDetails-root': { display: expanded === item.id ? 'block' : 'none' }, 
-            overflow: 'auto', 
-            
+            margin: 1,
+            "& .MuiAccordion-region": {
+              height: expanded === item.id ? "auto" : 0,
+            },
+            "& .MuiAccordionDetails-root": {
+              display: expanded === item.id ? "block" : "none",
+            },
           }}
         >
           <AccordionSummary
@@ -35,9 +37,15 @@ export default function Notification() {
             aria-controls={`${item.id}-content`}
             id={`${item.id}-header`}
           >
-            <Typography sx={{fontWeight:'bold'}}>{item.title}</Typography>
+            <Typography sx={{ fontWeight: "bold" }}>{item.title}</Typography>
           </AccordionSummary>
-          <AccordionDetails>
+          <AccordionDetails
+            sx={{
+              wordWrap: "break-word",
+              overflowWrap: "break-word",
+              whiteSpace: "pre-wrap",
+            }}
+          >
             <Typography>{item.content}</Typography>
             <Typography variant="caption">- {item.author}</Typography>
           </AccordionDetails>

@@ -7,11 +7,6 @@ import { NavLink } from "react-router-dom";
 import { BodyDiv, BtnCategory, Button, ButtonBox, FormDiv, ImageFile, InputBody, InputBox, InputFile, InputTitle, InquiryBtn, InquiryTitle, InquiryTitleName, Select, SelectCategoryDiv, TitleDiv } from "../../styles/Inquiry";
 
 
-
-
-
-
-
 export default function InquiryCRUD() {
 
   const [preview, setPreview] = useState<string | null>(null);
@@ -49,14 +44,15 @@ export default function InquiryCRUD() {
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
     if (file) {
-      setInquiry((prevInquiry) => ({
-        ...prevInquiry,
-        image: file,
-      }));
-      // File preview
+      // File preview and image string conversion
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPreview(reader.result as string);
+        const imgString = reader.result as string;
+        setInquiry((prevInquiry) => ({
+          ...prevInquiry,
+          image: imgString,
+        }));
+        setPreview(imgString);
       };
       reader.readAsDataURL(file);
     }
@@ -98,7 +94,6 @@ export default function InquiryCRUD() {
       
     }
   }
-
 
   return (
     <>
