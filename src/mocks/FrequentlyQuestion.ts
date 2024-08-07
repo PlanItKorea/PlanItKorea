@@ -10,7 +10,6 @@ export const frequentlyQuestion: Announcement[] = [
     @@@@@@@@@@@@@@@@@@@@@@@@@@
     @@@@@@@@@@@@@@@@@@@@@@@@@@`,
     author: '작성자',
-    useFade: false
   },
   {
     id: 2,
@@ -23,7 +22,6 @@ export const frequentlyQuestion: Announcement[] = [
     `,
     
     author: '작성자',
-    useFade: false
   },
   {
     id: 3,
@@ -33,7 +31,6 @@ export const frequentlyQuestion: Announcement[] = [
     @@@@@@@@@@@@@@@@@@@@@@@@@@
     @@@@@@@@@@@@@@@@@@@@@@@@@@`,
     author: '작성자',
-    useFade: false
   },
   {
     id: 4,
@@ -43,7 +40,6 @@ export const frequentlyQuestion: Announcement[] = [
     @@@@@@@@@@@@@@@@@@@@@@@@@@
     @@@@@@@@@@@@@@@@@@@@@@@@@@`,
     author: '작성자',
-    useFade: false
   },
   {
     id: 5,
@@ -54,7 +50,6 @@ export const frequentlyQuestion: Announcement[] = [
     @@@@@@@@@@@@@@@@@@@@@@@@@@
     @@@@@@@@@@@@@@@@@@@@@@@@@@`,
     author: '작성자',
-    useFade: false
   },
   {
     id: 6,
@@ -65,6 +60,5 @@ export const frequentlyQuestion: Announcement[] = [
     @@@@@@@@@@@@@@@@@@@@@@@@@@
     @@@@@@@@@@@@@@@@@@@@@@@@@@`,
     author: '작성자',
-    useFade: false
   }
 ];

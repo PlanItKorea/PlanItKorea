@@ -32,7 +32,7 @@ const PopularCityBox = styled.div`
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: flex-start;
-  column-gap: 80px;
+  column-gap: 40px;
   width: 100%;
 `;
 
@@ -99,6 +99,9 @@ const CityImg = styled.img`
   height: 90%;
   border-radius: 15px;
   box-sizing: border-box;
+  &:hover{
+    opacity: 0.7;
+  }
 `;
 
 const CityName = styled.span`

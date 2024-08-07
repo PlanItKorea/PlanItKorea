@@ -14,7 +14,6 @@ import {
   ModalText,
 } from "../../styles/Sign";
 import { Logo, LogoDIv, LogoName } from "../../styles/logo";
-import theme from "../../styles/theme";
 import Modal from "../../component/Modal";
 import { NavLink } from "react-router-dom";
 
@@ -93,6 +92,7 @@ export default function IdSearch() {
       <GroupLine />
       <AllDiv>
         <LogoDIv style={{ marginBottom: "100px", alignItems: "center" }}>
+
           <Logo src={logo} alt="logo" />
           <LogoName>Plan It Korea</LogoName>
         </LogoDIv>
