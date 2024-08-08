@@ -9,8 +9,9 @@ export const AllDiv = styled.div`
   margin: 30px auto;
   width: 80%;
   padding: 20px;
+  overflow: hidden;
   @media (max-width: 768px) {
-    /* flex-direction: column; */
+    flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
   }
@@ -58,8 +59,9 @@ export const MainDiv = styled.div`
   flex-direction: row;
   background-color: #fafafa;
   border-radius: 10px;
-  width: 80%;
-  max-width: 1000px;
+  width: 100%;
+  margin-bottom: 20px;
+  overflow: hidden;
   @media (max-width: 768px) {
     flex-direction: column;
     width: 100%;
@@ -140,6 +142,7 @@ export const Card = styled.div`
   min-height: 330px;
   box-sizing: border-box;
 `;
+
 export const Error = styled.h2`
   color: ${theme.palette.error.dark};
   font-weight: bold;
@@ -220,6 +223,11 @@ export const ReserVationProductDiv = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  flex: 0 1 auto; 
+  min-width: 0;
+  @media (max-width: 850px) {
+    width: 100%;
+  }
 `;
 
 export const ReserVationProductImgDiv = styled.div`
@@ -227,12 +235,17 @@ export const ReserVationProductImgDiv = styled.div`
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  width: 300px;
+  min-width: 300px;
   margin: 20px;
   transition: transform 0.2s ease-in-out;
-  
+  flex: 1 1 auto; 
+  max-width: 300px;
   &:hover {
     transform: scale(1.05);
+  }
+  @media (max-width: 850px) {
+    width: 100%;
+    max-width: 500px;
   }
 `;
 
@@ -240,17 +253,23 @@ export const ReserVationProductImgDiv = styled.div`
 export const ReservationMainInner = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: start;
+  align-items: flex-start;
   padding: 20px;
   border-radius: 10px;
   width: 100%;
+  margin-bottom: 20px;
   box-sizing: border-box;
+  @media (max-width: 850px) {
+    flex-direction: column;
+    width: 100%;
+  }
 `;
 
 export const ProductImage = styled.img`
   width: 100%;
   height: 200px;
   object-fit: cover;
+  
 `;
 
 export const ReserVationDetail = styled.div`
@@ -258,6 +277,7 @@ export const ReserVationDetail = styled.div`
   flex-direction: column;
   padding: 0 10px;
   justify-content: space-around;
+  align-items: flex-start;
   height: 100%;
 `;
 
@@ -274,11 +294,15 @@ export const ProductName = styled.h2`
 export const DateDivWrap = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
 `;
 
 export const DateColumn = styled.div`
   display: flex;
   flex-direction: column;
+  flex: 1; 
+  min-width: 0;
 `;
 
 export const DetailLabel = styled.h3`
@@ -292,25 +316,22 @@ export const DateDiv = styled.div`
   flex-direction: row;
   justify-content: center;
   background-color: #eee;
-  margin-bottom: 10px;
   width: 120px;
-  max-width: 120px;
+  max-width: 80px;
   padding: 5px 0;
   margin-right: 10px;
   border-radius: 10px;
   font-size: 14px;
   font-weight: bold;
+  box-sizing: border-box;
 `;
 export const Person = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: center;
   background-color: #eee;
-  margin-bottom: 10px;
-  width: 120px;
+  width: 80px;
   max-width: 120px;
   padding: 5px 0;
-  margin-right: 10px;
   border-radius: 10px;
   font-size: 14px;
   font-weight: bold;
@@ -319,12 +340,92 @@ export const Person = styled.div`
 export const PersonDiv = styled.div`
   display: flex;
   flex-direction: column;
+  flex: 1;
 `;
 
 export const PriceDiv = styled.div`
   display: flex;
-  flex-direction: row;
-  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 100%;
+  flex: 1 1 auto; 
+  min-width: 0; 
+  padding: 10px;
+  @media (max-width: 850px) {
+    flex-direction: row-reverse;
+    width: 100%;
+  }
 `;
 
+export const PriceBack = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #eee;
+  width: 120px;
+  max-width: 120px;
+  padding: 5px 0;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  box-sizing: border-box;
+`;
+
+export const PriceBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+`;
+
+
+
+
+export const CancelBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${theme.palette.error.main};
+  border-radius: 10px;
+  height: 40px;
+  width: 30%;
+  max-width: 100px;
+  min-width: 71px;
+  color: white;
+  &:hover {
+    background-color: ${theme.palette.error.dark};
+  }
+`;
+
+export const MapUl = styled.ul`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  width: 100%;
+  
+`;
+
+export const MainLi = styled.li`
+  display: flex;
+  flex-direction: row;
+  background-color: #fafafa;
+  border-radius: 10px;
+  width: 100%;
+  margin-bottom: 20px;
+  overflow: hidden;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    width: 100%;
+  }
+`;
+
+export const DetailLabelRe = styled.h3`
+  font-size: 14px;
+  font-weight: 600;
+  color: #a9a9a9;
+  display: flex;
+  align-self: flex-start;
+`;
 

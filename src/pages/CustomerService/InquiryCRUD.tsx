@@ -44,7 +44,6 @@ export default function InquiryCRUD() {
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
     if (file) {
-      // File preview and image string conversion
       const reader = new FileReader();
       reader.onloadend = () => {
         const imgString = reader.result as string;

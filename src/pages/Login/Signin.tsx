@@ -5,7 +5,7 @@ import logoImg from "../../assets/images/logo.png";
 import theme from "../../styles/theme";
 import { NavLink, useNavigate } from "react-router-dom";
 import useStore from "../../stores/useStore";
-import {AllDiv, SignInDiv, InputField, InputLabel, InputContainer, ErrorMessage, Button, GroupLine} from "../../styles/Sign"
+import {AllDiv, SignInDiv, InputLabel, InputContainer, ErrorMessage, Button, GroupLine, InputIdField, InputPasswordField} from "../../styles/Sign"
 
 const OptionDiv = styled.div`
   display: flex;
@@ -92,13 +92,14 @@ export default function Signin() {
         <SignInDiv>
           <InputContainer>
             <InputLabel htmlFor="idField">아이디</InputLabel>
-            <InputField
+            <InputIdField
               type="text"
               id="idField"
               name="id"
               placeholder="아이디를 입력해주세요."
               onChange={handleIdChange}
               value={id}
+              hasIdError={!!idError}
               required
             />
             {idError ? (
@@ -109,13 +110,14 @@ export default function Signin() {
           </InputContainer>
           <InputContainer>
             <InputLabel htmlFor="passwordField">비밀번호</InputLabel>
-            <InputField
+            <InputPasswordField
               type="password"
               id="passwordField"
               name="password"
               placeholder="비밀번호를 입력해주세요."
               onChange={handlePasswordChange}
               value={password}
+              hasPasswordError={!!passwordError}
               required
             />
             {passwordError ? (
