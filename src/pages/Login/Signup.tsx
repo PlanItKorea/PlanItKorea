@@ -16,8 +16,9 @@ import { Logo, LogoDIv, LogoName } from "../../styles/logo";
 import logoImg from "../../assets/images/logo.png";
 import styled from "styled-components";
 import theme from "../../styles/theme";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Modal, { ModalButton, Overlay } from "../../component/Modal";
+import useAuthStore from "../../stores/useAuthStore";
 
 export const Button = styled.button`
   border: none;
@@ -51,6 +52,10 @@ export default function Signup() {
   const [birthDateError, setBirthDateError] = useState<string>("");
   const [phoneNumberError, setPhoneNumberError] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  //# 전역 상태 예시 //
+  const user = useAuthStore((state) => state.user);
+  const navigate = useNavigate();
 
   const handleIdChange = (event: ChangeEvent<HTMLInputElement>) => {
     const idValue = event.target.value;
@@ -202,6 +207,10 @@ export default function Signup() {
     }
   };
 
+  if (!user) {
+    navigate('/SignIn');
+    return null;
+  }
   return (
     <>
       <GroupLine />

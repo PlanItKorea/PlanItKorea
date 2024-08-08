@@ -4,7 +4,7 @@ import { Logo, LogoDIv, LogoName } from "../../styles/logo";
 import logoImg from "../../assets/images/logo.png";
 import theme from "../../styles/theme";
 import { NavLink, useNavigate } from "react-router-dom";
-import useStore from "../../stores/useStore";
+import useAuthStore from "../../stores/useAuthStore";
 import {AllDiv, SignInDiv, InputLabel, InputContainer, ErrorMessage, Button, GroupLine, InputIdField, InputPasswordField} from "../../styles/Sign"
 
 const OptionDiv = styled.div`
@@ -31,8 +31,8 @@ export default function Signin() {
 
   const [id, setId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const setIsLoggedIn = useStore((state) => state.setIsLoggedIn);
   const navigate = useNavigate();
+  const login = useAuthStore((state) => state.login);
 
   const handleIdChange = (event: ChangeEvent<HTMLInputElement>) => {
     const idValue = event.target.value;
@@ -68,15 +68,15 @@ export default function Signin() {
       );
     }
     if (id && password && !passwordError) {
-      setIsLoggedIn(true);
-
+      
       //! 로그인 정보 !!!!
       const signInData = {
         id,
         password,
       };
       console.log(signInData);
-    
+      
+      login(signInData);
       navigate("/");
     }
   };
