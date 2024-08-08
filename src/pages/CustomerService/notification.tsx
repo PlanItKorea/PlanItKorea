@@ -5,19 +5,31 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { ContentDiv } from "../../styles/customer";
-import { announcement } from "../../mocks/announcement";
+import { Announcement } from "../../types/type";
+import axios from "axios";
 
 export default function Notification() {
   const [expanded, setExpanded] = React.useState<number | false>(false);
+
+  const [notification, setNotification] = React.useState<Announcement[]>([])
 
   const handleExpansion =
     (panel: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
 
+    const fetchNotification = async () => {
+      const response = await axios.get('http://localhost:3001/announcement')
+      setNotification(response.data)
+    }
+
+    React.useEffect(() => {
+      fetchNotification();
+    },[])
+
   return (
     <ContentDiv>
-      {announcement.map((item) => (
+      {notification.map((item) => (
         <Accordion
           key={item.id}
           expanded={expanded === item.id}
