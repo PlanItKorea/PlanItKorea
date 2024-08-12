@@ -79,17 +79,17 @@ export default function ReservationCheck() {
       <GroupLine />
       <AllDiv>
         <NavDiv>
-          <NavLink to="/MyPageMain">
+          <NavLink to="/myPageMain">
             <NavInnerDiv>
               <NavTitle>계정 관리</NavTitle>
             </NavInnerDiv>
           </NavLink>
-          <NavLink to="/ReservationCheck">
+          <NavLink to="/reservationCheck">
             <NavInnerDiv style={{ backgroundColor: "#eee" }}>
               <NavTitle>예약 확인</NavTitle>
             </NavInnerDiv>
           </NavLink>
-          <NavLink to="/WishList">
+          <NavLink to="/wishList">
             <NavInnerDiv>
               <NavTitle>찜 목록</NavTitle>
             </NavInnerDiv>

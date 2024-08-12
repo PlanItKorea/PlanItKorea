@@ -37,7 +37,7 @@ export const Button = styled.button`
 
 
 
-export default function Signup() {
+export default function SignUp() {
   const [id, setId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordConfirm, setPasswordConfirm] = useState<string>("");
@@ -208,7 +208,7 @@ export default function Signup() {
   };
 
   if (!user) {
-    navigate('/SignIn');
+    navigate('/signIn');
     return null;
   }
   return (
@@ -317,7 +317,7 @@ export default function Signup() {
           <Overlay />
           <Modal isOpen={isModalOpen}>
             <ModalText>가입이 완료되었습니다!</ModalText>
-            <NavLink to="/SignIn">
+            <NavLink to="/signIn">
               <ModalButton onClick={() => setIsModalOpen(false)}>
                 확인
               </ModalButton>

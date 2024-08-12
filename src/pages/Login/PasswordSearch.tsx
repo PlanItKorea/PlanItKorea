@@ -208,7 +208,7 @@ export default function PasswordSearch() {
           <Overlay />
           <Modal isOpen={isModalOpen}>
             <ModalText> 비밀번호 변경이 완료되었습니다!</ModalText>
-            <NavLink to="/SignIn">
+            <NavLink to="/signIn">
               <ModalButton onClick={() => setIsModalOpen(false)}>
                 확인
               </ModalButton>

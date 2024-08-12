@@ -135,7 +135,7 @@ export default function IdSearch() {
           <Overlay />
           <Modal isOpen={isModalOpen}>
             <ModalText>아이디 확인</ModalText>
-            <NavLink to="/SignIn">
+            <NavLink to="/signIn">
               <ModalButton onClick={() => setIsModalOpen(false)}>
                 확인
               </ModalButton>

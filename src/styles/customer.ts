@@ -58,4 +58,10 @@ export const ContentDiv = styled.div`
   padding:  5% 10%;
 `;
 
+export const PageDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
 
