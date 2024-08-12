@@ -5,7 +5,17 @@ import logoImg from "../../assets/images/logo.png";
 import theme from "../../styles/theme";
 import { NavLink, useNavigate } from "react-router-dom";
 import useAuthStore from "../../stores/useAuthStore";
-import {AllDiv, SignInDiv, InputLabel, InputContainer, ErrorMessage, Button, GroupLine, InputIdField, InputPasswordField} from "../../styles/Sign"
+import {
+  AllDiv,
+  SignInDiv,
+  InputLabel,
+  InputContainer,
+  ErrorMessage,
+  Button,
+  GroupLine,
+  InputIdField,
+  InputPasswordField,
+} from "../../styles/Sign";
 
 const OptionDiv = styled.div`
   display: flex;
@@ -25,7 +35,7 @@ const OptionSpan = styled.span`
   }
 `;
 
-export default function Signin() {
+export default function SignIn() {
   const [idError, setIdError] = useState<boolean | string>();
   const [passwordError, setPasswordError] = useState<boolean | string>();
 
@@ -68,22 +78,21 @@ export default function Signin() {
       );
     }
     if (id && password && !passwordError) {
-      
       //! 로그인 정보 !!!!
       const signInData = {
         id,
         password,
       };
-      console.log(signInData);
-      
+
       login(signInData);
       navigate("/");
+      console.log(signInData);
     }
   };
 
   return (
     <>
-    <GroupLine />
+      <GroupLine />
       <AllDiv>
         <LogoDIv style={{ marginBottom: "40px", alignItems: "center" }}>
           <Logo src={logoImg} alt="logo" />
@@ -133,13 +142,13 @@ export default function Signin() {
           </InputContainer>
           <InputContainer>
             <OptionDiv>
-              <NavLink to="/IdSearch">
+              <NavLink to="/idSearch">
                 <OptionSpan>아이디 찾기</OptionSpan>
               </NavLink>
-              <NavLink to="/PasswordSearch">
+              <NavLink to="/passwordSearch">
                 <OptionSpan>비밀번호 찾기</OptionSpan>
               </NavLink>
-              <NavLink to="/SignUp">
+              <NavLink to="/signUp">
                 <OptionSpan>회원 가입</OptionSpan>
               </NavLink>
             </OptionDiv>

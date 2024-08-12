@@ -97,7 +97,7 @@ export default function Footer() {
     <>
       <FooterDiv>
         <CustomerServiceButtonDiv>
-          <NavLink to="Notification">
+          <NavLink to="notification">
             <CustomerServiceButton>고객센터</CustomerServiceButton>
           </NavLink>
         </CustomerServiceButtonDiv>
@@ -105,7 +105,7 @@ export default function Footer() {
         {/* <GroupLine /> */}
 
         <CaptionDIv>
-          <NavLink to="/Notification">
+          <NavLink to="/notification">
           <Caption>이용약관</Caption>
           <Caption>개인정보 처리 방침</Caption>
           <Caption>취소 및 환불</Caption>

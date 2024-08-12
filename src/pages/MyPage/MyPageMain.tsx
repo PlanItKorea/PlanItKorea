@@ -4,64 +4,42 @@ import { set } from "date-fns";
 import axios from "axios";
 import { Button } from "../../styles/Inquiry";
 import { AllDiv, Box, Card, Error, GroupLine, Header,  IdInput, Label, Loading, MainBody, MainDiv, MainInner, NavDiv, NavInnerDiv, NavTitle, PageTitle,WithDrawalButton,WithdrawalDiv, WithdrawalInput } from "../../styles/myPage/Main";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import useAuthStore from "../../stores/useAuthStore";
 
 
 
-const user: User = {
-  id: "dkssud12",
-  password: "!dkssud1234",
-  name: "박영준",
-  birthDate: "19990924",
-  phoneNumber: "01012341234",
-};
+
 
 export default function MyPageMain() {
-  const [logInUser, setLogInUser] = useState<User | null>(user);
+  const [logInUser, setLogInUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [modal, setModal] = useState<boolean>(true);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [password, setPassword] = useState<string>('');
-
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     setLoading(true);
-  //     try {
-  //       const userId = localStorage.getItem("logInUserId");
-  //       if (userId) {
-  //         const response = await axios.get<User>('');
-  //         setLogInUser(response.data);
-  //       } else {
-  //         setError("로그인이 필요한 시스템입니다.");
-  //       }
-  //     } catch (error) {
-  //       setError('로그인이 필요한 시스템입니다.');
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchUser();
-  // }, []);
+  const loggedInUser  = useAuthStore((state) => state.user.id);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
       setLoading(true);
       try {
-        setTimeout(() => {
-          setLogInUser(user);
-          setModal(false);
-        }, 1000);
-      } catch (error) {
-        setError("사용자 정보를 불러오는 중 오류가 발생했습니다.");
-      } finally {
+        if(loggedInUser) {
+          const response = await axios.get<User>(`http://localhost:3001/users/${loggedInUser}`);
+          setLogInUser(response.data);
+        }else {
+          setError("로그인 정보가 없습니다.")
+        }
+      }catch (error) {
+        setError("로그인 정보가 없습니다.")
+      }finally {
         setLoading(false);
       }
     };
-
     fetchUser();
-  }, []);
+  }, [loggedInUser])
+
 
   useEffect(() => {
     if (logInUser) {
@@ -76,10 +54,38 @@ export default function MyPageMain() {
     console.log(logInUser);
   };
 
-  const handleSave = () => {
-    setIsEditing(false);
-    console.log(logInUser);
-    
+  const handleSave = async() => {
+    setLoading(true);
+
+    try {
+      if(logInUser) {
+        await axios.put<User>(`http://localhost:3001/users/${loggedInUser}`,logInUser )
+        setIsEditing(false);
+      }else {
+        setError('사용자 정보가 없습니다.')
+      }
+    }catch (error) {
+      console.error("업데이트 도중 에러가 발생했습니다.");
+    }finally {
+      setLoading(false)
+    }
+  };
+
+  const withdrawalBtn = async() => {
+    setLoading(true);
+
+    try {
+      if(logInUser && password === logInUser.password) {
+        await axios.delete<User>(`http://localhost:3001/users/${loggedInUser}`)
+    navigate("/")
+      }else {
+        alert('사용자 정보가 없습니다.')
+      }
+    }catch (error) {
+      alert('사용자 정보가 없습니다.')
+    }finally {
+      setLoading(false);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,22 +101,24 @@ export default function MyPageMain() {
     setPassword(e.target.value)
   }
 
+
+
   return (
     <>
     <GroupLine />
       <AllDiv>
         <NavDiv>
-          <NavLink to='/MyPageMain'>
+          <NavLink to='/myPageMain'>
           <NavInnerDiv style={{backgroundColor:'#eee'}}>
             <NavTitle>계정 관리</NavTitle>
           </NavInnerDiv>
           </NavLink>
-          <NavLink to='/ReservationCheck'>
+          <NavLink to='/reservationCheck'>
           <NavInnerDiv>
             <NavTitle>예약 확인</NavTitle>
           </NavInnerDiv>
           </NavLink>
-          <NavLink to='/WishList'>
+          <NavLink to='/wishList'>
           <NavInnerDiv>
             <NavTitle>찜 목록</NavTitle>
           </NavInnerDiv>
@@ -195,7 +203,7 @@ export default function MyPageMain() {
                     type="password"
                     placeholder="비밀번호"
                     onChange={handlePwChange}/>
-                    <WithDrawalButton>탈퇴</WithDrawalButton>
+                    <WithDrawalButton onClick={withdrawalBtn}>탈퇴</WithDrawalButton>
                   </WithdrawalDiv>
                 </MainBody>
               </MainInner>

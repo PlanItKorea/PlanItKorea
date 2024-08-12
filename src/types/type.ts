@@ -49,14 +49,14 @@ export type Inquiry = {
   category: InquiryType
   title: string;
   content: string;
-  image: string | null
+  image: string | undefined
 }
 
 //! 문의사항 유형 선택
 export type InquiryType = 
-  | 'payment' 
-  | 'cancellation' 
-  | 'refund'
+  | '결제' 
+  | '취소' 
+  | '환불'
 
 //! 여행지 타입
 export type Location =

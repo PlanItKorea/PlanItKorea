@@ -32,7 +32,7 @@ const DetailMenu = styled(NavLink)<{ isSelected: boolean }>`
   }
 `;
 
-export default function Notification() {
+export default function CustomerBar() {
   const [selectedMenu, setSelectedMenu] = useState<string | null>();
 
   const handleMenuClick = (item: string) => {
@@ -40,9 +40,9 @@ export default function Notification() {
   };
 
   const menuItem = [
-    { name: "공지사항", path: "/Notification" },
-    { name: "자주묻는 질문", path: "/FrequentlyQuestion" },
-    { name: "1:1 문의", path: "/InquiryCRUD" },
+    { name: "공지사항", path: "/notification" },
+    { name: "자주묻는 질문", path: "/frequentlyQuestion" },
+    { name: "1:1 문의", path: "/inquiryCRUD" },
   ];
   return (
     <>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ContentDiv } from "../../styles/customer";
 import { BtnCategory, InquiryBtn } from "../../styles/Inquiry";
 import { NavLink } from "react-router-dom";
@@ -10,23 +10,8 @@ import {
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import axios from "axios";
 
-const mockInquiries: Inquiry[] = [
-  {
-    id: "User ID",
-    category: "payment",
-    title: "결제 문제",
-    content: "결제 오류가 발생했습니다.",
-    image: null,
-  },
-  {
-    id: "User ID2",
-    category: "cancellation",
-    title: "취소 문제",
-    content: "결제 취소 오류가 발생했습니다.",
-    image: null,
-  },
-];
 
 export default function InquiryHistory() {
   const [expanded, setExpanded] = React.useState<string | false>(false);
@@ -34,21 +19,31 @@ export default function InquiryHistory() {
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
+  const [inquiries, setInquiries] = useState<Inquiry[]>([])
+
+    const fetchInquiry = async () => {
+      const response = await axios.get('http://localhost:3001/inquiry')
+      setInquiries(response.data);
+    }
+
+    useEffect(() => {
+      fetchInquiry();
+    },[])
 
   return (
     <>
       <ContentDiv>
         <BtnCategory>
-          <NavLink to={"/InquiryCRUD"}>
+          <NavLink to={"/inquiryCRUD"}>
             <InquiryBtn>문의하기</InquiryBtn>
           </NavLink>
-          <NavLink to={"/InquiryHistory"}>
+          <NavLink to={"/inquiryHistory"}>
             <InquiryBtn style={{ backgroundColor: "#ddd" }}>
               문의내역
             </InquiryBtn>
           </NavLink>
         </BtnCategory>
-        {mockInquiries.map((item) => (
+        {inquiries.map((item) => (
           <Accordion
             key={item.id}
             expanded={expanded === item.id}
@@ -69,7 +64,7 @@ export default function InquiryHistory() {
               aria-controls={`${item.id}-content`}
               id={`${item.id}-header`}
             >
-              <Typography sx={{ fontWeight: "bold" }}>{item.title}</Typography>
+              <Typography sx={{ fontWeight: "bold", fontSize:'20px'}}>{item.category} - {item.title}</Typography>
             </AccordionSummary>
             <AccordionDetails
               sx={{
@@ -79,7 +74,7 @@ export default function InquiryHistory() {
               }}
             >
               <Typography>{item.content}</Typography>
-              <Typography>{item.image}</Typography>
+              <img src={item.image} style={{width:'450px', height:"250px"}}/>
               <Typography variant="caption">- {item.id}</Typography>
             </AccordionDetails>
           </Accordion>
