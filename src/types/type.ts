@@ -77,12 +77,6 @@ export type Accommodation =
   | '펜션&풀빌라'
   | '캠핑&글램핑';
 
-//! 레저 & 티켓 타입
-export type Ticket =
-  | '관광'
-  | '테마파크'
-  | '레저스포츠'
-  | '전시&공연';
   
   export type Facilities =
   | '사우나'
@@ -102,6 +96,12 @@ export type Ticket =
   | '매진숙소 제외'
   | '객실 내 흡연';
 
+  //! 레저 & 티켓 타입
+  export type Ticket =
+    | '관광'
+    | '테마파크'
+    | '레저스포츠'
+    | '전시&공연';
 
   //! 숙소 상품 타입
   export interface BerthProduct {
