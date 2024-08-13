@@ -40,6 +40,8 @@ export const ContentBox = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 10%;
+  position: relative; 
+  
 `;
 
 export const MenuBox = styled.div`
@@ -63,5 +65,6 @@ export const PageDiv = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  
 `;
 

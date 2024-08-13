@@ -512,7 +512,7 @@ export default function Search() {
                   여행 날짜
                 </InputLabel>
                 <BootstrapInput
-                  sx={{ fontWeight: "bold" }}
+                  sx={{ fontWeight: "bold", }}
                   onClick={() => setShowCalendar(!showCalendar)}
                   value={`${startDate ? format(startDate, "MM.dd ~") : ""} ${
                     endDate ? format(endDate, "MM.dd") : ""

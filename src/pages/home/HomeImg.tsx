@@ -29,7 +29,7 @@ const images: { [key in Season]: string } = {
 
 const ImgDiv = styled.div`
   width: 100%;
-  height: 300px;
+  height: 350px;
   display: flex;
   justify-content: center;
   align-content: center;

@@ -1,115 +1,20 @@
 import React from "react";
 import HomeImg from "./HomeImg";
-import styled from "styled-components";
 import jeju from "../../assets/images/1/jeju.jpg";
 import gapyeng from "../../assets/images/1/gapyeong.jpg";
 import busan from "../../assets/images/1/busan.jpg";
 import gyengju from "../../assets/images/1/gyengju.jpg";
 import seoul from "../../assets/images/1/seoul.jpg";
+import { City, CityImg, CityName, CityWarp, GroupLabel, GroupLine, HomeBox, MostTicket, MostTicketBox, MostUsed, MostUsedBox, PopularCityBox, PriceDiv, ProductCity, ProductDetail, ProductImg, ProductName } from "../../styles/home/Home";
+import { accommodations, tickets } from "../../mocks";
 
-const GroupLine = styled.div`
-  width: 100%;
-  margin-top: 5%;
-  padding-left: 5%;
-`;
 
-const GroupLabel = styled.h2`
-  font-size: 18px;
-  font-weight: bold;
-`;
-
-const HomeBox = styled.div`
-  border: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const PopularCityBox = styled.div`
-  border: none;
-  padding: 1% 8%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: flex-start;
-  column-gap: 40px;
-  width: 100%;
-`;
-
-const City = styled.div`
-  border: none;
-  width: 180px;
-  height: 180px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  min-width: 180px;
-  box-sizing: border-box;
-`;
-
-const MostUsedBox = styled.div`
-  border: none;
-  padding: 1% 10%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: flex-start;
-  width: 100%;
-
-`;
-
-const MostUsed = styled.div`
-  border: 1px solid black;
-  width: 180px;
-  height: 260px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 180px;
-  box-sizing: border-box;
-  margin: 5px 5px;
-`;
-
-const MostTicketBox = styled.div`
-  border: none;
-  padding: 1% 10%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: flex-start;
-  width: 100%;
-`;
-
-const MostTicket = styled.div`
-  border: 1px solid black;
-  width: 180px;
-  height: 260px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 180px;
-  box-sizing: border-box;
-  margin: 5px 5px;
-
-`;
-
-const CityImg = styled.img`
-  width: 100%;
-  height: 90%;
-  border-radius: 15px;
-  box-sizing: border-box;
-  &:hover{
-    opacity: 0.7;
-  }
-`;
-
-const CityName = styled.span`
-  padding: 5px 0;
-  font-weight: bold;
-`;
 
 export default function Home() {
+  const mainBerthProduct = accommodations.slice(0, 4);
+  const mainTicketProduct = tickets.slice(0, 4);
+
+
   return (
     <>
       <HomeImg />
@@ -145,22 +50,39 @@ export default function Home() {
           <GroupLabel>인기 숙소</GroupLabel>
         </GroupLine>
         <MostUsedBox>
-          <MostUsed></MostUsed>
-          <MostUsed></MostUsed>
-
-          <MostUsed></MostUsed>
-          <MostUsed></MostUsed>
+        {mainBerthProduct.map(accommodations => (
+          <MostUsed key={accommodations.id}>
+            <ProductImg src={accommodations.img}/>
+            <ProductDetail>
+              <CityWarp>
+            <ProductCity>{accommodations.city} - </ProductCity>
+            <ProductCity>{accommodations.accommodationCategory}</ProductCity>
+              </CityWarp>
+            <ProductName>{accommodations.name}</ProductName>
+            <PriceDiv>{accommodations.price} 원</PriceDiv>
+            </ProductDetail>
+          </MostUsed>
+        ))}
         </MostUsedBox>
 
         <GroupLine>
           <GroupLabel>인기 레저 & 티켓</GroupLabel>
         </GroupLine>
         <MostTicketBox>
-          <MostTicket></MostTicket>
-          <MostTicket></MostTicket>
+        {mainTicketProduct.map(tickets => (
+          <MostTicket key={tickets.id}>
+            <ProductImg src={tickets.img}/>
+            <ProductDetail>
+              <CityWarp>
+              <ProductCity>{tickets.city} - </ProductCity>
+              <ProductCity>{tickets.TicketCategory}</ProductCity>
+              </CityWarp>
+              <ProductName>{tickets.name}</ProductName>
+              <PriceDiv>{tickets.price}</PriceDiv>
+            </ProductDetail>
+          </MostTicket>
+        ))}
 
-          <MostTicket></MostTicket>
-          <MostTicket></MostTicket>
         </MostTicketBox>
       </HomeBox>
     </>

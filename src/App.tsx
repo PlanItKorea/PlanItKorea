@@ -19,6 +19,7 @@ import Notification from "./pages/CustomerService/Notification";
 import InquiryHistory from "./pages/CustomerService/InquiryHistory";
 import ReservationCheck from "./pages/MyPage/ReservationCheck";
 import WishList from "./pages/MyPage/WishList";
+import AllProductPage from "./pages/Product/AllProductPage";
 
 const AppContainer = styled.div`
   display: flex;
@@ -78,6 +79,7 @@ function App() {
             <Route path="/myPageMain" element={<MyPageMain />} />
             <Route path="/reservationCheck" element={<ReservationCheck />} />
             <Route path="/wishList" element={<WishList />} />
+            <Route path="/allProductPage" element={<AllProductPage />} />
           </Routes>
         </MainContent>
 

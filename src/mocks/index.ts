@@ -45,11 +45,65 @@ export const accommodations: BerthProduct[] = [
     id: 4,
     img: house4,
     name: '@@@ 캠핑',
-    price: '90,000',
+    price: '190,000',
     city: '해남',
     accommodationCategory: ['캠핑&글램핑'],
     facility: ['바베큐', '와이파이','에어컨', '욕실용품', '샤워실', '무료주차', '반려견 동반', '객실 내 취사', ]
-  }
+  },
+  {
+    id: 5,
+    img: house2,
+    name: '@@@ 호텔',
+    price: '290,000',
+    city: '가평',
+    accommodationCategory: ['호텔&리조트'],
+    facility: ['바베큐', '와이파이','에어컨', '욕실용품', '샤워실', '무료주차', '반려견 동반', '객실 내 취사', ]
+  },
+  {
+    id: 6,
+    img: house3,
+    name: '@@@ 리조트',
+    price: '50,000',
+    city: '전주',
+    accommodationCategory: ['캠핑&글램핑'],
+    facility: ['바베큐', '와이파이','에어컨', '욕실용품', '샤워실', '무료주차', '반려견 동반', '객실 내 취사', ]
+  },
+  {
+    id: 7,
+    img: house1,
+    name: '@@@ 숙소',
+    price: '140,000',
+    city: '대구',
+    accommodationCategory: ['펜션&풀빌라'],
+    facility: ['바베큐', '와이파이','에어컨', '욕실용품', '샤워실', '무료주차', '반려견 동반', '객실 내 취사', ]
+  },
+  {
+    id: 8,
+    img: house4,
+    name: '@@@ 리조트',
+    price: '120,000',
+    city: '여수',
+    accommodationCategory: ['호텔&리조트'],
+    facility: ['바베큐', '와이파이','에어컨', '욕실용품', '샤워실', '무료주차', '반려견 동반', '객실 내 취사', ]
+  },
+  {
+    id: 9,
+    img: house2,
+    name: '@@@ 펜션',
+    price: '50,000',
+    city: '서울',
+    accommodationCategory: ['펜션&풀빌라'],
+    facility: ['바베큐', '와이파이','에어컨', '욕실용품', '샤워실', '무료주차', '반려견 동반', '객실 내 취사', ]
+  },
+  {
+    id: 10,
+    img: house3,
+    name: '@@@ 리조트',
+    price: '70,000',
+    city: '해남',
+    accommodationCategory: ['호텔&리조트'],
+    facility: ['바베큐', '와이파이','에어컨', '욕실용품', '샤워실', '무료주차', '반려견 동반', '객실 내 취사', ]
+  },
 ]
 
 export const tickets: TicketProduct[] = [
