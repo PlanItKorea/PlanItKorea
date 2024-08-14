@@ -74,7 +74,7 @@ export default function InquiryHistory() {
               }}
             >
               <Typography>{item.content}</Typography>
-              <img src={item.image} style={{width:'450px', height:"250px"}}/>
+              <img src={item.image} style={{width:'450px', height:"250px", border:'none'}}/>
               <Typography variant="caption">- {item.id}</Typography>
             </AccordionDetails>
           </Accordion>
