@@ -7,13 +7,13 @@ export interface User {
   name: string;
   birthDate: string;
   phoneNumber: string;
+  wishList: number[];
 }
 
 //! 예약할때 타입
 export interface Reservation {
   // 유저에서 가지고 올 데이터
-  name: string; //이름
-  phoneNumber: string; // 전화번호
+  userId: string;
   // 숙소상품에서 가지고 올 데이터
   id: number; // 숙소 고유id
   productName: string; // 숙소 이름
@@ -92,9 +92,7 @@ export type Accommodation =
   | '무료주차'
   | '반려견 동반'
   | '객실 내 취사'
-  | 'OTT'
-  | '매진숙소 제외'
-  | '객실 내 흡연';
+  | 'OTT';
 
   //! 레저 & 티켓 타입
   export type Ticket =

@@ -1,5 +1,14 @@
 {
-  "users": [],
+  "users": [
+    {
+      "id": "dkssud12",
+      "password": "!gktpdy12",
+      "name": "박영준",
+      "birthDate": "19990924",
+      "phoneNumber": "01012341234",
+      "wishList": []
+    }
+  ],
   "announcement": [
     {
       "id": "1",
@@ -101,10 +110,12 @@
     }
   ],
   "inquiry": [
-      
+    {
+      "id": "",
+      "category": "취소",
+      "title": "ㄹㅇㅎ",
+      "content": "ㅇㅀ"
+    }
   ],
-  
-  "BerthProduct": [
-    
-  ]
+  "BerthProduct": []
 }

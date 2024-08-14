@@ -11,8 +11,9 @@ export const FilterDiv = styled.div`
   display: flex;
   flex-direction: column;
   width: 30%;
-  padding: 100px 50px;
-  margin-right: 80px;
+  min-width: 200px;
+  padding: 100px 0 100px 50px;
+  margin-right: 60px;
 `;
 
 export const AllProductDiv = styled.div`
@@ -53,6 +54,10 @@ export const ProductDetail = styled.div`
 export const Category = styled.span`
   color: #555;
   font-size: 12px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const ProductName = styled.h3`

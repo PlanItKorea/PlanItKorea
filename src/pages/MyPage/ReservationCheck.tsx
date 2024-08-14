@@ -36,8 +36,7 @@ import { faWonSign } from "@fortawesome/free-solid-svg-icons";
 
 const mockReservation: Reservation[] = [
   {
-    name: "홍길동",
-    phoneNumber: "01012341234",
+    userId: 'dkssud12',
     id: 120,
     productName: "호텔호텔호텔",
     price: "100,000",
@@ -48,8 +47,7 @@ const mockReservation: Reservation[] = [
     img: hotel1,
   },
   {
-    name: "전우치",
-    phoneNumber: "01012341234",
+    userId: 'dkssud12',
     id: 121,
     productName: "호텔호텔호텔",
     price: "180,000",
@@ -60,8 +58,7 @@ const mockReservation: Reservation[] = [
     img: hotel3,
   },
   {
-    name: "각시탈",
-    phoneNumber: "01012341234",
+    userId: 'dkssud12',
     id: 3,
     productName: "호텔호텔호텔",
     price: "90,000",
