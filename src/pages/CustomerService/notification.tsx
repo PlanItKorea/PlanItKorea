@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -33,7 +33,7 @@ const Notification: React.FC = () => {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetchNotification();
   }, []);
 
