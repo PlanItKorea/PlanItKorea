@@ -38,8 +38,8 @@ export const ProductDiv = styled.div`
 `;
 
 export const ProductImg = styled.img`
-  width: 100%;
-  height: 60%;
+  width: 250px;
+  height: 180px;
   border-radius: 10px;
   &:hover{
     opacity: 0.7;

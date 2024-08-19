@@ -52,7 +52,7 @@ export default function Home() {
         <MostUsedBox>
         {mainBerthProduct.map(accommodations => (
           <MostUsed key={accommodations.id}>
-            <ProductImg src={accommodations.img}/>
+            <ProductImg src={accommodations.img[0]}/>
             <ProductDetail>
               <CityWarp>
             <ProductCity>{accommodations.city} - </ProductCity>

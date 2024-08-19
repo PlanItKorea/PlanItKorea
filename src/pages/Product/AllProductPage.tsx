@@ -29,6 +29,7 @@ import {
 } from "@mui/material";
 import { Accommodation, Facilities } from "../../types/type";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const ITEMS_PER_PAGE = 9;
 
@@ -39,7 +40,8 @@ export default function AllProductPage() {
   const [facilities, setFacilities] = useState<Facilities[]>([])
   const [userWishList, setUserWishList] = useState<number[]>([]);
 
-  console.log(userWishList);
+  const navigate = useNavigate();
+
 
   //! 찜
   const toggleWishlist = (id: number) => {
@@ -60,6 +62,7 @@ export default function AllProductPage() {
   const handleChangeAccommodation = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAccommodationType(e.target.value as Accommodation);
   };
+
   
   //! 편의시설 핸들러
   const handleChangeFacilities = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -236,9 +239,12 @@ export default function AllProductPage() {
         </FilterDiv>
         {/* 필터 박스 div */}
         <AllProductDiv>
+
           {currentItems.map((accommodations) => (
             <ProductDiv key={accommodations.id}>
-              <ProductImg src={accommodations.img} />
+              <NavLink to={`/detailProduct/${accommodations.id}`}>
+              <ProductImg src={accommodations.img[0]} />
+              </NavLink>
               <ProductDetail>
                 <Category>
                   {accommodations.city} - {accommodations.accommodationCategory}

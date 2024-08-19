@@ -20,6 +20,7 @@ import InquiryHistory from "./pages/CustomerService/InquiryHistory";
 import ReservationCheck from "./pages/MyPage/ReservationCheck";
 import WishList from "./pages/MyPage/WishList";
 import AllProductPage from "./pages/Product/AllProductPage";
+import DetailProduct from "./pages/Product/DetailProduct"
 
 const AppContainer = styled.div`
   display: flex;
@@ -79,7 +80,9 @@ function App() {
             <Route path="/myPageMain" element={<MyPageMain />} />
             <Route path="/reservationCheck" element={<ReservationCheck />} />
             <Route path="/wishList" element={<WishList />} />
+
             <Route path="/allProductPage" element={<AllProductPage />} />
+            <Route path="/detailProduct/:productId" element={<DetailProduct />} />
           </Routes>
         </MainContent>
 
