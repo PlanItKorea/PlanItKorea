@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import theme from "../styles/theme";
 
-const ModalOverlay = styled.div`
+export const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;

@@ -68,13 +68,13 @@ export const RightInnerImgDiv = styled.div`
   width: 100%;
   height: 100%;
   overflow: hidden; 
+  position: relative;
 `;
 
 export const MainDiv = styled.div`
   display: flex;
   flex-direction: row;
   position: relative; 
-  padding-bottom: 220px; 
 `;
 
 export const Detail = styled.div`
@@ -105,7 +105,7 @@ export const FacilityItem = styled.div`
   border-radius: 5px;
   text-align: center;
   min-width: 91px;
-  
+  white-space: nowrap;
   &:hover {
     background-color: ${theme.palette.primary.main};
   }
@@ -127,21 +127,133 @@ export const GroupName = styled.h3`
 export const ReservationBarDiv = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   width: 40%;
-  position: fixed;
-  bottom: 20px; 
-  right: 20px; 
-  z-index: 1000; 
+  height: 1000px;
 `;
 
 export const ReservationBar = styled.div`
+  position: sticky;
+  top: 100px;
   width: 300px;
   height: 400px;
   border: 1px solid ${theme.palette.primary.main};
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box; 
-  padding: 10px; 
+  padding: 5px; 
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const PersonDiv = styled.div`
+  padding: 0 16px 16px 16px;
+  width: 100%;
+`;
+
+export const PersonInput = styled.input`
+  padding: 8px;
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  transition: border-color 0.2s;
+  &:focus {
+    border: 1px solid #82AEF5;
+    outline: none;
+  }
+`;
+
+export const PriceBar = styled.div`
+  width: 100%;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+`;
+export const PersonBar = styled.div`
+  width: 100%;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+`;
+
+export const ImgButton = styled.button`
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 15px;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+`;
+
+export const ModalDiv = styled.div`
+  width: 75%;
+  height: 90%;
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  /* padding: 20px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const CloseBtn = styled.button`
+  background-color: ${theme.palette.error.main};
+  padding: 10px 17px;
+  margin: 10px 15px;
+  border-radius: 10px;
+  color: white;
+  &:hover {
+    background-color: ${theme.palette.error.dark};
+  }
+`;
+
+export const ModalHeader = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+`;
+
+export const ModalMain = styled.div`
+  width: 80%;
+  height: 100%;
+  
+`;
+
+export const ImgPickDiv = styled.div`
+  width: 80%;
+  height: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 `;
