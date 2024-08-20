@@ -46,7 +46,7 @@ const SearchDay = styled("div")(({ theme }) => ({
   position: "relative",
 }));
 
-const SearchPerson = styled("div")(({ theme }) => ({
+export const SearchPerson = styled("div")(({ theme }) => ({
   flex: "1 1 20%",
   minWidth: "150px",
   position: "relative",
@@ -57,7 +57,7 @@ const SubmitDiv = styled("div")(({ theme }) => ({
   padding: "24px 0 0 10px",
 }));
 
-const PersonModal = styled("div")(({ theme }) => ({
+export const PersonModal = styled("div")(({ theme }) => ({
   position: "absolute",
   top: "100%",
   left: 0,

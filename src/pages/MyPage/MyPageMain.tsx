@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { User } from "../../types/type";
 import { set } from "date-fns";
 import axios from "axios";
-import { Button } from "../../styles/Inquiry";
+import { Button } from "../../styles/customer/Inquiry";
 import { AllDiv, Box, Card, Error, GroupLine, Header,  IdInput, Label, Loading, MainBody, MainDiv, MainInner, NavDiv, NavInnerDiv, NavTitle, PageTitle,WithDrawalButton,WithdrawalDiv, WithdrawalInput } from "../../styles/myPage/Main";
 import { NavLink, useNavigate } from "react-router-dom";
 import useAuthStore from "../../stores/useAuthStore";

@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
-import { ContentDiv } from "../../styles/customer";
+import { ContentDiv } from "../../styles/customer/customer";
 import { ModalText } from "../../styles/Sign";
 import { Inquiry, InquiryType } from "../../types/type";
 import Modal, { ModalButton, Overlay } from "../../component/Modal";
@@ -21,7 +21,7 @@ import {
   Select,
   SelectCategoryDiv,
   TitleDiv,
-} from "../../styles/Inquiry";
+} from "../../styles/customer/Inquiry";
 import { useStore } from "zustand";
 import axios from "axios";
 

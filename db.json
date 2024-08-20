@@ -120,7 +120,7 @@
   "BerthProduct": [
     {
       "id": 1,
-      "img": ["https://image.goodchoice.kr/exhibition/itemContents/a6b561c3bc867d43a03d849d558d09e0.jpg","https://image.goodchoice.kr/exhibition/itemContents/7c1fa1413b977557062f277f2696a6e8.jpg","https://image.goodchoice.kr/exhibition/itemContents/92154fb6d359e60863ebd10a9fc2ece4.jpg"],
+      "img": ["https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/47cb2685-bd0c-473b-9c44-49b5266d2fd8.jpeg?im_w=720","https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/0e84555f-4ad4-480d-94eb-93b02563e25b.jpeg?im_w=720","https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/9ba5cd21-fbdc-4311-a13f-61171c0e7097.jpeg?im_w=720","https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/7c3387d1-72aa-4ec2-a179-7f055dcdef95.jpeg?im_w=720","https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/38bd14f7-4092-48bf-a11d-7fbcb66e1862.jpeg?im_w=720"],
       "name": "@@@ 리조트",
       "price": "100,000",
       "city": "서울",
@@ -130,7 +130,7 @@
     },
     {
       "id": 2,
-      "img": ["https://image.goodchoice.kr/exhibition/itemContents/e29b5f2bc1632e92f3984544f31f7889.jpg","https://image.goodchoice.kr/exhibition/itemContents/e971be3abce1318e729cb846879ca45c.jpg","https://image.goodchoice.kr/exhibition/itemContents/666cc589466a089fd10a9f8f0452f999.jpg"],
+      "img": ["https://a0.muscache.com/im/pictures/prohost-api/Hosting-46437885/original/ee4f36b3-5612-467b-b867-1cb325dcf34e.jpeg?im_w=1200","https://a0.muscache.com/im/pictures/prohost-api/Hosting-46437885/original/8327ef66-be7b-4b76-ab23-ccdf1ef025e5.jpeg?im_w=720","https://a0.muscache.com/im/pictures/prohost-api/Hosting-46437885/original/5101e7c4-8b04-4ffd-9915-1dead8b0bc06.jpeg?im_w=1200","https://a0.muscache.com/im/pictures/prohost-api/Hosting-46437885/original/e3cf80b5-180b-4ab1-9cbc-baac2d78b0c8.jpeg?im_w=720","https://a0.muscache.com/im/pictures/prohost-api/Hosting-598229555111670684/original/f5ea7c38-8c9b-4d72-91dd-8b75bdaa7afd.jpeg?im_w=720"],
       "name": "@@@ 펜션",
       "price": "200,000",
       "city": "부산",
@@ -140,7 +140,7 @@
     },
     {
       "id": 3,
-      "img": ["https://image.goodchoice.kr/affiliate/2023/06/08/11/1647218800884G73MlmDcwapJollcIFB.jpg","https://image.goodchoice.kr/affiliate/2022/03/07/19/c7fc346fd14c4ffda930ec94dee52590.jpg","https://image.goodchoice.kr/affiliate/2024/03/12/09/c64d18bed6da4ebdb8574a08e2c444b2.jpg"],
+      "img": ["https://image.goodchoice.kr/affiliate/2023/06/08/11/1647218800884G73MlmDcwapJollcIFB.jpg","https://image.goodchoice.kr/affiliate/2022/03/07/19/c7fc346fd14c4ffda930ec94dee52590.jpg","https://image.goodchoice.kr/affiliate/2024/03/12/09/c64d18bed6da4ebdb8574a08e2c444b2.jpg","https://a0.muscache.com/im/pictures/prohost-api/Hosting-942303140214196011/original/83953c10-3a7b-42a1-8251-3eff7b4d3d66.jpeg?im_w=720","https://a0.muscache.com/im/pictures/prohost-api/Hosting-942303140214196011/original/756fe6fc-c8a8-42cd-9e07-99a16bd7852a.jpeg?im_w=720"],
       "name": "@@@ 캠핑",
       "price": "150,000",
       "city": "가평",

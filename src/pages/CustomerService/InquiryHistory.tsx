@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { ContentDiv } from "../../styles/customer";
-import { BtnCategory, InquiryBtn } from "../../styles/Inquiry";
+import { ContentDiv } from "../../styles/customer/customer";
+import { BtnCategory, InquiryBtn } from "../../styles/customer/Inquiry";
 import { NavLink } from "react-router-dom";
 import { Inquiry } from "../../types/type";
 import {
