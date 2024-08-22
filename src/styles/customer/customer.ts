@@ -59,6 +59,11 @@ export const ContentDiv = styled.div`
   position: relative;
   padding:  5% 10%;
 `;
+export const ContentInnerDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
 
 export const PageDiv = styled.div`
   display: flex;

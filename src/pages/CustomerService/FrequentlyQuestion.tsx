@@ -4,7 +4,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { ContentDiv, PageDiv } from "../../styles/customer/customer";
+import { ContentDiv, ContentInnerDiv, PageDiv } from "../../styles/customer/customer";
 import axios from "axios";
 import { Announcement } from "../../types/type";
 import ReactPaginate from "react-paginate";
@@ -15,6 +15,8 @@ export default function Notification() {
   const [expanded, setExpanded] = React.useState<number | false>(false);
   const [frequentlyQuestion, setFrequentlyQuestion] = React.useState<Announcement[]>([])
   const [currentPage, setCurrentPage] = React.useState<number>(0);
+
+  
 
   const handleExpansion =
     (panel: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -40,7 +42,9 @@ export default function Notification() {
 
   return (
     <ContentDiv>
-      {frequentlyQuestion.map((item) => (
+      <ContentInnerDiv>
+
+      {currentItems.map((item) => (
         <Accordion
           key={item.id}
           expanded={expanded === item.id}
@@ -74,6 +78,7 @@ export default function Notification() {
           </AccordionDetails>
         </Accordion>
       ))}
+      </ContentInnerDiv>
       <PageDiv>
       <ReactPaginate
     previousLabel={"<"}

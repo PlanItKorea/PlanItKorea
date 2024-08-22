@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "../assets/fonts/font.css";
 import logo from "../assets/images/logo.png";
 import MenuIcon from "@mui/icons-material/Menu";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   Box,
   CustomerServiceButton,
@@ -25,7 +25,10 @@ import useAuthStore from "../stores/useAuthStore";
 
 export default function Header() {
   const [showMenuModal, setShowMenuModal] = useState<boolean>(false);
-  const isLogIn = useAuthStore((state) => state.user);
+  const navigate = useNavigate();
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const logout = useAuthStore((state) => state.logout);
+
   
 
   const modalRef = useRef<HTMLDivElement | null>(null);
@@ -52,54 +55,63 @@ export default function Header() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  
   
 
   return (
     <>
       <Box>
         <LogoBox>
-          <LogoLink href="./">
+          <LogoLink href="/">
             <Logo src={logo} alt="Logo" />
             <LogoName>Plan It Korea</LogoName>
           </LogoLink>
         </LogoBox>
         <OptionBox>
-          <NavLink to="/notification">
-            <CustomerServiceButton>
+            <CustomerServiceButton onClick={() => navigate("/notification")}>
               <span> 고객센터 </span>
             </CustomerServiceButton>
-          </NavLink>
-          <NavLink to="signIn">
-            <SingInButton>
+            {!isLoggedIn ? (
+              <SingInButton onClick={() => navigate("/signIn")}>
               <span>로그인 & 회원가입</span>
             </SingInButton>
-          </NavLink>
+            ) : (
+              <SingInButton onClick={logout} style={{minWidth:'164px'}}>
+                    <span>로그아웃</span>
+                  </SingInButton>
+            )}
+
           <MenuBox>
             <MenuButton ref={buttonRef} onClick={ModalClick}>
               <MenuIcon />
             </MenuButton>
             {showMenuModal && (
               <MenuBar ref={modalRef}>
-                <NavLink to="signIn">
-                  <MenuSingInButton>
+                {!isLoggedIn && (
+                  <MenuSingInButton onClick={() => navigate("/signIn")}>
                     <span>로그인 & 회원가입</span>
                   </MenuSingInButton>
-                </NavLink>
-                {isLogIn && (
-                  <NavLink to="myPageMain">
+                )}
+                {isLoggedIn && (
+                  <MenuSingInButton onClick={logout} style={{minWidth:'164px'}}>
+                    <span>로그아웃</span>
+                  </MenuSingInButton>
+                )}
+                
+                {isLoggedIn && (
                     <MenuCustomerServiceButton
                       style={{ padding: "6px 41px", margin: "5px 0" }}
-                    >
+                      onClick={() => navigate("/myPageMain")}>
                       <span> 마이페이지 </span>
                     </MenuCustomerServiceButton>
-                  </NavLink>
                 )}
 
                 <GroupLine />
                 <MenuGroup>국내 숙소</MenuGroup>
-                <MenuList>호텔 & 리조트</MenuList>
-                <MenuList>펜션 & 풀빌라</MenuList>
-                <MenuList>캠핑 & 글램핑</MenuList>
+                <MenuList onClick={() => navigate("/allProductPage")}>호텔 & 리조트</MenuList>
+                <MenuList onClick={() => navigate("/allProductPage")}>펜션 & 풀빌라</MenuList>
+                <MenuList onClick={() => navigate("/allProductPage")}>캠핑 & 글램핑</MenuList>
                 <GroupLine />
                 <MenuGroup>레저 & 티켓</MenuGroup>
                 <MenuList>관광</MenuList>

@@ -30,6 +30,7 @@ import {
 import { Accommodation, Facilities } from "../../types/type";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import { NavLink, useNavigate } from "react-router-dom";
+import useSearchStore from "../../stores/useSearchStore";
 
 const ITEMS_PER_PAGE = 9;
 
@@ -41,6 +42,9 @@ export default function AllProductPage() {
   const [userWishList, setUserWishList] = useState<number[]>([]);
 
   const navigate = useNavigate();
+
+  //! 검색바 정보
+  const { searchData } = useSearchStore();
 
 
   //! 찜
@@ -87,7 +91,9 @@ export default function AllProductPage() {
     accommodation.facility.includes(facility)
   );
 
-    return matchAccommodationType && matchFacilities;
+  const matchCity = !searchData.city || accommodation.city === searchData.city;
+
+    return matchAccommodationType && matchFacilities && matchCity;
   })
 
   //! 페이지네이션

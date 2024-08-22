@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { BerthProduct } from "../../types/type";
 import {
+  Address,
   AllDiv,
   CloseBtn,
   DescriptionDiv,
@@ -14,12 +15,11 @@ import {
   HeaderDiv,
   Image,
   ImgButton,
-  ImgPickDiv,
   LeftImgDiv,
   MainDiv,
+  MapDiv,
   ModalDiv,
   ModalHeader,
-  ModalMain,
   ModalOverlay,
   PersonBar,
   PersonDiv,
@@ -41,21 +41,30 @@ import { faCalendar, faWonSign } from "@fortawesome/free-solid-svg-icons";
 import { GroupLine } from "../../styles/customer/customer";
 import { Button } from "../../styles/Sign";
 import ImageSlider from "./sliderImg/ImageSlider";
+import NaverMap from "../../component/NaverMap";
+import useSearchStore from "../../stores/useSearchStore";
 
 export default function DetailProduct() {
+  //! 전역 상태 받아오기
+  const { searchData } = useSearchStore(state => ({
+    searchData: state.searchData
+  }));
+
+
   const { productId } = useParams<string>();
   const [product, setProduct] = useState<BerthProduct | null>(null);
 
-  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
-  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
+  const [startDate, setStartDate] = useState<Date | undefined>(searchData.startDay);
+  const [endDate, setEndDate] = useState<Date | undefined>(searchData.endDay);
 
-  const [person, setPerson] = useState<number | undefined>(undefined);
+  const [person, setPerson] = useState<number | undefined>(searchData.personCount);
+
+  
 
   const personValue = (e: ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value, 10)
     setPerson(value)
   }
-  console.log(person);
   const today = new Date();
 
   const calculateDays = (start: Date | undefined, end: Date | undefined) => {
@@ -77,6 +86,8 @@ export default function DetailProduct() {
       console.error("Error");
     }
   };
+
+  
 
   useEffect(() => {
     fetchProduct();
@@ -102,7 +113,7 @@ export default function DetailProduct() {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-
+  
   return (
     <>
     <AllDiv>
@@ -110,11 +121,11 @@ export default function DetailProduct() {
         <ProductNameDiv>
           <ProductName>{product?.name}</ProductName>
         </ProductNameDiv>
-        <ProductImgDiv>
+        <ProductImgDiv onClick={openModal}>
           <LeftImgDiv>
             <Image src={product?.img[0]} />
           </LeftImgDiv>
-          <RightImgDiv>
+          <RightImgDiv >
             <RightInnerImgDiv>
               <Image src={product?.img[1]} />
             </RightInnerImgDiv>
@@ -122,10 +133,10 @@ export default function DetailProduct() {
               <Image src={product?.img[2]} />
             </RightInnerImgDiv>
             <RightInnerImgDiv>
-              <Image src={product?.img[2]} />
+              <Image src={product?.img[3]} />
             </RightInnerImgDiv>
             <RightInnerImgDiv>
-              <Image src={product?.img[0]} />
+              <Image src={product?.img[4]} />
               <ImgButton onClick={openModal}>사진 모두보기</ImgButton>
             </RightInnerImgDiv>
           </RightImgDiv>
@@ -137,6 +148,12 @@ export default function DetailProduct() {
             <MapIcon sx={{ marginRight: "10px" }} />
             {product?.city} - {product?.accommodationCategory}
           </ProductName>
+          <Address>{product?.address}</Address>
+          <MapDiv>
+        {product?.point &&(
+        <NaverMap point={product?.point}></NaverMap>
+        )}
+      </MapDiv>
           <GroupName>숙소 시설</GroupName>
           <FacilityDiv>
             {product?.facility.map((item, index) => (
@@ -144,10 +161,13 @@ export default function DetailProduct() {
             ))}
           </FacilityDiv>
           <DescriptionDiv>
+          
             <GroupName>숙소 이용 정보</GroupName>
             <DescriptionItem>{product?.description}</DescriptionItem>
           </DescriptionDiv>
+          
         </Detail>
+        
         <ReservationBarDiv>
           <ReservationBar>
             <ProductName>{product?.name}</ProductName>
@@ -196,7 +216,7 @@ export default function DetailProduct() {
 
             {/* 인원 수 */}
             <PersonDiv>
-              <PersonInput type="number" placeholder="인원 수" onChange={personValue} min={1}></PersonInput>
+              <PersonInput type="number" value={person} placeholder="인원 수" onChange={personValue} min={1}></PersonInput>
             </PersonDiv>
             <PriceBar>
               <FontAwesomeIcon style={{ margin: "0 5px" }} icon={faWonSign} />
