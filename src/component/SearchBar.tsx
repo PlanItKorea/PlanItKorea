@@ -8,6 +8,7 @@ import {
   List,
   MenuItem,
   Select,
+  SelectChangeEvent,
   SwipeableDrawer,
   useMediaQuery,
 } from "@mui/material";
@@ -20,6 +21,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import "../styles/date.css";
 import { format } from "date-fns";
 import SearchIcon from "@mui/icons-material/Search";
+import useSearchStore, { SearchData } from "../stores/useSearchStore";
+import { Location } from "../types/type";
+import { useNavigate } from "react-router-dom";
 
 const SearchBarDiv = styled("div")(({ theme }) => ({
   display: "flex",
@@ -144,8 +148,13 @@ export default function Search() {
     },
   }));
 
+  const navigate = useNavigate();
+
+  //! 전역상태관리
+  const pushData = useSearchStore((state) => state.pushData);
+
   //! 지역
-  const [city, setCity] = useState("");
+  const [city, setCity] = useState<Location>("서울");
   //! 날짜
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
@@ -163,8 +172,8 @@ export default function Search() {
 
   const [showPerson, setShowPerson] = useState<boolean>(false);
 
-  const handleChangeCity = (event: { target: { value: string } }) => {
-    setCity(event.target.value);
+  const handleChangeCity = (e: SelectChangeEvent<Location>) => {
+    setCity(e.target.value as Location);
   };
 
   const personCountUp = () => {
@@ -221,6 +230,8 @@ export default function Search() {
       setIsOpen(open);
     };
 
+
+
     const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();
 
@@ -230,25 +241,33 @@ export default function Search() {
       }
       if(!startDate && !endDate) {
         valid = false;
+        alert('여행 날짜를 입력해주세요')
       }
       if(!personCount) {
         valid = false;
       }
 
       if(valid) {
-        const startDay = startDate ? format(startDate, 'yyyy-MM-dd') : null;
-        const endDay = endDate ? format(endDate, 'yyyy-MM-dd') : null;
 
-        const searchData = {
-          city,
-          startDay,
-          endDay,
-          personCount
+        if (startDate && endDate) {
+          const startDay = startDate;
+          const endDay = endDate;
+          const searchData = {
+            city,
+            startDay,
+            endDay,
+            personCount
+          }
+          
+          pushData(searchData);
+          console.log(searchData);
         }
 
-        console.log(searchData);
       }
+      navigate("./allProductPage")
     }
+
+
 
   const list = () => (
     <Box sx={{ width: "auto", height: "500px", p: 5 }} role="presentation">
@@ -269,7 +288,7 @@ export default function Search() {
               <Select
                 labelId="demo-customized-select-label"
                 id="demo-customized-select"
-                value={city ? city : "여행지를 입력해주세요"}
+                value={city}
                 onChange={handleChangeCity}
                 input={
                   <BootstrapInput
@@ -281,34 +300,34 @@ export default function Search() {
                 <MenuItem value="">
                   <em>여행지를 선택해주세요</em>
                 </MenuItem>
-                <MenuItem value={"seoul"} sx={{ fontWeight: "bold" }}>
+                <MenuItem value={"서울"} sx={{ fontWeight: "bold" }}>
                   서울
                 </MenuItem>
-                <MenuItem value={"busan"} sx={{ fontWeight: "bold" }}>
+                <MenuItem value={"부산"} sx={{ fontWeight: "bold" }}>
                   부산
                 </MenuItem>
-                <MenuItem value={"jeju"} sx={{ fontWeight: "bold" }}>
+                <MenuItem value={"제주도"} sx={{ fontWeight: "bold" }}>
                   제주도
                 </MenuItem>
-                <MenuItem value={"gyeongju"} sx={{ fontWeight: "bold" }}>
+                <MenuItem value={"경주"} sx={{ fontWeight: "bold" }}>
                   경주
                 </MenuItem>
-                <MenuItem value={"gapyeong"} sx={{ fontWeight: "bold" }}>
+                <MenuItem value={"가평"} sx={{ fontWeight: "bold" }}>
                   가평
                 </MenuItem>
-                <MenuItem value={"gangneung"} sx={{ fontWeight: "bold" }}>
+                <MenuItem value={"강릉"} sx={{ fontWeight: "bold" }}>
                   강릉
                 </MenuItem>
-                <MenuItem value={"yeosu"} sx={{ fontWeight: "bold" }}>
+                <MenuItem value={"여수"} sx={{ fontWeight: "bold" }}>
                   여수
                 </MenuItem>
-                <MenuItem value={"Jeonju"} sx={{ fontWeight: "bold" }}>
+                <MenuItem value={"전주"} sx={{ fontWeight: "bold" }}>
                   전주
                 </MenuItem>
-                <MenuItem value={"Haenam"} sx={{ fontWeight: "bold" }}>
+                <MenuItem value={"해남"} sx={{ fontWeight: "bold" }}>
                   해남
                 </MenuItem>
-                <MenuItem value={"daegu"} sx={{ fontWeight: "bold" }}>
+                <MenuItem value={"대구"} sx={{ fontWeight: "bold" }}>
                   대구
                 </MenuItem>
               </Select>
@@ -459,7 +478,7 @@ export default function Search() {
                 <Select
                   labelId="demo-customized-select-label"
                   id="demo-customized-select"
-                  value={city ? city : "여행지를 입력해주세요"}
+                  value={city}
                   onChange={handleChangeCity}
                   input={
                     <BootstrapInput
@@ -471,34 +490,34 @@ export default function Search() {
                   <MenuItem value="">
                     <em>여행지를 선택해주세요</em>
                   </MenuItem>
-                  <MenuItem value={"seoul"} sx={{ fontWeight: "bold" }}>
+                  <MenuItem value={"서울"} sx={{ fontWeight: "bold" }}>
                     서울
                   </MenuItem>
-                  <MenuItem value={"busan"} sx={{ fontWeight: "bold" }}>
+                  <MenuItem value={"부산"} sx={{ fontWeight: "bold" }}>
                     부산
                   </MenuItem>
-                  <MenuItem value={"jeju"} sx={{ fontWeight: "bold" }}>
+                  <MenuItem value={"제주도"} sx={{ fontWeight: "bold" }}>
                     제주도
                   </MenuItem>
-                  <MenuItem value={"gyeongju"} sx={{ fontWeight: "bold" }}>
+                  <MenuItem value={"경주"} sx={{ fontWeight: "bold" }}>
                     경주
                   </MenuItem>
-                  <MenuItem value={"gapyeong"} sx={{ fontWeight: "bold" }}>
+                  <MenuItem value={"가평"} sx={{ fontWeight: "bold" }}>
                     가평
                   </MenuItem>
-                  <MenuItem value={"gangneung"} sx={{ fontWeight: "bold" }}>
+                  <MenuItem value={"강릉"} sx={{ fontWeight: "bold" }}>
                     강릉
                   </MenuItem>
-                  <MenuItem value={"yeosu"} sx={{ fontWeight: "bold" }}>
+                  <MenuItem value={"여수"} sx={{ fontWeight: "bold" }}>
                     여수
                   </MenuItem>
-                  <MenuItem value={"Jeonju"} sx={{ fontWeight: "bold" }}>
+                  <MenuItem value={"전주"} sx={{ fontWeight: "bold" }}>
                     전주
                   </MenuItem>
-                  <MenuItem value={"Haenam"} sx={{ fontWeight: "bold" }}>
+                  <MenuItem value={"해남"} sx={{ fontWeight: "bold" }}>
                     해남
                   </MenuItem>
-                  <MenuItem value={"daegu"} sx={{ fontWeight: "bold" }}>
+                  <MenuItem value={"대구"} sx={{ fontWeight: "bold" }}>
                     대구
                   </MenuItem>
                 </Select>

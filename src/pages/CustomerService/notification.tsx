@@ -4,7 +4,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { ContentDiv, PageDiv } from "../../styles/customer/customer";
+import { ContentDiv, ContentInnerDiv, PageDiv } from "../../styles/customer/customer";
 import { Announcement } from "../../types/type";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
@@ -47,7 +47,9 @@ const Notification: React.FC = () => {
 
   return (
     <ContentDiv>
+      <ContentInnerDiv>
       {currentItems.map((item) => (
+
         <Accordion
           key={item.id}
           expanded={expanded === item.id}
@@ -66,7 +68,7 @@ const Notification: React.FC = () => {
             expandIcon={<ExpandMoreIcon />}
             aria-controls={`${item.id}-content`}
             id={`${item.id}-header`}
-          >
+            >
             <Typography sx={{ fontWeight: "bold" }}>{item.title}</Typography>
           </AccordionSummary>
           <AccordionDetails
@@ -81,6 +83,7 @@ const Notification: React.FC = () => {
           </AccordionDetails>
         </Accordion>
       ))}
+        </ContentInnerDiv>
       <PageDiv>
         <ReactPaginate
           previousLabel={"<"}

@@ -6,14 +6,15 @@ export interface User {
   birthDate: string;
   phoneNumber: string;
   wishList: number[];
+  reservation: Reservation[];
 }
 
 //! 예약할때 타입
 export interface Reservation {
   // 유저에서 가지고 올 데이터
-  userId: string;
+  id: string;
   // 숙소상품에서 가지고 올 데이터
-  id: number; // 숙소 고유id
+  productId: number; // 숙소 고유id
   productName: string; // 숙소 이름
   price: string; // 가격
   reservationNumber: number; // 예약 번호
@@ -29,7 +30,8 @@ export interface Reservation {
 //! 숙소 검색 바
 export interface SearchBarFilter {
   city: Location;
-  date: string;
+  startDate: string;
+  endDate: string;
   person: number;
 }
 
@@ -43,11 +45,12 @@ export type Announcement = {
 
 //! 문의 사항
 export type Inquiry = {
-  id: string;
+  id: number;
+  userId: string;
   category: InquiryType;
   title: string;
   content: string;
-  image: string | undefined;
+  image: string[] | undefined;
 };
 
 //! 문의사항 유형 선택
@@ -94,6 +97,8 @@ export interface BerthProduct {
   img: string[];
   name: string;
   price: string;
+  address: string;
+  point: Point;
   //? 지역 카테고리
   city: Location;
   //? 숙소 카테고리
@@ -101,6 +106,11 @@ export interface BerthProduct {
   //? 편의시설 카테고리
   facility: Facilities[];
   description: string;
+}
+
+export interface Point {
+  lat: number;
+  lng: number;
 }
 
 //! 티켓 상품 타입

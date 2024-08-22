@@ -114,3 +114,89 @@ export const Button = styled.button`
     background-color: ${theme.palette.primary.dark};
   }
 `;
+
+export const ErrorDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 50vh;
+`;
+
+export const ErrorBox = styled.div`
+  width: 30%;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 0 20px;
+  overflow: hidden;
+`;
+
+
+export const AccordionDiv = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; 
+`;
+
+export const ImgDiv = styled.div`
+  display: flex; 
+  overflow-x: auto; 
+  gap: 10px; 
+  padding: 10px 0; 
+  max-height: 150px; 
+  width: 100%;
+  box-sizing: border-box; 
+`;
+
+export const Img = styled.img`
+  height: 100%;
+  max-width: 150px;
+  object-fit: cover;
+`;
+
+export const AcContentDiv = styled.div`
+  margin-top: 10px;
+  word-wrap: break-word; 
+  white-space: pre-wrap; 
+  background-color: #eee;
+  border-radius: 10px;
+  padding: 10px;
+`;
+
+export const FooterDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const UserIdDiv = styled.div`
+  margin-top: 10px;
+  padding: 10px;
+  font-weight: bold;
+`;
+
+export const ButtonsDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 10px;
+`;
+
+export const UDButton = styled.button`
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 15px;
+  &:hover {
+    text-decoration: underline;
+    background-color: #eee;
+  }
+`;

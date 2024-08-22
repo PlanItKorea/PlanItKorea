@@ -47,6 +47,7 @@ export const Image = styled.img`
   height: 100%;
   object-fit: cover;
   display: block;
+  cursor: pointer;
   &:hover {
     opacity: 0.7;
   }
@@ -75,13 +76,16 @@ export const MainDiv = styled.div`
   display: flex;
   flex-direction: row;
   position: relative; 
+  @media (max-width: 1160px) {
+    flex-direction: column;
+  }
 `;
 
 export const Detail = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  width: 60%;
+  width: 70%;
   margin-right: 30px;
   min-width: 700px;
 `;
@@ -128,8 +132,13 @@ export const ReservationBarDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  width: 40%;
+  width: 30%;
   height: 1000px;
+  @media (max-width: 1160px) {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+  }
 `;
 
 export const ReservationBar = styled.div`
@@ -138,6 +147,7 @@ export const ReservationBar = styled.div`
   width: 300px;
   height: 400px;
   border: 1px solid ${theme.palette.primary.main};
+  background-color: white;
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 5px; 
@@ -146,6 +156,9 @@ export const ReservationBar = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media (max-width: 1160px) {
+    width: 100%;
+  }
 `;
 
 export const PersonDiv = styled.div`
@@ -243,6 +256,7 @@ export const ImgPickDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 `;
 
 export const ModalOverlay = styled.div`
@@ -256,4 +270,15 @@ export const ModalOverlay = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 1000;
+`;
+
+export const MapDiv = styled.div`
+  width: 100%;
+  height: 300px;
+  margin-top: 5%;
+`;
+
+export const Address = styled.p`
+  color: #707070;
+  font-weight: 600;
 `;

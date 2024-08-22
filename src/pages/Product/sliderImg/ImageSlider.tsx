@@ -35,6 +35,7 @@ const Img = styled.img`
 const FullImg = styled.img`
   width: 100%;
   height: 100%;
+  object-fit: cover;
 `;
 
 const RightButton = styled.button`
@@ -66,7 +67,7 @@ const LeftButton = styled.button`
 const BackDiv = styled.div`
   background-color: #eee;
   width: 100%;
-  height: 100%;
+  height: 60%;
   display: flex;
   justify-content: center;
   align-items: center;

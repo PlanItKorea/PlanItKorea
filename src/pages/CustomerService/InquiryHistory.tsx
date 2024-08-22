@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { ContentDiv } from "../../styles/customer/customer";
-import { BtnCategory, InquiryBtn } from "../../styles/customer/Inquiry";
+import {
+  AcContentDiv,
+  AccordionDiv,
+  BtnCategory,
+  ButtonsDiv,
+  FooterDiv,
+  Img,
+  ImgDiv,
+  InquiryBtn,
+  UDButton,
+  UserIdDiv,
+} from "../../styles/customer/Inquiry";
 import { NavLink } from "react-router-dom";
 import { Inquiry } from "../../types/type";
 import {
@@ -11,24 +22,52 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import axios from "axios";
-
+import useAuthStore from "../../stores/useAuthStore";
 
 export default function InquiryHistory() {
-  const [expanded, setExpanded] = React.useState<string | false>(false);
+  const user = useAuthStore((state) => state.user);
+
+  const [expanded, setExpanded] = useState<number | false>(false);
+
+
   const handleExpansion =
-    (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+    (panel: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
-  const [inquiries, setInquiries] = useState<Inquiry[]>([])
+  const [inquiries, setInquiries] = useState<Inquiry[]>([]);
 
-    const fetchInquiry = async () => {
-      const response = await axios.get('http://localhost:3001/inquiry')
-      setInquiries(response.data);
+  const fetchInquiry = async () => {
+    if (user.id) {
+      try {
+        const response = await axios.get(`http://localhost:3001/inquiry`, {
+          params: { userId: user.id },
+        });
+        setInquiries(response.data);
+      } catch (error) {
+        console.error("Error fetching inquiries:", error);
+      }
+    } else {
+      console.error("User ID is not defined");
     }
+  };
 
-    useEffect(() => {
-      fetchInquiry();
-    },[])
+  const deleteInquiry = async (inquiryId: number) => {
+    console.log(inquiryId);
+    try {
+      const id: string = String(inquiryId);
+      await axios.delete(`http://localhost:3001/inquiry/${id}`);
+      await fetchInquiry();
+
+    } catch (error) {
+      console.error("사용자 정보 호출 실패", (error as Error).message);
+    }
+  };
+
+  useEffect(() => {
+    fetchInquiry();
+  }, [user.id]);
+
+  
 
   return (
     <>
@@ -64,7 +103,9 @@ export default function InquiryHistory() {
               aria-controls={`${item.id}-content`}
               id={`${item.id}-header`}
             >
-              <Typography sx={{ fontWeight: "bold", fontSize:'20px'}}>{item.category} - {item.title}</Typography>
+              <Typography sx={{ fontWeight: "bold", fontSize: "20px" }}>
+                {item.category} - {item.title}
+              </Typography>
             </AccordionSummary>
             <AccordionDetails
               sx={{
@@ -73,9 +114,26 @@ export default function InquiryHistory() {
                 whiteSpace: "pre-wrap",
               }}
             >
-              <Typography>{item.content}</Typography>
-              <img src={item.image} style={{width:'450px', height:"250px", border:'none'}}/>
-              <Typography variant="caption">- {item.id}</Typography>
+              <AccordionDiv>
+                <ImgDiv>
+                  {item.image &&
+                    item.image.map((imgSrc, index) => (
+                      <Img
+                        key={index}
+                        src={imgSrc}
+                        alt={`inquiry-${item.id}-${index}`}
+                      />
+                    ))}
+                </ImgDiv>
+                <AcContentDiv>{item.content}</AcContentDiv>
+              </AccordionDiv>
+              <FooterDiv>
+              <UserIdDiv>작성자 - {item.userId}</UserIdDiv>
+              <ButtonsDiv>
+                <UDButton>수정</UDButton>
+                <UDButton onClick={() => deleteInquiry(item.id)}>삭제</UDButton>
+              </ButtonsDiv>
+              </FooterDiv>
             </AccordionDetails>
           </Accordion>
         ))}
