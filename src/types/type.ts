@@ -45,7 +45,7 @@ export type Announcement = {
 
 //! 문의 사항
 export type Inquiry = {
-  id: number;
+  id: string;
   userId: string;
   category: InquiryType;
   title: string;
@@ -91,6 +91,14 @@ export type Facilities =
 //! 레저 & 티켓 타입
 export type Ticket = "관광" | "테마파크" | "레저스포츠" | "전시&공연";
 
+//! 리뷰 타입
+export interface Review {
+  id: string;
+  userId: string;
+  comment: string;
+  date: string;
+}
+
 //! 숙소 상품 타입
 export interface BerthProduct {
   id: number;
@@ -106,6 +114,7 @@ export interface BerthProduct {
   //? 편의시설 카테고리
   facility: Facilities[];
   description: string;
+  review: Review[]
 }
 
 export interface Point {
