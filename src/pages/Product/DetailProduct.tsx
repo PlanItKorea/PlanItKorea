@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect,  useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { BerthProduct } from "../../types/type";
+import { BerthProduct, Review } from "../../types/type";
 import {
   Address,
   AllDiv,
@@ -18,9 +18,12 @@ import {
   LeftImgDiv,
   MainDiv,
   MapDiv,
+  MapReviewDiv,
+  MapReviewInnerDiv,
   ModalDiv,
   ModalHeader,
   ModalOverlay,
+  PageDiv,
   PersonBar,
   PersonDiv,
   PersonInput,
@@ -30,8 +33,16 @@ import {
   ProductNameDiv,
   ReservationBar,
   ReservationBarDiv,
+  ReviewButton,
+  ReviewContent,
+  ReviewContentDiv,
+  ReviewContentInput,
+  ReviewDate,
+  ReviewDiv,
+  ReviewInfo,
   RightImgDiv,
   RightInnerImgDiv,
+  UserIdInfo,
 } from "../../styles/product/Detail";
 import MapIcon from "@mui/icons-material/Map";
 import DatePicker from "react-datepicker";
@@ -44,10 +55,21 @@ import ImageSlider from "./sliderImg/ImageSlider";
 import NaverMap from "../../component/NaverMap";
 import useSearchStore from "../../stores/useSearchStore";
 
+import ReactPaginate from "react-paginate";
+import useAuthStore from "../../stores/useAuthStore";
+import { format } from "date-fns";
+import useIdStore from "../../stores/useNexIdStore";
+
 export default function DetailProduct() {
   //! 전역 상태 받아오기
   const { searchData } = useSearchStore(state => ({
     searchData: state.searchData
+  }));
+  const user = useAuthStore((state) => state.user);
+
+  const { nextId, incrementId } = useIdStore((state) => ({
+    nextId: state.nextId,
+    incrementId: state.incrementId,
   }));
 
 
@@ -58,6 +80,54 @@ export default function DetailProduct() {
   const [endDate, setEndDate] = useState<Date | undefined>(searchData.endDay);
 
   const [person, setPerson] = useState<number | undefined>(searchData.personCount);
+
+  const [comment, setComment] = useState<string>("");
+  const [reviewDate, setReviewDate] = useState('');
+
+useEffect(() => {
+  const reviewDay = new Date();
+  const formattedDate = format(reviewDay, 'yyyy-MM-dd');
+  setReviewDate(formattedDate);
+}, []);
+
+  const [review, setReview] = useState<Review>({
+    id: nextId.toString(),
+    userId: user.id,
+    comment: comment,
+    date: reviewDate
+  });
+
+  const handleCommentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setComment(event.target.value);
+  };
+
+  const handleReviewSave = async () => {
+    console.log(review);
+    try {
+      await axios.post("http://localhost:3001/BerthProduct/review", review);
+
+      incrementId();
+      setReview({
+      id: (nextId + 1).toString(),
+      userId: user.id,
+      comment: comment,
+      date: reviewDate
+      })
+    } catch (error) {
+      console.error("데이터 저장 실패", error);
+      alert("리뷰 저장 도중 오류발생.");
+    }
+  };
+
+  const [currentPage, setCurrentPage] = React.useState<number>(0);
+  const ITEMS_PER_PAGE = 5;
+  const indexOfLastItem = (currentPage + 1) * ITEMS_PER_PAGE;
+  const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
+  const currentItems = product?.review.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handlePageChange = (event: { selected: number }) => {
+    setCurrentPage(event.selected);
+  };
 
   
 
@@ -87,7 +157,9 @@ export default function DetailProduct() {
     }
   };
 
-  
+
+    // const reviewDay = new Date();
+    // const formattedDate = format(reviewDay, 'yyyy-MM-dd');
 
   useEffect(() => {
     fetchProduct();
@@ -243,6 +315,66 @@ export default function DetailProduct() {
           </ReservationBar>
         </ReservationBarDiv>
       </MainDiv>
+
+      <ReviewDiv>
+        <GroupName style={{margin:"0"}}>리뷰</GroupName>
+
+        <MapReviewDiv>
+        {currentItems && currentItems.length > 0 ? (
+    currentItems.map((item) => (
+      <MapReviewInnerDiv key={item.id}>
+        <ReviewInfo>
+          <UserIdInfo>{item.userId}</UserIdInfo>
+          <ReviewDate>작성일 - {item.date}</ReviewDate>
+        </ReviewInfo>
+        <ReviewContentDiv>
+          <ReviewContent>
+            {item.comment}
+          </ReviewContent>
+        </ReviewContentDiv>
+      </MapReviewInnerDiv>
+    ))
+  ) : (
+    <MapReviewInnerDiv>작성된 리뷰가 없습니다.</MapReviewInnerDiv>
+  )}
+
+<PageDiv>
+        <ReactPaginate
+          previousLabel={"<"}
+          nextLabel={">"}
+          breakLabel={"..."}
+          pageCount={Math.ceil((product?.review?.length || 0) / ITEMS_PER_PAGE)}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={handlePageChange}
+          containerClassName={"pagination"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          activeClassName={"active"}
+        />
+      </PageDiv>
+        </MapReviewDiv>
+      </ReviewDiv>
+      <GroupName style={{margin:"0"}}>리뷰 작성</GroupName>
+      <MapReviewDiv>
+            <MapReviewInnerDiv>
+              <ReviewInfo>
+                <UserIdInfo>{user.id}</UserIdInfo>
+                <ReviewDate>작성일 - {reviewDate}</ReviewDate>
+              </ReviewInfo>
+                <ReviewContentDiv>
+                  <ReviewContentInput onChange={handleCommentChange}>
+                  </ReviewContentInput>
+                    <ReviewButton onClick={handleReviewSave}>전송</ReviewButton>
+                </ReviewContentDiv>
+            </MapReviewInnerDiv>
+        </MapReviewDiv>
     </AllDiv>
 
 

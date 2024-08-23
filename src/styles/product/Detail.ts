@@ -282,3 +282,99 @@ export const Address = styled.p`
   color: #707070;
   font-weight: 600;
 `;
+
+export const ReviewDiv = styled.div`
+  width: 100%;
+  min-height: 500px;
+  height: auto;
+  padding: 20px 0;
+  position: relative;
+`;
+
+export const MapReviewDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;  
+  flex: 1;
+`;
+
+export const MapReviewInnerDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 10px;
+  border-bottom: 1px solid #e5e7eb;
+  border-top: 1px solid #e5e7eb;
+`;
+
+export const ReviewInfo = styled.div`
+  width: 20%;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+`;
+export const ReviewDate = styled.p`
+  text-align: end;
+  width: 100%;
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: underline;
+  padding-right: 10px;
+`;
+
+export const UserIdInfo = styled.div`
+  background-color: #eee;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+`;
+
+export const ReviewContentDiv = styled.div`
+  width: 100%;
+  height: 200px;
+  position: relative;
+  padding-left: 10px;
+  border-left: 1px solid #e5e7eb;
+`;
+
+export const ReviewContent = styled.div`
+  padding: 10px;
+  background-color: #eee;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+`;
+
+export const ReviewButton = styled.button`
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: ${theme.palette.primary.main};
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  color: white;
+  &:hover {
+    background-color: ${theme.palette.primary.dark};
+  }
+`;
+
+export const ReviewContentInput = styled.textarea`
+  padding: 10px;
+  background-color: #eee;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  resize: none;
+`;
+
+export const PageDiv = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; 
+`;

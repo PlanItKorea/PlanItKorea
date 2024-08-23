@@ -44,46 +44,39 @@ const Notification: React.FC = () => {
   const indexOfLastItem = (currentPage + 1) * ITEMS_PER_PAGE;
   const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
   const currentItems = notification.slice(indexOfFirstItem, indexOfLastItem);
-
+  
   return (
     <ContentDiv>
       <ContentInnerDiv>
-      {currentItems.map((item) => (
-
-        <Accordion
-          key={item.id}
-          expanded={expanded === item.id}
-          onChange={handleExpansion(item.id)}
-          sx={{
-            margin: 1,
-            "& .MuiAccordion-region": {
-              height: expanded === item.id ? "auto" : 0,
-            },
-            "& .MuiAccordionDetails-root": {
-              display: expanded === item.id ? "block" : "none",
-            },
-          }}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls={`${item.id}-content`}
-            id={`${item.id}-header`}
-            >
-            <Typography sx={{ fontWeight: "bold" }}>{item.title}</Typography>
-          </AccordionSummary>
-          <AccordionDetails
-            sx={{
-              wordWrap: "break-word",
-              overflowWrap: "break-word",
-              whiteSpace: "pre-wrap",
+        {currentItems.map((item) => (
+          <Accordion
+            key={item.id}
+            expanded={expanded === item.id}
+            onChange={handleExpansion(item.id)}
+            style={{
+              margin: "8px 0",
             }}
           >
-            <Typography>{item.content}</Typography>
-            <Typography variant="caption">- {item.author}</Typography>
-          </AccordionDetails>
-        </Accordion>
-      ))}
-        </ContentInnerDiv>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls={`${item.id}-content`}
+              id={`${item.id}-header`}
+            >
+              <Typography style={{ fontWeight: "bold" }}>{item.title}</Typography>
+            </AccordionSummary>
+            <AccordionDetails
+              style={{
+                wordWrap: "break-word",
+                overflowWrap: "break-word",
+                whiteSpace: "pre-wrap",
+              }}
+            >
+              <Typography>{item.content}</Typography>
+              <Typography variant="caption">- {item.author}</Typography>
+            </AccordionDetails>
+          </Accordion>
+        ))}
+      </ContentInnerDiv>
       <PageDiv>
         <ReactPaginate
           previousLabel={"<"}

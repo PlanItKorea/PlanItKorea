@@ -27,11 +27,12 @@ import useAuthStore from "../../stores/useAuthStore";
 export default function InquiryHistory() {
   const user = useAuthStore((state) => state.user);
 
-  const [expanded, setExpanded] = useState<number | false>(false);
+  const [expanded, setExpanded] = useState<string | false>(false);
 
+  
 
   const handleExpansion =
-    (panel: number) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+    (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
@@ -39,7 +40,7 @@ export default function InquiryHistory() {
   const fetchInquiry = async () => {
     if (user.id) {
       try {
-        const response = await axios.get(`http://localhost:3001/inquiry`, {
+        const response = await axios.get(`http://localhost:3001/Inquiries`, {
           params: { userId: user.id },
         });
         setInquiries(response.data);
@@ -51,11 +52,11 @@ export default function InquiryHistory() {
     }
   };
 
-  const deleteInquiry = async (inquiryId: number) => {
+  const deleteInquiry = async (inquiryId: string) => {
     console.log(inquiryId);
     try {
       const id: string = String(inquiryId);
-      await axios.delete(`http://localhost:3001/inquiry/${id}`);
+      await axios.delete(`http://localhost:3001/Inquiries/${id}`);
       await fetchInquiry();
 
     } catch (error) {
@@ -130,8 +131,10 @@ export default function InquiryHistory() {
               <FooterDiv>
               <UserIdDiv>작성자 - {item.userId}</UserIdDiv>
               <ButtonsDiv>
-                <UDButton>수정</UDButton>
-                <UDButton onClick={() => deleteInquiry(item.id)}>삭제</UDButton>
+              <NavLink to={`/inquiryCRUD/edit/${item.id}`}>
+                    <UDButton>수정</UDButton>
+                  </NavLink>
+                <UDButton onClick={() => deleteInquiry((item.id))}>삭제</UDButton>
               </ButtonsDiv>
               </FooterDiv>
             </AccordionDetails>

@@ -67,7 +67,8 @@ export const InquiryTitle = styled.div`
 export const InputBox = styled.div`
   padding: 5px 20px;
   width: 80%;
-  
+  display: flex;
+  align-items: center;
 `;
 
 export const InquiryTitleName = styled.p`
@@ -79,18 +80,37 @@ export const Select = styled.select`
   border: 1px solid #ddd;
 `;
 
-export const InputTitle = styled.input`
+export const InputTitle = styled.input<{hasError : boolean}>`
   padding: 5px 20px;
   background-color: #eee;
   width: 100%;
+  border: ${(props) =>
+    props.hasError ? `2px solid ${theme.palette.error.main}` : "none"};
+  outline: none;
+  box-sizing: border-box;
+
+  &:focus {
+    border: ${(props) =>
+    props.hasError ? `2px solid ${theme.palette.error.main}` : "none"};
+  }
 `;
 
-export const InputBody = styled.textarea`
+
+export const InputBody = styled.textarea<{hasError : boolean}>`
   padding: 5px 20px;
   background-color: #eee;
   width: 100%;
   height: 300px;
   resize: none;
+  border: ${(props) =>
+    props.hasError ? `2px solid ${theme.palette.error.main}` : "none"};
+  outline: none;
+  box-sizing: border-box;
+
+  &:focus {
+    border: ${(props) =>
+    props.hasError ? `2px solid ${theme.palette.error.main}` : "none"};
+  }
 `;
 
 export const InputFile = styled.input`

@@ -1,4 +1,4 @@
-import { Announcement, BerthProduct, TicketProduct } from "../types/type";
+import {  BerthProduct, TicketProduct } from "../types/type";
 //? 숙소 이미지
 import house1 from '../assets/images/house/house1.jpg'
 import house2 from '../assets/images/house/house2.jpg'
@@ -27,7 +27,8 @@ export const accommodations: BerthProduct[] = [
     city: '서울',
     accommodationCategory: ['호텔&리조트'],
     facility: ['스파/월풀', '와이파이', '에어컨', '욕실용품', '샤워실', '조식포함','OTT'],
-      "description": "서울에 위치한 @@@ 리조트 입니다"
+    description: "서울에 위치한 @@@ 리조트 입니다",
+    review:[]
   },
   {
     id: 2,
@@ -42,7 +43,8 @@ export const accommodations: BerthProduct[] = [
     city: '부산',
     accommodationCategory: ['호텔&리조트'],
     facility: ['사우나', '수영장', '세탁 가능', '스파/월풀', '와이파이', '에어컨', '욕실용품', '샤워실', '조식포함','OTT'],
-      "description": "서울에 위치한 @@@ 리조트 입니다"
+    description: "서울에 위치한 @@@ 리조트 입니다",
+    review:[]
   },
   {
     id: 3,
@@ -57,7 +59,8 @@ export const accommodations: BerthProduct[] = [
     city: '가평',
     accommodationCategory: ['펜션&풀빌라'],
     facility: ['수영장', '바베큐', '와이파이','에어컨', '욕실용품', '샤워실', '무료주차', '반려견 동반', '객실 내 취사', ],
-      "description": "서울에 위치한 @@@ 리조트 입니다"
+    description: "서울에 위치한 @@@ 리조트 입니다",
+    review:[]
   },
   {
     id: 4,
@@ -72,7 +75,8 @@ export const accommodations: BerthProduct[] = [
     city: '해남',
     accommodationCategory: ['캠핑&글램핑'],
     facility: ['바베큐', '와이파이','에어컨', '욕실용품', '샤워실', '무료주차', '반려견 동반', '객실 내 취사', ],
-      "description": "서울에 위치한 @@@ 리조트 입니다"
+    description: "서울에 위치한 @@@ 리조트 입니다",
+    review:[]
   },
   {
     id: 5,
@@ -87,7 +91,8 @@ export const accommodations: BerthProduct[] = [
     city: '가평',
     accommodationCategory: ['호텔&리조트'],
     facility: ['바베큐', '와이파이','에어컨', '욕실용품', '샤워실', '무료주차', '반려견 동반', '객실 내 취사', ],
-      "description": "서울에 위치한 @@@ 리조트 입니다"
+    description: "서울에 위치한 @@@ 리조트 입니다",
+    review:[]
   },
   {
     id: 6,
@@ -102,7 +107,8 @@ export const accommodations: BerthProduct[] = [
     city: '전주',
     accommodationCategory: ['캠핑&글램핑'],
     facility: ['바베큐', '와이파이','에어컨', '욕실용품', '샤워실', '무료주차', '반려견 동반', '객실 내 취사', ],
-      "description": "서울에 위치한 @@@ 리조트 입니다"
+    description: "서울에 위치한 @@@ 리조트 입니다",
+    review:[]
   },
   {
     id: 7,
@@ -117,7 +123,8 @@ export const accommodations: BerthProduct[] = [
     city: '대구',
     accommodationCategory: ['펜션&풀빌라'],
     facility: ['바베큐', '와이파이','에어컨', '욕실용품', '샤워실', '무료주차', '반려견 동반', '객실 내 취사', ],
-      "description": "서울에 위치한 @@@ 리조트 입니다"
+    description: "서울에 위치한 @@@ 리조트 입니다",
+    review:[]
   },
   {
     id: 8,
@@ -132,7 +139,8 @@ export const accommodations: BerthProduct[] = [
     city: '여수',
     accommodationCategory: ['호텔&리조트'],
     facility: ['바베큐', '와이파이','에어컨', '욕실용품', '샤워실', '무료주차', '반려견 동반', '객실 내 취사', ],
-      "description": "서울에 위치한 @@@ 리조트 입니다"
+    description: "서울에 위치한 @@@ 리조트 입니다",
+    review:[]
   },
   {
     id: 9,
@@ -147,7 +155,8 @@ export const accommodations: BerthProduct[] = [
     city: '서울',
     accommodationCategory: ['펜션&풀빌라'],
     facility: ['바베큐', '와이파이','에어컨', '욕실용품', '샤워실', '무료주차', '반려견 동반', '객실 내 취사', ],
-      "description": "서울에 위치한 @@@ 리조트 입니다"
+    description: "서울에 위치한 @@@ 리조트 입니다",
+    review:[]
   },
   {
     id: 10,
@@ -162,7 +171,13 @@ export const accommodations: BerthProduct[] = [
     city: '해남',
     accommodationCategory: ['호텔&리조트'],
     facility: ['사우나', '수영장','바베큐', '세탁 가능', '스파/월풀', '와이파이', '반려견 동반', '객실 내 취사','에어컨','욕실용품','샤워실','조식포함','무료주차','OTT' ],
-      "description": "서울에 위치한 @@@ 리조트 입니다"
+    description: "서울에 위치한 @@@ 리조트 입니다",
+    review:[{
+      "id": "1",
+      "userId": "dsa",
+      "comment": "굿굿",
+      "date":"2023-08-22"
+    }]
   },
 ]
 

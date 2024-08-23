@@ -1,9 +1,9 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { ContentDiv } from "../../styles/customer/customer";
 import { ModalText } from "../../styles/Sign";
 import { Inquiry, InquiryType } from "../../types/type";
 import Modal, { ModalButton, Overlay } from "../../component/Modal";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useParams } from "react-router-dom";
 import {
   BodyDiv,
   BtnCategory,
@@ -24,13 +24,13 @@ import {
   SelectCategoryDiv,
   TitleDiv,
 } from "../../styles/customer/Inquiry";
-import { useStore } from "zustand";
 import axios from "axios";
 import useAuthStore from "../../stores/useAuthStore";
 import { Error } from "../../styles/myPage/Main";
 import useIdStore from "../../stores/useNexIdStore";
 
 export default function InquiryCRUD() {
+  const { id } = useParams<{ id: string }>();
   const [previews, setPreviews] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -38,29 +38,26 @@ export default function InquiryCRUD() {
   const user = useAuthStore((state) => state.user);
   const isLoggedin = useAuthStore((state) => state.isLoggedIn);
 
-  //! 문의내역 id 전역
-  const { id, incrementId } = useIdStore((state) => ({
-    id: state.id,
+  // 문의내역 id 전역
+  const { nextId, incrementId } = useIdStore((state) => ({
+    nextId: state.nextId,
     incrementId: state.incrementId,
   }));
 
-
+  // 상태 초기화
   const [inquiry, setInquiry] = useState<Inquiry>({
-    id: id,
+    id: nextId.toString(),
     userId: user.id,
     category: "결제",
     title: "",
     content: "",
-    image: undefined,
+    image: [],
   });
 
-  useEffect(() => {
-    setInquiry(prevInquiry => ({
-      ...prevInquiry,
-      id: id,
-    }));
-  }, [id]);
+  const [hasTitleError, setHasTitleError] = useState(false);
+  const [hasBodyError, setHasBodyError] = useState(false);
 
+  // 카테고리 변경 핸들러
   const handleCategory = (e: ChangeEvent<HTMLSelectElement>) => {
     setInquiry((prevInquiry) => ({
       ...prevInquiry,
@@ -69,99 +66,162 @@ export default function InquiryCRUD() {
   };
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const newTitleValue = e.target.value;
     setInquiry((prevInquiry) => ({
       ...prevInquiry,
-      title: e.target.value,
+      title: newTitleValue,
     }));
+
+    setHasTitleError(newTitleValue.trim() === '');
   };
 
+  // 내용 변경 핸들러
   const handleBodyChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const newBodyValue = e.target.value
     setInquiry((prevInquiry) => ({
       ...prevInquiry,
-      content: e.target.value,
+      content: newBodyValue,
     }));
+
+    setHasBodyError(newBodyValue.trim() === '')
   };
 
+  // 이미지 변경 핸들러
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files) {
-        const fileArray = Array.from(files);
-        
-        const readerPromises = fileArray.map((file) => {
-            return new Promise<string>((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onloadend = () => {
-                    resolve(reader.result as string);
-                };
-                reader.onerror = reject;
-                reader.readAsDataURL(file);
-            });
+      const fileArray = Array.from(files);
+
+      const readerPromises = fileArray.map((file) => {
+        return new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            resolve(reader.result as string);
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
         });
+      });
 
-        Promise.all(readerPromises)
-            .then((base64Strings) => {
-                setPreviews((prevPreviews) => prevPreviews.concat(base64Strings));
-                setInquiry((prevInquiry) => ({
-                    ...prevInquiry,
-                    image: (prevInquiry.image || []).concat(base64Strings),
-                }));
-            })
-            .catch((error) => {
-                console.error("Error reading files:", error);
-            });
+      Promise.all(readerPromises)
+        .then((base64Strings) => {
+          setPreviews((prevPreviews) => prevPreviews.concat(base64Strings));
+          setInquiry((prevInquiry) => ({
+            ...prevInquiry,
+            image: (prevInquiry.image || []).concat(base64Strings),
+          }));
+        })
+        .catch((error) => {
+          console.error("Error reading files:", error);
+        });
     }
-};
-  
+  };
 
+  // 이미지 제거 핸들러
   const handleImageRemove = (index: number) => {
     setPreviews((prevPreviews) => prevPreviews.filter((_, i) => i !== index));
   };
 
+  // 초기화 핸들러
   const handleReset = () => {
     setInquiry({
-      id: id,
+      id: nextId.toString(),
       userId: user.id,
       category: "결제",
       title: "",
       content: "",
-      image: undefined,
+      image: [],
     });
     setPreviews([]);
   };
 
+
+  // 문의내역 로드
+  useEffect(() => {
+    if (id) {
+      const fetchInquiry = async () => {
+        try {
+          const response = await axios.get(`http://localhost:3001/Inquiries/${id}`);
+          setInquiry(response.data);
+          setPreviews(response.data.image || []);
+        } catch (error) {
+          console.error("Error fetching inquiry:", error);
+        }
+      };
+
+      fetchInquiry();
+    }
+  }, [id]);
+
+  // 수정 핸들러
+  const handleUpdate = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    let valid = true;
+
+    if (!inquiry.title) {
+      setHasTitleError(true);
+      valid = false;
+    }
+    if (!inquiry.content) {
+      setHasBodyError(true);
+      valid = false;
+    }
+  
+    if (!isLoggedin) {
+      console.error("로그인 상태가 아닙니다.");
+      valid = false;
+    }
+
+    if(valid) {
+      try {
+        await axios.put<Inquiry>(`http://localhost:3001/Inquiries/${id}`, inquiry);
+        setIsModalOpen(true);
+      } catch (error) {
+        console.error("업데이트 도중 에러가 발생했습니다:");
+      }
+    }
+  };
+
+  // 제출 핸들러
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     let valid = true;
 
-    if (!inquiry.category) {
+    if (!inquiry.title) {
+      setHasTitleError(true);
       valid = false;
-    } else if (!inquiry.title) {
-      valid = false;
-    } else if (!inquiry.content) {
+    }
+    if (!inquiry.content) {
+      setHasBodyError(true);
       valid = false;
     }
 
     if (valid) {
-      console.log(inquiry);
       try {
-        await axios.post("http://localhost:3001/inquiry", inquiry);
+        await axios.post("http://localhost:3001/Inquiries", inquiry);
         setIsModalOpen(true);
         incrementId();
         setInquiry({
-          id: id + 1,
+          id: (nextId + 1).toString(),
           userId: user.id,
           category: "결제",
           title: "",
           content: "",
-          image: undefined,
+          image: [],
         });
         setPreviews([]);
       } catch (error) {
         console.error("Error submitting inquiry:", error);
       }
+    } else {
+      console.log("Validation failed", inquiry); 
     }
   };
+
+  const location = useLocation();
+  const isEditMode = location.pathname.includes("edit");
 
   return (
     <>
@@ -176,7 +236,7 @@ export default function InquiryCRUD() {
             </NavLink>
           </BtnCategory>
           <FormDiv>
-            <form action="">
+            <form>
               <SelectCategoryDiv>
                 <InquiryTitle>
                   <InquiryTitleName>문의 유형</InquiryTitleName>
@@ -199,6 +259,7 @@ export default function InquiryCRUD() {
                     value={inquiry.title}
                     required
                     onChange={handleTitleChange}
+                    hasError={hasTitleError}
                   />
                 </InputBox>
               </TitleDiv>
@@ -211,6 +272,7 @@ export default function InquiryCRUD() {
                     placeholder="내용"
                     value={inquiry.content}
                     onChange={handleBodyChange}
+                    hasError={hasBodyError}
                     required
                   />
                 </InputBox>
@@ -242,10 +304,17 @@ export default function InquiryCRUD() {
                 </InputBox>
               </ImageFile>
               <ButtonBox>
-                <Button style={{ marginRight: "15px" }} onClick={handleSubmit}>
+                {isEditMode ? (
+                  <Button style={{ marginRight: "15px" }}onClick={handleUpdate}>
+                    저장
+                  </Button>
+                ):(
+                  <Button style={{ marginRight: "15px" }} onClick={handleSubmit}>
                   저장
                 </Button>
-                <Button onClick={handleReset}>초기화</Button>
+                )}
+                
+                <Button type="button" onClick={handleReset}>초기화</Button>
               </ButtonBox>
             </form>
           </FormDiv>
