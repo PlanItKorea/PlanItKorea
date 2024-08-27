@@ -230,6 +230,10 @@ export default function Search() {
       setIsOpen(open);
     };
 
+    useEffect(() => {
+
+    },[city])
+
 
 
     const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import HomeImg from "./HomeImg";
 import jeju from "../../assets/images/1/jeju.jpg";
 import gapyeng from "../../assets/images/1/gapyeong.jpg";
@@ -6,13 +6,35 @@ import busan from "../../assets/images/1/busan.jpg";
 import gyengju from "../../assets/images/1/gyengju.jpg";
 import seoul from "../../assets/images/1/seoul.jpg";
 import { City, CityImg, CityName, CityWarp, GroupLabel, GroupLine, HomeBox, MostTicket, MostTicketBox, MostUsed, MostUsedBox, PopularCityBox, PriceDiv, ProductCity, ProductDetail, ProductImg, ProductName } from "../../styles/home/Home";
-import { accommodations, tickets } from "../../mocks";
+import { tickets } from "../../mocks";
+import { BerthProduct } from "../../types/type";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 
 export default function Home() {
-  const mainBerthProduct = accommodations.slice(0, 4);
+  const [products, setProducts] = useState<BerthProduct[]>([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/BerthProduct');
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  const mainBerthProduct = products.slice(0, 4);
   const mainTicketProduct = tickets.slice(0, 4);
+
+  const handleProductClick = (id: number) => {
+    navigate(`/detailProduct/${id}`);
+  };
 
 
   return (
@@ -50,16 +72,16 @@ export default function Home() {
           <GroupLabel>인기 숙소</GroupLabel>
         </GroupLine>
         <MostUsedBox>
-        {mainBerthProduct.map(accommodations => (
-          <MostUsed key={accommodations.id}>
-            <ProductImg src={accommodations.img[0]}/>
+        {mainBerthProduct.map(product => (
+          <MostUsed key={product.id} onClick={() => handleProductClick(product.id)}>
+            <ProductImg src={product.img[0]}/>
             <ProductDetail>
               <CityWarp>
-            <ProductCity>{accommodations.city} - </ProductCity>
-            <ProductCity>{accommodations.accommodationCategory}</ProductCity>
+            <ProductCity>{product.city} - </ProductCity>
+            <ProductCity>{product.accommodationCategory}</ProductCity>
               </CityWarp>
-            <ProductName>{accommodations.name}</ProductName>
-            <PriceDiv>{accommodations.price} 원</PriceDiv>
+            <ProductName>{product.name}</ProductName>
+            <PriceDiv>{product.price} 원</PriceDiv>
             </ProductDetail>
           </MostUsed>
         ))}

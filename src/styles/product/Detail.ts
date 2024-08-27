@@ -363,13 +363,18 @@ export const ReviewButton = styled.button`
   }
 `;
 
-export const ReviewContentInput = styled.textarea`
+export const ReviewContentInput = styled.textarea<{ isReadonly: boolean }>`
   padding: 10px;
   background-color: #eee;
   width: 100%;
   height: 100%;
   border-radius: 10px;
   resize: none;
+  cursor: ${(props) => (props.isReadonly ? 'not-allowed' : 'text')};
+  &:focus {
+    outline: none; 
+    border-color: ${(props) => (props.isReadonly ? '#ccc' : '#007bff')}; 
+  }
 `;
 
 export const PageDiv = styled.div`

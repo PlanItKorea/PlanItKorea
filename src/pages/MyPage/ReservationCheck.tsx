@@ -44,7 +44,7 @@ const mockReservation: Reservation[] = [
     startDate: "08-07",
     endDate: "08-10",
     person: 3,
-    img: hotel1,
+    img: [hotel1],
   },
   {
     id: 'dkssud12',
@@ -55,7 +55,7 @@ const mockReservation: Reservation[] = [
     startDate: "08-10",
     endDate: "08-15",
     person: 3,
-    img: hotel3,
+    img: [hotel3]
   },
   {
     id: 'dkssud12',
@@ -66,7 +66,7 @@ const mockReservation: Reservation[] = [
     startDate: "08-14",
     endDate: "08-19",
     person: 2,
-    img: hotel4,
+    img: [hotel4],
   },
 ];
 
@@ -99,7 +99,7 @@ export default function ReservationCheck() {
               <ReservationMainInner>
                 <ReserVationProductDiv>
                   <ReserVationProductImgDiv>
-                    <ProductImage src={item.img} />
+                  <ProductImage src={Array.isArray(item.img) ? item.img[0] : item.img || ''} />
                   </ReserVationProductImgDiv>
                 </ReserVationProductDiv>
                 <ReserVationDetail>

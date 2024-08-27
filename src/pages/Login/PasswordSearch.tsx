@@ -17,6 +17,8 @@ import {
 import { Logo, LogoDIv, LogoName } from "../../styles/logo";
 import Modal from "../../component/Modal";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
+import { User } from "../../types/type";
 
 export default function PasswordSearch() {
   const [id, setId] = useState<string>("");
@@ -79,7 +81,7 @@ export default function PasswordSearch() {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     let valid = true;
 
     if (!id) {
@@ -116,16 +118,37 @@ export default function PasswordSearch() {
       valid = false;
     }
     if (valid) {
-      setIsModalOpen(true);
+      try {
+        //! 비밀번호찾기  데이터
+        const searchPassword = {
+          id,
+          phoneNumber,
+        };
 
-      //! 비밀번호찾기  데이터
-      const searchPassword = {
-        id,
-        phoneNumber,
-        newPassword,
-        newPasswordConfirm,
-      };
-      console.log(searchPassword);
+        const response = await axios.get(`http://localhost:3001/users`, {
+          params: searchPassword,
+        });
+
+        const matchedData = response.data.find(
+          (user: User) => user.id === id && user.phoneNumber === phoneNumber
+        );
+
+        if (matchedData) {
+          const updateUserData = {
+            ...matchedData,
+            password: newPassword,
+          };
+
+          await axios.put(
+            `http://localhost:3001/users/${matchedData.id}`,
+            updateUserData
+          );
+        }
+
+        setIsModalOpen(true);
+      } catch (error) {
+        console.error("사용자호출 실패", error);
+      }
     }
   };
 
