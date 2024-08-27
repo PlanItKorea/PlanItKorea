@@ -19,6 +19,7 @@ import theme from "../../styles/theme";
 import { NavLink, useNavigate } from "react-router-dom";
 import Modal, { ModalButton, Overlay } from "../../component/Modal";
 import useAuthStore from "../../stores/useAuthStore";
+import axios from "axios";
 
 export const Button = styled.button`
   border: none;
@@ -128,7 +129,7 @@ export default function SignUp() {
     }
   };
 
-  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async(event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     let valid = true;
@@ -190,9 +191,6 @@ export default function SignUp() {
     }
 
     if (valid) {
-      setIsModalOpen(true);
-
-      //! 회원가입 정보!!!
       const signUpData = {
         id,
         password,
@@ -201,7 +199,15 @@ export default function SignUp() {
         phoneNumber,
       };
 
-      console.log(signUpData);
+      try {
+        await axios.post("http://localhost:3001/users", signUpData)
+        setIsModalOpen(true);
+      }catch(error) {
+        console.error('회원정보 저장 실패',error);
+      }
+      //! 회원가입 정보!!!
+      
+
     } else {
       return;
     }

@@ -11,9 +11,7 @@ export interface User {
 
 //! 예약할때 타입
 export interface Reservation {
-  // 유저에서 가지고 올 데이터
   id: string;
-  // 숙소상품에서 가지고 올 데이터
   productId: number; // 숙소 고유id
   productName: string; // 숙소 이름
   price: string; // 가격
@@ -21,7 +19,7 @@ export interface Reservation {
   startDate: string; //날짜
   endDate: string; //날짜
   person: number; // 인원
-  img: string; // 숙소이미지
+  img: string[]; // 숙소이미지
 }
 
 // 예약 확인
@@ -94,6 +92,7 @@ export type Ticket = "관광" | "테마파크" | "레저스포츠" | "전시&공
 //! 리뷰 타입
 export interface Review {
   id: string;
+  productId: string;
   userId: string;
   comment: string;
   date: string;
@@ -114,7 +113,6 @@ export interface BerthProduct {
   //? 편의시설 카테고리
   facility: Facilities[];
   description: string;
-  review: Review[]
 }
 
 export interface Point {

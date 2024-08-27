@@ -16,6 +16,8 @@ import {
 import { Logo, LogoDIv, LogoName } from "../../styles/logo";
 import Modal from "../../component/Modal";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
+import { User } from "../../types/type";
 
 export default function IdSearch() {
   const [name, setName] = useState<string>("");
@@ -23,6 +25,8 @@ export default function IdSearch() {
 
   const [nameError, setNameError] = useState<string>("");
   const [phoneNumberError, setPhoneNumberError] = useState<string>("");
+
+  const [userData, setUserData] = useState<User>();
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -50,7 +54,7 @@ export default function IdSearch() {
     }
   };
 
-  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async(event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     let valid = true;
@@ -76,15 +80,25 @@ export default function IdSearch() {
       }
     }
     if (valid) {
-      setIsModalOpen(true);
-
       //! 아이디찾기 정보!!!
       const idSearchData = {
         name,
         phoneNumber,
       };
+      try {
+        const response = await axios.get(`http://localhost:3001/users`, {params: idSearchData})
 
-      console.log(idSearchData);
+        const matchedData = response.data.find((user:User) =>
+        user.name === name && user.phoneNumber === phoneNumber)
+
+        if(matchedData) {
+          setUserData(matchedData)
+          console.log(userData);
+          setIsModalOpen(true);
+        }
+      }catch(error) {
+        console.error('데이터 호출 실패',error);
+      }
     }
   };
   return (
@@ -134,7 +148,7 @@ export default function IdSearch() {
         <>
           <Overlay />
           <Modal isOpen={isModalOpen}>
-            <ModalText>아이디 확인</ModalText>
+            <ModalText>아이디 확인: {userData?.id}</ModalText>
             <NavLink to="/signIn">
               <ModalButton onClick={() => setIsModalOpen(false)}>
                 확인

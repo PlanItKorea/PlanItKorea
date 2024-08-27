@@ -21,6 +21,7 @@ import ReservationCheck from "./pages/MyPage/ReservationCheck";
 import WishList from "./pages/MyPage/WishList";
 import AllProductPage from "./pages/Product/AllProductPage";
 import DetailProduct from "./pages/Product/DetailProduct"
+import PaymentPage from "./pages/Product/PaymentPage";
 
 const AppContainer = styled.div`
   display: flex;
@@ -43,6 +44,7 @@ function App() {
     "/inquiryCRUD",
     "/frequentlyQuestion",
     "/inquiryHistory",
+    "/paymentPage"
   ];
   const showSearch = !noSearchBar.includes(location.pathname);
 
@@ -83,7 +85,9 @@ function App() {
             <Route path="/wishList" element={<WishList />} />
 
             <Route path="/allProductPage" element={<AllProductPage />} />
+            <Route path="/paymentPage" element={<PaymentPage />} />
             <Route path="/detailProduct/:productId" element={<DetailProduct />} />
+            <Route path="/allProductPage/:category" element={<AllProductPage />} />
           </Routes>
         </MainContent>
 

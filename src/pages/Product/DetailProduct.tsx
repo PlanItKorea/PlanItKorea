@@ -1,7 +1,7 @@
-import React, { ChangeEvent, useEffect,  useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { BerthProduct, Review } from "../../types/type";
+import { BerthProduct, Reservation, Review } from "../../types/type";
 import {
   Address,
   AllDiv,
@@ -62,79 +62,98 @@ import useIdStore from "../../stores/useNexIdStore";
 
 export default function DetailProduct() {
   //! 전역 상태 받아오기
-  const { searchData } = useSearchStore(state => ({
-    searchData: state.searchData
+  const { searchData } = useSearchStore((state) => ({
+    searchData: state.searchData,
   }));
   const user = useAuthStore((state) => state.user);
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
   const { nextId, incrementId } = useIdStore((state) => ({
     nextId: state.nextId,
     incrementId: state.incrementId,
   }));
 
+  const navigate = useNavigate();
 
   const { productId } = useParams<string>();
   const [product, setProduct] = useState<BerthProduct | null>(null);
+  const [renderReview, setRenderReview] = useState<Review[]>([]);
 
-  const [startDate, setStartDate] = useState<Date | undefined>(searchData.startDay);
+  const [startDate, setStartDate] = useState<Date | undefined>(
+    searchData.startDay
+  );
   const [endDate, setEndDate] = useState<Date | undefined>(searchData.endDay);
 
-  const [person, setPerson] = useState<number | undefined>(searchData.personCount);
+  const [person, setPerson] = useState<number | undefined>(
+    searchData.personCount
+  );
 
   const [comment, setComment] = useState<string>("");
-  const [reviewDate, setReviewDate] = useState('');
+  const [reviewDate, setReviewDate] = useState("");
 
-useEffect(() => {
-  const reviewDay = new Date();
-  const formattedDate = format(reviewDay, 'yyyy-MM-dd');
-  setReviewDate(formattedDate);
-}, []);
+  useEffect(() => {
+    const reviewDay = new Date();
+    const formattedDate = format(reviewDay, "yyyy-MM-dd");
+    setReviewDate(formattedDate);
+  }, []);
 
-  const [review, setReview] = useState<Review>({
-    id: nextId.toString(),
-    userId: user.id,
-    comment: comment,
-    date: reviewDate
-  });
-
-  const handleCommentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleCommentChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     setComment(event.target.value);
   };
 
-  const handleReviewSave = async () => {
-    console.log(review);
+  const fetchReviews = async () => {
     try {
-      await axios.post("http://localhost:3001/BerthProduct/review", review);
+      const reviewResponse = await axios.get("http://localhost:3001/reviews", {
+        params: { productId },
+      });
 
-      incrementId();
-      setReview({
-      id: (nextId + 1).toString(),
-      userId: user.id,
-      comment: comment,
-      date: reviewDate
-      })
+      const sortedReviews = reviewResponse.data.sort((a: Review, b: Review) => {
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
+      });
+      console.log("Sorted Reviews:", sortedReviews);
+      setRenderReview(sortedReviews);
     } catch (error) {
-      console.error("데이터 저장 실패", error);
-      alert("리뷰 저장 도중 오류발생.");
+      console.error("리뷰 호출 에러", error);
     }
   };
 
-  const [currentPage, setCurrentPage] = React.useState<number>(0);
-  const ITEMS_PER_PAGE = 5;
-  const indexOfLastItem = (currentPage + 1) * ITEMS_PER_PAGE;
-  const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
-  const currentItems = product?.review.slice(indexOfFirstItem, indexOfLastItem);
+  const handleReviewSave = async () => {
+    let valid = true;
 
-  const handlePageChange = (event: { selected: number }) => {
-    setCurrentPage(event.selected);
+    if (!comment) {
+      alert("내용을 입력해주세요");
+      valid = false;
+    }
+    
+
+    if (valid) {
+      const updatedReview = {
+        id: nextId.toString(),
+        productId: product?.id ? product.id.toString() : "",
+        userId: user.id,
+        comment: comment,
+        date: reviewDate,
+      };
+
+      try {
+        await axios.post(`http://localhost:3001/reviews`, updatedReview);
+        incrementId();
+        setComment("");
+
+        fetchReviews();
+      } catch (error) {
+        console.error("데이터 저장 실패", error);
+        alert("리뷰 저장 도중 오류발생.");
+      }
+    }
   };
 
-  
-
   const personValue = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(e.target.value, 10)
-    setPerson(value)
-  }
+    const value = parseInt(e.target.value, 10);
+    setPerson(value);
+  };
   const today = new Date();
 
   const calculateDays = (start: Date | undefined, end: Date | undefined) => {
@@ -146,23 +165,20 @@ useEffect(() => {
 
   const days = calculateDays(startDate, endDate);
 
-  const fetchProduct = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:3001/BerthProduct/${productId}`
-      );
-      setProduct(response.data);
-    } catch (error) {
-      console.error("Error");
-    }
-  };
-
-
-    // const reviewDay = new Date();
-    // const formattedDate = format(reviewDay, 'yyyy-MM-dd');
-
   useEffect(() => {
-    fetchProduct();
+    const fetchData = async () => {
+      try {
+        
+        const productResponse = await axios.get(
+          `http://localhost:3001/BerthProduct/${productId}`
+        );
+        setProduct(productResponse.data);
+      } catch (error) {
+        console.error("상품 호출에러");
+      }
+    };
+    fetchData();
+    fetchReviews();
   }, [productId]);
 
   function strToNum(str: string | undefined): number {
@@ -175,7 +191,7 @@ useEffect(() => {
   const totalPrice = numberPrice * days;
 
   function numPriceToStr(num: number): string {
-    return num.toLocaleString("ko-KR")
+    return num.toLocaleString("ko-KR");
   }
 
   const strPrice = numPriceToStr(totalPrice);
@@ -185,214 +201,264 @@ useEffect(() => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  
+  const [currentPage, setCurrentPage] = React.useState<number>(0);
+  const ITEMS_PER_PAGE = 5;
+  const indexOfLastItem = (currentPage + 1) * ITEMS_PER_PAGE;
+  const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
+  const currentItems = renderReview.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handlePageChange = (e: { selected: number }) => {
+    setCurrentPage(e.selected);
+  };
+
+  const reservationSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    if (!isLoggedIn) {
+      alert("로그인 후 예약이 가능합니다.");
+      return;
+    }
+
+    const reservationInfo: Reservation = {
+      id: user.id,
+      productId:
+        typeof product?.id === "number"
+          ? product.id
+          : parseInt(product?.id || "0", 10),
+      productName: product?.name ? product.name : "",
+      img: product
+        ? Array.isArray(product.img)
+          ? product.img
+          : [product.img || ""]
+        : [""],
+      reservationNumber: nextId,
+      startDate: startDate ? startDate.toISOString() : "",
+      endDate: endDate ? endDate.toISOString() : "",
+      person: person ?? 0,
+      price: product?.price ?? ""
+    };
+    navigate('/paymentPage', { state: { reservationInfo } });
+    console.log(reservationInfo);
+  };
+
   return (
     <>
-    <AllDiv>
-      <HeaderDiv>
-        <ProductNameDiv>
-          <ProductName>{product?.name}</ProductName>
-        </ProductNameDiv>
-        <ProductImgDiv onClick={openModal}>
-          <LeftImgDiv>
-            <Image src={product?.img[0]} />
-          </LeftImgDiv>
-          <RightImgDiv >
-            <RightInnerImgDiv>
-              <Image src={product?.img[1]} />
-            </RightInnerImgDiv>
-            <RightInnerImgDiv>
-              <Image src={product?.img[2]} />
-            </RightInnerImgDiv>
-            <RightInnerImgDiv>
-              <Image src={product?.img[3]} />
-            </RightInnerImgDiv>
-            <RightInnerImgDiv>
-              <Image src={product?.img[4]} />
-              <ImgButton onClick={openModal}>사진 모두보기</ImgButton>
-            </RightInnerImgDiv>
-          </RightImgDiv>
-        </ProductImgDiv>
-      </HeaderDiv>
-      <MainDiv>
-        <Detail>
-          <ProductName>
-            <MapIcon sx={{ marginRight: "10px" }} />
-            {product?.city} - {product?.accommodationCategory}
-          </ProductName>
-          <Address>{product?.address}</Address>
-          <MapDiv>
-        {product?.point &&(
-        <NaverMap point={product?.point}></NaverMap>
-        )}
-      </MapDiv>
-          <GroupName>숙소 시설</GroupName>
-          <FacilityDiv>
-            {product?.facility.map((item, index) => (
-              <FacilityItem key={index}>{item}</FacilityItem>
-            ))}
-          </FacilityDiv>
-          <DescriptionDiv>
-          
-            <GroupName>숙소 이용 정보</GroupName>
-            <DescriptionItem>{product?.description}</DescriptionItem>
-          </DescriptionDiv>
-          
-        </Detail>
-        
-        <ReservationBarDiv>
-          <ReservationBar>
+      <AllDiv>
+        <HeaderDiv>
+          <ProductNameDiv>
             <ProductName>{product?.name}</ProductName>
-            <div
-              style={{
-                zIndex: 10,
-                width: "100%",
-              }}
-            >
+          </ProductNameDiv>
+          <ProductImgDiv onClick={openModal}>
+            <LeftImgDiv>
+              <Image src={product?.img[0]} />
+            </LeftImgDiv>
+            <RightImgDiv>
+              <RightInnerImgDiv>
+                <Image src={product?.img[1]} />
+              </RightInnerImgDiv>
+              <RightInnerImgDiv>
+                <Image src={product?.img[2]} />
+              </RightInnerImgDiv>
+              <RightInnerImgDiv>
+                <Image src={product?.img[3]} />
+              </RightInnerImgDiv>
+              <RightInnerImgDiv>
+                <Image src={product?.img[4]} />
+                <ImgButton onClick={openModal}>사진 모두보기</ImgButton>
+              </RightInnerImgDiv>
+            </RightImgDiv>
+          </ProductImgDiv>
+        </HeaderDiv>
+        <MainDiv>
+          <Detail>
+            <ProductName>
+              <MapIcon sx={{ marginRight: "10px" }} />
+              {product?.city} - {product?.accommodationCategory}
+            </ProductName>
+            <Address>{product?.address}</Address>
+            <MapDiv>
+              {product?.point && <NaverMap point={product?.point}></NaverMap>}
+            </MapDiv>
+            <GroupName>숙소 시설</GroupName>
+            <FacilityDiv>
+              {product?.facility.map((item, index) => (
+                <FacilityItem key={index}>{item}</FacilityItem>
+              ))}
+            </FacilityDiv>
+            <DescriptionDiv>
+              <GroupName>숙소 이용 정보</GroupName>
+              <DescriptionItem>{product?.description}</DescriptionItem>
+            </DescriptionDiv>
+          </Detail>
+
+          <ReservationBarDiv>
+            <ReservationBar>
+              <ProductName>{product?.name}</ProductName>
               <div
-                className="box-border p-4 border border-cyan-200 rounded-lg flex items-center space-x-2"
-                style={{ border: "none" }}
+                style={{
+                  zIndex: 10,
+                  width: "100%",
+                }}
               >
-                <div className="relative flex-1">
-                  <DatePicker
-                    selected={startDate}
-                    onChange={(date: Date | null) =>
-                      setStartDate(date ?? undefined)
-                    }
-                    selectsStart
-                    startDate={startDate}
-                    endDate={endDate}
-                    className="w-full p-2 border border-cyan-400 rounded-l-lg"
-                    placeholderText="Start Date"
-                    isClearable={false}
-                    minDate={today}
-                  />
-                </div>
-                <div className="relative flex-1">
-                  <DatePicker
-                    selected={endDate}
-                    onChange={(date: Date | null) =>
-                      setEndDate(date ?? undefined)
-                    }
-                    selectsEnd
-                    startDate={startDate}
-                    endDate={endDate}
-                    minDate={startDate || today}
-                    className="w-full p-2 border border-cyan-400 rounded-r-lg"
-                    placeholderText="End Date"
-                    isClearable={false}
-                  />
+                <div
+                  className="box-border p-4 border border-cyan-200 rounded-lg flex items-center space-x-2"
+                  style={{ border: "none" }}
+                >
+                  <div className="relative flex-1">
+                    <DatePicker
+                      selected={startDate}
+                      onChange={(date: Date | null) =>
+                        setStartDate(date ?? undefined)
+                      }
+                      selectsStart
+                      startDate={startDate}
+                      endDate={endDate}
+                      className="w-full p-2 border border-cyan-400 rounded-l-lg"
+                      placeholderText="Start Date"
+                      isClearable={false}
+                      minDate={today}
+                    />
+                  </div>
+                  <div className="relative flex-1">
+                    <DatePicker
+                      selected={endDate}
+                      onChange={(date: Date | null) =>
+                        setEndDate(date ?? undefined)
+                      }
+                      selectsEnd
+                      startDate={startDate}
+                      endDate={endDate}
+                      minDate={startDate || today}
+                      className="w-full p-2 border border-cyan-400 rounded-r-lg"
+                      placeholderText="End Date"
+                      isClearable={false}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* 인원 수 */}
-            <PersonDiv>
-              <PersonInput type="number" value={person} placeholder="인원 수" onChange={personValue} min={1}></PersonInput>
-            </PersonDiv>
-            <PriceBar>
-              <FontAwesomeIcon style={{ margin: "0 5px" }} icon={faWonSign} />
-              {product?.price}
-            </PriceBar>
-            <PersonBar>
-              <FontAwesomeIcon
-                icon={faCalendar}
-                style={{ margin: "0 7px 0 6px" }}
+              {/* 인원 수 */}
+              <PersonDiv>
+                <PersonInput
+                  type="number"
+                  value={person}
+                  placeholder="인원 수"
+                  onChange={personValue}
+                  min={1}
+                ></PersonInput>
+              </PersonDiv>
+              <PriceBar>
+                <FontAwesomeIcon style={{ margin: "0 5px" }} icon={faWonSign} />
+                {product?.price}
+              </PriceBar>
+              <PersonBar>
+                <FontAwesomeIcon
+                  icon={faCalendar}
+                  style={{ margin: "0 7px 0 6px" }}
+                />
+                {days} 박
+              </PersonBar>
+              <GroupLine style={{ marginBottom: "5px" }} />
+              <PriceBar>
+                <div>총 합계</div>
+                <div>
+                  <FontAwesomeIcon
+                    style={{ margin: "0 5px" }}
+                    icon={faWonSign}
+                  />
+                  {strPrice}
+                </div>
+              </PriceBar>
+              <Button style={{ width: "90%" }} onClick={reservationSubmit}>
+                예약 하기
+              </Button>
+            </ReservationBar>
+          </ReservationBarDiv>
+        </MainDiv>
+
+        <ReviewDiv>
+          <GroupName style={{ margin: "0" }}>리뷰</GroupName>
+
+          <MapReviewDiv>
+            {currentItems && currentItems.length > 0 ? (
+              currentItems.map((item) => (
+                <MapReviewInnerDiv key={item.id}>
+                  <ReviewInfo>
+                    <UserIdInfo>{item.userId}</UserIdInfo>
+                    <ReviewDate>작성일 - {item.date}</ReviewDate>
+                  </ReviewInfo>
+                  <ReviewContentDiv>
+                    <ReviewContent>{item.comment}</ReviewContent>
+                  </ReviewContentDiv>
+                </MapReviewInnerDiv>
+              ))
+            ) : (
+              <MapReviewInnerDiv>작성된 리뷰가 없습니다.</MapReviewInnerDiv>
+            )}
+
+            <PageDiv>
+              <ReactPaginate
+                previousLabel={"<"}
+                nextLabel={">"}
+                breakLabel={"..."}
+                pageCount={Math.ceil(
+                  (renderReview.length || 0) / ITEMS_PER_PAGE
+                )}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageChange}
+                containerClassName={"pagination"}
+                pageClassName={"page-item"}
+                pageLinkClassName={"page-link"}
+                previousClassName={"page-item"}
+                previousLinkClassName={"page-link"}
+                nextClassName={"page-item"}
+                nextLinkClassName={"page-link"}
+                breakClassName={"page-item"}
+                breakLinkClassName={"page-link"}
+                activeClassName={"active"}
               />
-              {days} 박
-            </PersonBar>
-            <GroupLine style={{marginBottom:'5px'}}/>
-            <PriceBar>
-            <div>
-              총 합계
-            </div>
-            <div>
-              <FontAwesomeIcon style={{ margin: "0 5px" }} icon={faWonSign} />
-              {strPrice}
-            </div>
-            </PriceBar>
-            <Button style={{width:"90%"}}>예약 하기</Button>
-          </ReservationBar>
-        </ReservationBarDiv>
-      </MainDiv>
-
-      <ReviewDiv>
-        <GroupName style={{margin:"0"}}>리뷰</GroupName>
-
+            </PageDiv>
+          </MapReviewDiv>
+        </ReviewDiv>
+        <GroupName style={{ margin: "0" }}>리뷰 작성</GroupName>
         <MapReviewDiv>
-        {currentItems && currentItems.length > 0 ? (
-    currentItems.map((item) => (
-      <MapReviewInnerDiv key={item.id}>
-        <ReviewInfo>
-          <UserIdInfo>{item.userId}</UserIdInfo>
-          <ReviewDate>작성일 - {item.date}</ReviewDate>
-        </ReviewInfo>
-        <ReviewContentDiv>
-          <ReviewContent>
-            {item.comment}
-          </ReviewContent>
-        </ReviewContentDiv>
-      </MapReviewInnerDiv>
-    ))
-  ) : (
-    <MapReviewInnerDiv>작성된 리뷰가 없습니다.</MapReviewInnerDiv>
-  )}
-
-<PageDiv>
-        <ReactPaginate
-          previousLabel={"<"}
-          nextLabel={">"}
-          breakLabel={"..."}
-          pageCount={Math.ceil((product?.review?.length || 0) / ITEMS_PER_PAGE)}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={handlePageChange}
-          containerClassName={"pagination"}
-          pageClassName={"page-item"}
-          pageLinkClassName={"page-link"}
-          previousClassName={"page-item"}
-          previousLinkClassName={"page-link"}
-          nextClassName={"page-item"}
-          nextLinkClassName={"page-link"}
-          breakClassName={"page-item"}
-          breakLinkClassName={"page-link"}
-          activeClassName={"active"}
-        />
-      </PageDiv>
+          <MapReviewInnerDiv>
+            <ReviewInfo>
+              <UserIdInfo>{user.id}</UserIdInfo>
+              <ReviewDate>작성일 - {reviewDate}</ReviewDate>
+            </ReviewInfo>
+            <ReviewContentDiv>
+              <ReviewContentInput
+                value={comment}
+                readOnly={!isLoggedIn}
+                isReadonly={!isLoggedIn}
+                onChange={handleCommentChange}
+                placeholder={
+                  isLoggedIn ? "내용을 입력해주세요." : "로그인이 필요합니다."
+                }
+              ></ReviewContentInput>
+              {isLoggedIn &&
+              <ReviewButton onClick={handleReviewSave}>전송</ReviewButton>
+              }
+            </ReviewContentDiv>
+          </MapReviewInnerDiv>
         </MapReviewDiv>
-      </ReviewDiv>
-      <GroupName style={{margin:"0"}}>리뷰 작성</GroupName>
-      <MapReviewDiv>
-            <MapReviewInnerDiv>
-              <ReviewInfo>
-                <UserIdInfo>{user.id}</UserIdInfo>
-                <ReviewDate>작성일 - {reviewDate}</ReviewDate>
-              </ReviewInfo>
-                <ReviewContentDiv>
-                  <ReviewContentInput onChange={handleCommentChange}>
-                  </ReviewContentInput>
-                    <ReviewButton onClick={handleReviewSave}>전송</ReviewButton>
-                </ReviewContentDiv>
-            </MapReviewInnerDiv>
-        </MapReviewDiv>
-    </AllDiv>
+      </AllDiv>
 
-
-
-    {isModalOpen && (
+      {isModalOpen && (
         <>
-            <ModalOverlay >
+          <ModalOverlay>
             <ModalDiv>
-                <ModalHeader>
+              <ModalHeader>
                 <CloseBtn onClick={closeModal}>X</CloseBtn>
-                </ModalHeader>
-                
-                <ImageSlider images={product?.img}></ImageSlider>
-                </ModalDiv>
-            </ModalOverlay>
+              </ModalHeader>
+
+              <ImageSlider images={product?.img}></ImageSlider>
+            </ModalDiv>
+          </ModalOverlay>
         </>
       )}
     </>
-    
   );
 }

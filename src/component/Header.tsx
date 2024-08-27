@@ -29,8 +29,6 @@ export default function Header() {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   const logout = useAuthStore((state) => state.logout);
 
-  
-
   const modalRef = useRef<HTMLDivElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -109,9 +107,9 @@ export default function Header() {
 
                 <GroupLine />
                 <MenuGroup>국내 숙소</MenuGroup>
-                <MenuList onClick={() => navigate("/allProductPage")}>호텔 & 리조트</MenuList>
-                <MenuList onClick={() => navigate("/allProductPage")}>펜션 & 풀빌라</MenuList>
-                <MenuList onClick={() => navigate("/allProductPage")}>캠핑 & 글램핑</MenuList>
+                <MenuList>호텔 & 리조트</MenuList>
+                <MenuList>펜션 & 풀빌라</MenuList>
+                <MenuList>캠핑 & 글램핑</MenuList>
                 <GroupLine />
                 <MenuGroup>레저 & 티켓</MenuGroup>
                 <MenuList>관광</MenuList>

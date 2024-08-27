@@ -8,6 +8,7 @@ interface IdStore {
 const useIdStore = create<IdStore>(set => ({
   nextId: 0,
   incrementId: () => set(state => ({ nextId: state.nextId + 1 })),
+  
 }));
 
 export default useIdStore;
