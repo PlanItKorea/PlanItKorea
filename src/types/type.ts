@@ -65,7 +65,8 @@ export type Location =
   | "여수"
   | "전주"
   | "해남"
-  | "대구";
+  | "대구"
+  | null;
 
 //! 숙소 타입
 export type Accommodation = "호텔&리조트" | "펜션&풀빌라" | "캠핑&글램핑";

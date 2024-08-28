@@ -87,7 +87,7 @@ function App() {
             <Route path="/allProductPage" element={<AllProductPage />} />
             <Route path="/paymentPage" element={<PaymentPage />} />
             <Route path="/detailProduct/:productId" element={<DetailProduct />} />
-            <Route path="/allProductPage/:category" element={<AllProductPage />} />
+            <Route path="/allProductPage/:category?" element={<AllProductPage />} />
           </Routes>
         </MainContent>
 

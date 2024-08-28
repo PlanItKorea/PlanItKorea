@@ -45,32 +45,11 @@ const mockReservation: Reservation[] = [
     endDate: "08-10",
     person: 3,
     img: [hotel1],
-  },
-  {
-    id: 'dkssud12',
-    productId: 121,
-    productName: "호텔호텔호텔",
-    price: "180,000",
-    reservationNumber: 124,
-    startDate: "08-10",
-    endDate: "08-15",
-    person: 3,
-    img: [hotel3]
-  },
-  {
-    id: 'dkssud12',
-    productId: 3,
-    productName: "호텔호텔호텔",
-    price: "90,000",
-    reservationNumber: 128,
-    startDate: "08-14",
-    endDate: "08-19",
-    person: 2,
-    img: [hotel4],
-  },
+  }
 ];
 
 export default function ReservationCheck() {
+  
   return (
     <>
       <GroupLine />

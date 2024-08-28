@@ -21,7 +21,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "../styles/date.css";
 import { format } from "date-fns";
 import SearchIcon from "@mui/icons-material/Search";
-import useSearchStore, { SearchData } from "../stores/useSearchStore";
+import useSearchStore, { SearchData } from "../stores/use.search.store";
 import { Location } from "../types/type";
 import { useNavigate } from "react-router-dom";
 
@@ -154,7 +154,7 @@ export default function Search() {
   const pushData = useSearchStore((state) => state.pushData);
 
   //! 지역
-  const [city, setCity] = useState<Location>("서울");
+  const [city, setCity] = useState<Location | null>(null);
   //! 날짜
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
@@ -263,12 +263,22 @@ export default function Search() {
             personCount
           }
           
-          pushData(searchData);
-          console.log(searchData);
+          if (city !== null) {
+            const searchData: SearchData = {
+              city,
+              startDay,
+              endDay,
+              personCount,
+            };
+            pushData(searchData);
+            console.log(searchData);
+            navigate("./allProductPage")
+          } else {
+            console.error('도시 값이 설정되지 않았습니다.');
+          }
         }
 
       }
-      navigate("./allProductPage")
     }
 
 
@@ -301,7 +311,7 @@ export default function Search() {
                   />
                 }
               >
-                <MenuItem value="">
+                <MenuItem value=''>
                   <em>여행지를 선택해주세요</em>
                 </MenuItem>
                 <MenuItem value={"서울"} sx={{ fontWeight: "bold" }}>
@@ -363,7 +373,7 @@ export default function Search() {
                   zIndex: 10,
                 }}
               >
-                <div className="box-border p-4 border border-cyan-200 rounded-lg flex items-center space-x-2">
+                <div className="box-border p-4 border border-cyan-200 rounded-lg flex items-center space-x-2 ">
                   <div className="relative flex-1">
                     <DatePicker
                       selected={startDate}
@@ -377,6 +387,7 @@ export default function Search() {
                       placeholderText="Start Date"
                       isClearable={false}
                       minDate={today}
+                      
                     />
                   </div>
                   <div className="relative flex-1">
@@ -555,7 +566,7 @@ export default function Search() {
                   }}
                 >
                   <div className="box-border p-4 border border-cyan-200 rounded-lg flex items-center space-x-2">
-                    <div className="relative flex-1">
+                    <div className="relative flex-1 w-full">
                       <DatePicker
                         selected={startDate}
                         onChange={(date: Date | null) =>
@@ -570,7 +581,7 @@ export default function Search() {
                         minDate={today}
                       />
                     </div>
-                    <div className="relative flex-1">
+                    <div className="relative flex-1 w-full">
                       <DatePicker
                         selected={endDate}
                         onChange={(date: Date | null) =>

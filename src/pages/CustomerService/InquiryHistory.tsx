@@ -22,7 +22,7 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import axios from "axios";
-import useAuthStore from "../../stores/useAuthStore";
+import useAuthStore from "../../stores/use.auth.store";
 
 export default function InquiryHistory() {
   const user = useAuthStore((state) => state.user);

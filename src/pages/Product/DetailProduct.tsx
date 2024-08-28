@@ -53,12 +53,12 @@ import { GroupLine } from "../../styles/customer/customer";
 import { Button } from "../../styles/Sign";
 import ImageSlider from "./sliderImg/ImageSlider";
 import NaverMap from "../../component/NaverMap";
-import useSearchStore from "../../stores/useSearchStore";
+import useSearchStore from "../../stores/use.search.store";
 
 import ReactPaginate from "react-paginate";
-import useAuthStore from "../../stores/useAuthStore";
+import useAuthStore from "../../stores/use.auth.store";
 import { format } from "date-fns";
-import useIdStore from "../../stores/useNexIdStore";
+import useIdStore from "../../stores/use.nexId.store";
 
 export default function DetailProduct() {
   //! 전역 상태 받아오기
