@@ -35,6 +35,8 @@ export const ProductDiv = styled.div`
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  position: relative;
+  z-index: 1;
 `;
 
 export const ProductImg = styled.img`
@@ -58,6 +60,8 @@ export const Category = styled.span`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  z-index: 2;
 `;
 
 export const ProductName = styled.h3`

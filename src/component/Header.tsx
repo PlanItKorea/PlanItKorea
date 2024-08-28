@@ -21,7 +21,7 @@ import {
   OptionBox,
   SingInButton,
 } from "../styles/component/HeaderStyle";
-import useAuthStore from "../stores/useAuthStore";
+import useAuthStore from "../stores/use.auth.store";
 
 export default function Header() {
   const [showMenuModal, setShowMenuModal] = useState<boolean>(false);
@@ -54,17 +54,23 @@ export default function Header() {
     };
   }, []);
 
+  const handleLogOut = () => {
+    logout()
+    navigate("/")
+  }
+
+  const logoClick = () => {
+    navigate("/")
+  }
   
   
 
   return (
     <>
       <Box>
-        <LogoBox>
-          <LogoLink href="/">
+        <LogoBox onClick={logoClick}>
             <Logo src={logo} alt="Logo" />
             <LogoName>Plan It Korea</LogoName>
-          </LogoLink>
         </LogoBox>
         <OptionBox>
             <CustomerServiceButton onClick={() => navigate("/notification")}>
@@ -75,7 +81,7 @@ export default function Header() {
               <span>로그인 & 회원가입</span>
             </SingInButton>
             ) : (
-              <SingInButton onClick={logout} style={{minWidth:'164px'}}>
+              <SingInButton onClick={handleLogOut} style={{minWidth:'164px'}}>
                     <span>로그아웃</span>
                   </SingInButton>
             )}

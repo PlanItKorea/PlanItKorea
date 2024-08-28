@@ -25,9 +25,9 @@ import {
   TitleDiv,
 } from "../../styles/customer/Inquiry";
 import axios from "axios";
-import useAuthStore from "../../stores/useAuthStore";
+import useAuthStore from "../../stores/use.auth.store";
 import { Error } from "../../styles/myPage/Main";
-import useIdStore from "../../stores/useNexIdStore";
+import useIdStore from "../../stores/use.nexId.store";
 
 export default function InquiryCRUD() {
   const { id } = useParams<{ id: string }>();

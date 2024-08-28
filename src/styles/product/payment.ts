@@ -11,6 +11,10 @@ export const AllDiv = styled.div`
   align-items: stretch; 
   margin-top: 20px;
   border-top: 1px solid ${theme.palette.primary.main};
+  @media (max-width: 768px) {
+    flex-direction: column;
+  flex-wrap: wrap-reverse;
+  }
 `;
 
 export const RightDiv = styled.div`

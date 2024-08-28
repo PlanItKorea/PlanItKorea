@@ -18,8 +18,9 @@ import styled from "styled-components";
 import theme from "../../styles/theme";
 import { NavLink, useNavigate } from "react-router-dom";
 import Modal, { ModalButton, Overlay } from "../../component/Modal";
-import useAuthStore from "../../stores/useAuthStore";
+import useAuthStore from "../../stores/use.auth.store";
 import axios from "axios";
+import { User } from "../../types/type";
 
 export const Button = styled.button`
   border: none;
@@ -197,10 +198,12 @@ export default function SignUp() {
         name,
         birthDate,
         phoneNumber,
+        wishList:[],
+        reservation:[]
       };
 
       try {
-        await axios.post("http://localhost:3001/users", signUpData)
+        await axios.post<User>("http://localhost:3001/users", signUpData)
         setIsModalOpen(true);
       }catch(error) {
         console.error('회원정보 저장 실패',error);

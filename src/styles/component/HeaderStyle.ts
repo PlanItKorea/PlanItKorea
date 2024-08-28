@@ -12,6 +12,7 @@ export const Box = styled.div`
 export const LogoBox = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 export const Logo = styled.img`

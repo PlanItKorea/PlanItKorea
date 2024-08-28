@@ -11,7 +11,8 @@ export interface SearchData {
   | "여수"
   | "전주"
   | "해남"
-  | "대구";
+  | "대구"
+  | null;
   startDay: Date | undefined;
   endDay: Date | undefined;
   personCount: number;
@@ -24,7 +25,7 @@ interface SearchState {
 }
 
 const useSearchStore = create<SearchState>((set) => ({
-  searchData: { city:"서울", startDay: undefined, endDay: undefined, personCount: 1 },
+  searchData: { city:null, startDay: undefined, endDay: undefined, personCount: 1 },
   pushData: (searchData: SearchData) => set({ searchData })
 }));
 

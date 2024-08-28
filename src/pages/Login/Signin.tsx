@@ -4,7 +4,7 @@ import { Logo, LogoDIv, LogoName } from "../../styles/logo";
 import logoImg from "../../assets/images/logo.png";
 import theme from "../../styles/theme";
 import { NavLink, useNavigate } from "react-router-dom";
-import useAuthStore from "../../stores/useAuthStore";
+import useAuthStore from "../../stores/use.auth.store";
 import {
   AllDiv,
   SignInDiv,
@@ -15,7 +15,10 @@ import {
   GroupLine,
   InputIdField,
   InputPasswordField,
+  Form,
 } from "../../styles/Sign";
+import axios from "axios";
+import { User } from "../../types/type";
 
 const OptionDiv = styled.div`
   display: flex;
@@ -38,6 +41,8 @@ const OptionSpan = styled.span`
 export default function SignIn() {
   const [idError, setIdError] = useState<boolean | string>();
   const [passwordError, setPasswordError] = useState<boolean | string>();
+
+  const [signInError, setSignInError] = useState<boolean>(false);
 
   const [id, setId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -68,7 +73,9 @@ export default function SignIn() {
     }
   };
 
-  const handleLogin = () => {
+  const handleSignIn = async(e: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     if (!id) {
       setIdError("아이디를 입력해주세요.");
     }
@@ -78,15 +85,30 @@ export default function SignIn() {
       );
     }
     if (id && password && !passwordError) {
-      //! 로그인 정보 !!!!
-      const signInData = {
-        id,
-        password,
-      };
+      try{
+        //! 로그인 정보 !!!!
+        const signInData = {
+          id,
+          password,
+        };
 
-      login(signInData);
-      navigate("/");
-      console.log(signInData);
+        const response = await axios.get("http://localhost:3001/users",{ params : signInData})
+
+        const matchedData = response.data.find((user: User) =>
+        user.id === id && user.password === password)
+
+        if(matchedData) {
+          login(signInData);
+          navigate("/");
+        }else{
+          setSignInError(true)
+        }
+
+      }catch(error) {
+        console.error('사용자 호출 실패',error);
+      }
+      
+
     }
   };
 
@@ -99,6 +121,11 @@ export default function SignIn() {
           <LogoName>Plan It Korea</LogoName>
         </LogoDIv>
         <SignInDiv>
+          <Form onKeyDown={(e) => {
+            if(e.key === "Enter") {
+              handleSignIn(e)
+            }
+          }}>
           <InputContainer>
             <InputLabel htmlFor="idField">아이디</InputLabel>
             <InputIdField
@@ -137,8 +164,16 @@ export default function SignIn() {
               <></>
             )}
           </InputContainer>
+          </Form>
+          {signInError ? (
+            <ErrorMessage>
+            아이디 또는 비밀번호가 일치하지 않습니다.
+          </ErrorMessage>
+          ): (
+            <></>
+          )}
           <InputContainer>
-            <Button onClick={handleLogin}>로그인</Button>
+            <Button onClick={handleSignIn}>로그인</Button>
           </InputContainer>
           <InputContainer>
             <OptionDiv>

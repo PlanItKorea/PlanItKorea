@@ -133,7 +133,7 @@ export const ReservationBarDiv = styled.div`
   flex-direction: column;
   align-items: flex-end;
   width: 30%;
-  height: 1000px;
+  height: auto;
   @media (max-width: 1160px) {
     width: 100%;
     height: 100%;

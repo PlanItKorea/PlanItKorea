@@ -25,16 +25,25 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
-import { Accommodation, BerthProduct, Facilities } from "../../types/type";
+import { Accommodation, BerthProduct, Facilities, User } from "../../types/type";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
-import { useNavigate, useParams } from "react-router-dom";
-import useSearchStore from "../../stores/useSearchStore";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import useSearchStore from "../../stores/use.search.store";
 import axios from "axios";
+import useAuthStore from "../../stores/use.auth.store"
+import WishList from "../MyPage/WishList";
 
 const ITEMS_PER_PAGE = 9;
 
 export default function AllProductPage() {
   const { category } = useParams<{ category: string }>();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const cityFilter = queryParams.get('city');
+  
+  // URL 디코딩
+  const decodedCityFilter = cityFilter ? decodeURIComponent(cityFilter) : '';
+
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [accommodationType, setAccommodationType] = useState<Accommodation | null>(null);
   const [facilities, setFacilities] = useState<Facilities[]>([]);
@@ -44,12 +53,51 @@ export default function AllProductPage() {
   const navigate = useNavigate();
 
   const { searchData } = useSearchStore();
+  const { user, isLoggedIn } = useAuthStore();
 
+  useEffect(() => {
+    const fetchWish = async () => {
+      if (user?.id && isLoggedIn) {
+        try {
+          const response = await axios.get<User>(`http://localhost:3001/users/${user.id}`);
+          setUserWishList(response.data.wishList);
+          console.log(userWishList);
+        } catch (error) {
+          console.error('위시리스트 호출 실패:', error);
+        }
+      }
+    };
+
+    fetchWish();
+  }, [user?.id, isLoggedIn]); 
+
+
+  
   //! 찜
-  const toggleWishlist = (id: number) => {
-    setUserWishList((prevList) =>
-      prevList.includes(id) ? prevList.filter(item => item !== id) : [...prevList, id]
-    );
+  const toggleWishlist = async(id: number) => {
+    if(!isLoggedIn) {
+      alert('로그인이 필요한 시스템입니다.')
+      return
+    }
+    try {
+      const response = await axios.get<User>(`http://localhost:3001/users/${user.id}`);
+      const userWishData = response.data;
+
+      const updatedWishList = userWishData.wishList.includes(id)
+        ? userWishData.wishList.filter(item => item !== id) 
+        : [...userWishData.wishList, id]; 
+
+        setUserWishList(updatedWishList)
+      await axios.put(`http://localhost:3001/users/${user.id}`, {
+        ...userWishData,
+        wishList: updatedWishList,
+      });
+
+      console.log('위시리스트가 성공적으로 업데이트되었습니다.');
+    } catch (error) {
+      console.error('위시리스트 업데이트 중 오류 발생:', error);
+    }
+
   };
 
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
@@ -89,21 +137,26 @@ export default function AllProductPage() {
     });
   };
 
-  //! 카테고리 필터링
+   //! 카테고리 필터링
   const filterProducts = products.filter((product) => {
+    const matchSearchCity = !searchData.city || product.city === searchData.city;
+  
+    const matchQueryCity = !decodedCityFilter || product.city === decodedCityFilter;
+  
+    const matchCity = matchSearchCity && matchQueryCity;
+  
     const matchAccommodationType =
       !accommodationType || product.accommodationCategory.includes(accommodationType as Accommodation);
-
-    const matchFacilities = facilities.length === 0 || facilities.every((facility) =>
-      product.facility.includes(facility)
-    );
-
-    const matchCity = !searchData.city || product.city === searchData.city;
+  
+    const matchFacilities =
+      facilities.length === 0 || facilities.every((facility) =>
+        product.facility.includes(facility)
+      );
+  
     const matchCategory = !category || product.accommodationCategory.some((cat) => cat === category);
-
-    return matchAccommodationType && matchFacilities && matchCity &&matchCategory;
+  
+    return matchAccommodationType && matchFacilities && matchCategory && matchCity ;
   });
-
   //! 페이지네이션
   const handlePageChange = (event: { selected: number }) => {
     setCurrentPage(event.selected);
@@ -116,6 +169,7 @@ export default function AllProductPage() {
   const handleProductClick = (id: number) => {
     navigate(`/detailProduct/${id}`);
   };
+
 
   return (
     <>
@@ -251,10 +305,14 @@ export default function AllProductPage() {
                   {product.city} - {product.accommodationCategory}
                   <Checkbox
                     {...label}
-                    icon={<FavoriteBorder sx={{ color: '#DD1162' }} />}
-                    checkedIcon={<Favorite sx={{ color: '#DD1162' }} />}
+                    icon={<FavoriteBorder sx={{ color: '#DD1162',  }} />}
+                    checkedIcon={<Favorite sx={{ color: '#DD1162' , }} />}
                     checked={userWishList.includes(product.id)}
-                    onChange={() => toggleWishlist(product.id)}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      toggleWishlist(product.id);
+                    }}
+                    sx={{ position: 'relative'}}
                   />
                 </Category>
                 <ProductName>{product.name}</ProductName>
@@ -284,6 +342,7 @@ export default function AllProductPage() {
           />
         </PageDiv>
         </AllProductDiv>
+
       </AllDiv>
     </>
   );

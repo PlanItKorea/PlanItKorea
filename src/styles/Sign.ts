@@ -237,3 +237,12 @@ export const ModalText = styled.h1`
   margin: 40px 0;
 `;
 
+export const Form = styled.form`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+

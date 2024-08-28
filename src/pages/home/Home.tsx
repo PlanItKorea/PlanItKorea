@@ -10,11 +10,13 @@ import { tickets } from "../../mocks";
 import { BerthProduct } from "../../types/type";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import useSearchStore, { SearchData } from "../../stores/use.search.store";
 
 
 
 export default function Home() {
   const [products, setProducts] = useState<BerthProduct[]>([]);
+  const { searchData, pushData } = useSearchStore();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,8 +36,17 @@ export default function Home() {
 
   const handleProductClick = (id: number) => {
     navigate(`/detailProduct/${id}`);
+    window.scrollTo(0, 0);
   };
 
+  const handleCityClick = (cityName: string) => {
+    pushData({
+      ...searchData,
+      city: cityName as SearchData['city']
+    })
+    navigate(`/allProductPage?city=${encodeURIComponent(cityName)}`);
+    window.scrollTo(0, 0);
+  };
 
   return (
     <>
@@ -46,23 +57,23 @@ export default function Home() {
           <GroupLabel>국내 인기 여행지</GroupLabel>
         </GroupLine>
         <PopularCityBox>
-          <City>
+          <City onClick={() => handleCityClick("제주도") }>
             <CityImg src={jeju} />
             <CityName>제주도</CityName>
           </City>
-          <City>
+          <City onClick={() => handleCityClick('서울') }>
             <CityImg src={seoul} />
             <CityName>서울</CityName>
           </City>
-          <City>
+          <City onClick={() => handleCityClick('부산') }>
             <CityImg src={busan} />
             <CityName>부산</CityName>
           </City>
-          <City>
+          <City onClick={() => handleCityClick('가평') }>
             <CityImg src={gapyeng} />
             <CityName>가평</CityName>
           </City>
-          <City>
+          <City onClick={() => handleCityClick('경주') }>
             <CityImg src={gyengju} />
             <CityName>경주</CityName>
           </City>
