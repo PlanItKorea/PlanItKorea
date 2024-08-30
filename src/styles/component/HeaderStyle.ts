@@ -141,24 +141,29 @@ export const GroupLine = styled.span`
 export const MenuGroup = styled.ul`
   font-size: 18px;
   font-weight: bold;
-  padding: 0;
+  padding: 5px 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 15px;
+  border-radius: 5px;
+  cursor: pointer;
   color: ${theme.palette.text.secondary};
+  &:hover {
+    background-color: #eee;
+  }
 `;
 
 export const MenuList = styled.li`
   font-size: 15px;
-  font-weight: bold;
+  font-weight: 600;
   list-style: none;
-  color: #444444;
+  color:  ${theme.palette.text.secondary};
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 5px 0;
   background-color: white;
+  border-radius: 5px;
   cursor: pointer;
   &:hover {
     background-color: #eee;

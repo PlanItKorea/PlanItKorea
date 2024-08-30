@@ -9,7 +9,6 @@ import {
   GroupLine,
   Logo,
   LogoBox,
-  LogoLink,
   LogoName,
   MenuBar,
   MenuBox,
@@ -22,12 +21,16 @@ import {
   SingInButton,
 } from "../styles/component/HeaderStyle";
 import useAuthStore from "../stores/use.auth.store";
+import useSelectStore from "../stores/use.select.store";
 
 export default function Header() {
   const [showMenuModal, setShowMenuModal] = useState<boolean>(false);
   const navigate = useNavigate();
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   const logout = useAuthStore((state) => state.logout);
+  const setCityDropdownOpen = useSelectStore(
+    (state) => state.setCityDropdownOpen
+  );
 
   const modalRef = useRef<HTMLDivElement | null>(null);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
@@ -55,36 +58,38 @@ export default function Header() {
   }, []);
 
   const handleLogOut = () => {
-    logout()
-    navigate("/")
-  }
+    logout();
+    navigate("/");
+  };
 
   const logoClick = () => {
-    navigate("/")
-  }
-  
-  
+    navigate("/");
+  };
+
+  const handleFocus = (e: React.MouseEvent<HTMLUListElement>) => {
+    setCityDropdownOpen(true);
+  };
 
   return (
     <>
       <Box>
         <LogoBox onClick={logoClick}>
-            <Logo src={logo} alt="Logo" />
-            <LogoName>Plan It Korea</LogoName>
+          <Logo src={logo} alt="Logo" />
+          <LogoName>Plan It Korea</LogoName>
         </LogoBox>
         <OptionBox>
-            <CustomerServiceButton onClick={() => navigate("/notification")}>
-              <span> 고객센터 </span>
-            </CustomerServiceButton>
-            {!isLoggedIn ? (
-              <SingInButton onClick={() => navigate("/signIn")}>
+          <CustomerServiceButton onClick={() => navigate("/notification")}>
+            <span> 고객센터 </span>
+          </CustomerServiceButton>
+          {!isLoggedIn ? (
+            <SingInButton onClick={() => navigate("/signIn")}>
               <span>로그인 & 회원가입</span>
             </SingInButton>
-            ) : (
-              <SingInButton onClick={handleLogOut} style={{minWidth:'164px'}}>
-                    <span>로그아웃</span>
-                  </SingInButton>
-            )}
+          ) : (
+            <SingInButton onClick={handleLogOut} style={{ minWidth: "164px" }}>
+              <span>로그아웃</span>
+            </SingInButton>
+          )}
 
           <MenuBox>
             <MenuButton ref={buttonRef} onClick={ModalClick}>
@@ -97,31 +102,32 @@ export default function Header() {
                     <span>로그인 & 회원가입</span>
                   </MenuSingInButton>
                 )}
+
+                <GroupLine />
+                <MenuGroup onClick={handleFocus}>국내 숙소</MenuGroup>
+                <GroupLine />
                 {isLoggedIn && (
-                  <MenuSingInButton onClick={logout} style={{minWidth:'164px'}}>
+                  <>
+                    <MenuList onClick={() => navigate("/myPageMain")}>
+                      <span> 마이페이지 </span>
+                    </MenuList>
+                    <MenuList onClick={() => navigate("/reservationCheck")}>
+                      <span> 예약 확인 </span>
+                    </MenuList>
+                  </>
+                )}
+                <MenuList onClick={() => navigate("/notification")}>
+                  <span> 고객센터 </span>
+                </MenuList>
+                <GroupLine />
+                {isLoggedIn && (
+                  <MenuSingInButton
+                    onClick={logout}
+                    style={{ minWidth: "164px" }}
+                  >
                     <span>로그아웃</span>
                   </MenuSingInButton>
                 )}
-                
-                {isLoggedIn && (
-                    <MenuCustomerServiceButton
-                      style={{ padding: "6px 41px", margin: "5px 0" }}
-                      onClick={() => navigate("/myPageMain")}>
-                      <span> 마이페이지 </span>
-                    </MenuCustomerServiceButton>
-                )}
-
-                <GroupLine />
-                <MenuGroup>국내 숙소</MenuGroup>
-                <MenuList>호텔 & 리조트</MenuList>
-                <MenuList>펜션 & 풀빌라</MenuList>
-                <MenuList>캠핑 & 글램핑</MenuList>
-                <GroupLine />
-                <MenuGroup>레저 & 티켓</MenuGroup>
-                <MenuList>관광</MenuList>
-                <MenuList>테마파크</MenuList>
-                <MenuList>레저스포츠</MenuList>
-                <MenuList>전시 & 공연</MenuList>
               </MenuBar>
             )}
           </MenuBox>

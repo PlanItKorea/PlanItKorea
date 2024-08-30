@@ -219,6 +219,9 @@ export default function DetailProduct() {
       return;
     }
 
+    const currentId = nextId;
+    incrementId();
+
     const reservationInfo: Reservation = {
       id: user.id,
       productId:
@@ -231,7 +234,7 @@ export default function DetailProduct() {
           ? product.img
           : [product.img || ""]
         : [""],
-      reservationNumber: nextId,
+      reservationNumber: currentId + 1,
       startDate: startDate ? startDate.toISOString() : "",
       endDate: endDate ? endDate.toISOString() : "",
       person: person ?? 0,

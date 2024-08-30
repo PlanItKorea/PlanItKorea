@@ -1,4 +1,4 @@
-import {  BerthProduct, TicketProduct } from "../types/type";
+import {  BerthProduct } from "../types/type";
 //? 숙소 이미지
 import house1 from '../assets/images/house/house1.jpg'
 import house2 from '../assets/images/house/house2.jpg'
@@ -169,38 +169,38 @@ import park from '../assets/images/ticket/park.jpg'
 //   },
 // ]
 
-export const tickets: TicketProduct[] = [
-  {
-    id: 1,
-    img: ski,
-    name: '@@@ 스키장',
-    price: '100,000',
-    city: '강릉',
-    TicketCategory: '레저스포츠'
-  },
-  {
-    id: 2,
-    img: park,
-    name: '@@@ 놀이동산',
-    price: '40,000',
-    city: '경주',
-    TicketCategory: '관광'
-  },
-  {
-    id: 3,
-    img: waterPark,
-    name: '@@@ 수영장',
-    price: '40,000',
-    city: '가평',
-    TicketCategory: '테마파크'
-  },
-  {
-    id: 4,
-    img: music,
-    name: '@@ 페스티벌',
-    price: '90,000',
-    city: '여수',
-    TicketCategory: '전시&공연'
-  }
-]
+// export const tickets: TicketProduct[] = [
+//   {
+//     id: 1,
+//     img: ski,
+//     name: '@@@ 스키장',
+//     price: '100,000',
+//     city: '강릉',
+//     TicketCategory: '레저스포츠'
+//   },
+//   {
+//     id: 2,
+//     img: park,
+//     name: '@@@ 놀이동산',
+//     price: '40,000',
+//     city: '경주',
+//     TicketCategory: '관광'
+//   },
+//   {
+//     id: 3,
+//     img: waterPark,
+//     name: '@@@ 수영장',
+//     price: '40,000',
+//     city: '가평',
+//     TicketCategory: '테마파크'
+//   },
+//   {
+//     id: 4,
+//     img: music,
+//     name: '@@ 페스티벌',
+//     price: '90,000',
+//     city: '여수',
+//     TicketCategory: '전시&공연'
+//   }
+// ]
 

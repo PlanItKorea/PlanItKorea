@@ -121,14 +121,3 @@ export interface Point {
   lng: number;
 }
 
-//! 티켓 상품 타입
-export interface TicketProduct {
-  id: number;
-  img: string;
-  name: string;
-  price: string;
-  //? 지역 카테고리
-  city: Location;
-  //? 티켓 카테고리
-  TicketCategory: Ticket;
-}

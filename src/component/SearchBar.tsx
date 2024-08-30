@@ -24,6 +24,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import useSearchStore, { SearchData } from "../stores/use.search.store";
 import { Location } from "../types/type";
 import { useNavigate } from "react-router-dom";
+import useSelectStore from "../stores/use.select.store";
 
 const SearchBarDiv = styled("div")(({ theme }) => ({
   display: "flex",
@@ -152,12 +153,18 @@ export default function Search() {
 
   //! 전역상태관리
   const pushData = useSearchStore((state) => state.pushData);
+  
+  const isCityDropdownOpen = useSelectStore((state) => state.isCityDropdownOpen);
+  const setCityDropdownOpen = useSelectStore((state) => state.setCityDropdownOpen);
+  const toggleCityDropdown = useSelectStore((state) => state.toggleCityDropdown);
+
 
   //! 지역
   const [city, setCity] = useState<Location | null>(null);
   //! 날짜
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
+  
 
   const today = new Date();
 
@@ -168,12 +175,13 @@ export default function Search() {
 
   const [showCalendar, setShowCalendar] = useState<boolean>(false);
 
-  const [personCount, setPersonCount] = useState<number>(1);
+  const [personCount, setPersonCount] = useState<number>(2);
 
   const [showPerson, setShowPerson] = useState<boolean>(false);
 
   const handleChangeCity = (e: SelectChangeEvent<Location>) => {
     setCity(e.target.value as Location);
+    // setCityDropdownOpen(false);
   };
 
   const personCountUp = () => {
@@ -205,9 +213,9 @@ export default function Search() {
   };
 
   useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -216,19 +224,23 @@ export default function Search() {
 
   const [isOpen, setIsOpen] = React.useState(false);
 
-  const toggleDrawer =
-    (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
-      if (
-        event &&
-        event.type === "keydown" &&
-        ((event as React.KeyboardEvent).key === "Tab" ||
-          (event as React.KeyboardEvent).key === "Shift")
-      ) {
-        return;
-      }
+  // const toggleDrawer =
+  //   (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+  //     if (
+  //       event &&
+  //       event.type === "keydown" &&
+  //       ((event as React.KeyboardEvent).key === "Tab" ||
+  //         (event as React.KeyboardEvent).key === "Shift")
+  //     ) {
+  //       return;
+  //     }
 
-      setIsOpen(open);
-    };
+  //     setIsOpen(open);
+  //   };
+
+  const handleSelectClick = () => {
+    toggleCityDropdown();
+  };
 
     useEffect(() => {
 
@@ -256,12 +268,6 @@ export default function Search() {
         if (startDate && endDate) {
           const startDay = startDate;
           const endDay = endDate;
-          const searchData = {
-            city,
-            startDay,
-            endDay,
-            personCount
-          }
           
           if (city !== null) {
             const searchData: SearchData = {
@@ -304,6 +310,7 @@ export default function Search() {
                 id="demo-customized-select"
                 value={city}
                 onChange={handleChangeCity}
+                
                 input={
                   <BootstrapInput
                     id="demo-customized-textbox"
@@ -495,6 +502,8 @@ export default function Search() {
                   id="demo-customized-select"
                   value={city}
                   onChange={handleChangeCity}
+                  open={isCityDropdownOpen}
+                  onClick={handleSelectClick}
                   input={
                     <BootstrapInput
                       id="demo-customized-textbox"
@@ -546,7 +555,7 @@ export default function Search() {
                   여행 날짜
                 </InputLabel>
                 <BootstrapInput
-                  sx={{ fontWeight: "bold", }}
+                  sx={{ fontWeight: "bold" }}
                   onClick={() => setShowCalendar(!showCalendar)}
                   value={`${startDate ? format(startDate, "MM.dd ~") : ""} ${
                     endDate ? format(endDate, "MM.dd") : ""
@@ -663,8 +672,7 @@ export default function Search() {
 
             <SubmitDiv>
               <SubmitButton onClick={handleSubmit}>
-                <p style={{ margin: 0, color: "#fff" }}
-                >검색</p>
+                <p style={{ margin: 0, color: "#fff" }}>검색</p>
               </SubmitButton>
             </SubmitDiv>
           </SearchBarDiv>
@@ -685,16 +693,16 @@ export default function Search() {
               textOverflow: "ellipsis",
               boxSizing: "border-box",
             }}
-            onClick={toggleDrawer(true)}
+            onClick={() => toggleCityDropdown()}
           >
             <SearchIcon />
             여행지를 선택해주세요
           </Button>
           <SwipeableDrawer
             anchor="bottom"
-            open={isOpen}
-            onClose={toggleDrawer(false)}
-            onOpen={toggleDrawer(true)}
+            open={isCityDropdownOpen}
+            onClose={() => toggleCityDropdown()}
+            onOpen={() => toggleCityDropdown()}
           >
             {list()}
           </SwipeableDrawer>

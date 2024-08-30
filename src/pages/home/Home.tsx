@@ -6,7 +6,6 @@ import busan from "../../assets/images/1/busan.jpg";
 import gyengju from "../../assets/images/1/gyengju.jpg";
 import seoul from "../../assets/images/1/seoul.jpg";
 import { City, CityImg, CityName, CityWarp, GroupLabel, GroupLine, HomeBox, MostTicket, MostTicketBox, MostUsed, MostUsedBox, PopularCityBox, PriceDiv, ProductCity, ProductDetail, ProductImg, ProductName } from "../../styles/home/Home";
-import { tickets } from "../../mocks";
 import { BerthProduct } from "../../types/type";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -31,8 +30,7 @@ export default function Home() {
     fetchProducts();
   }, []);
 
-  const mainBerthProduct = products.slice(0, 4);
-  const mainTicketProduct = tickets.slice(0, 4);
+  const mainBerthProduct = products.slice(0, 8);
 
   const handleProductClick = (id: number) => {
     navigate(`/detailProduct/${id}`);
@@ -98,7 +96,7 @@ export default function Home() {
         ))}
         </MostUsedBox>
 
-        <GroupLine>
+        {/* <GroupLine>
           <GroupLabel>인기 레저 & 티켓</GroupLabel>
         </GroupLine>
         <MostTicketBox>
@@ -116,7 +114,7 @@ export default function Home() {
           </MostTicket>
         ))}
 
-        </MostTicketBox>
+        </MostTicketBox> */}
       </HomeBox>
     </>
   );

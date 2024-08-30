@@ -31,7 +31,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import useSearchStore from "../../stores/use.search.store";
 import axios from "axios";
 import useAuthStore from "../../stores/use.auth.store"
-import WishList from "../MyPage/WishList";
+
 
 const ITEMS_PER_PAGE = 9;
 
