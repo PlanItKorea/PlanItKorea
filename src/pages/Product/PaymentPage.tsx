@@ -65,7 +65,7 @@ const endDate = parseDateString(reservationInfo.endDate);
   const days = calculateDays(startDate, endDate);
 
   const checkIn = format(new Date(startDate), 'yyyy-MM-dd');
-  const CheckOut = format(new Date(endDate), 'yyyy-MM-dd')
+  const checkOut = format(new Date(endDate), 'yyyy-MM-dd')
 
   // 총가격 계산
   function strToNum(str: string | undefined): number {
@@ -83,7 +83,30 @@ const endDate = parseDateString(reservationInfo.endDate);
 
   const strPrice = numPriceToStr(totalPrice);
 
-  console.log(reservationInfo);
+  const reservationSubmit = async(e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    const newReservation = { 
+      ...reservationInfo,
+      startDate: checkIn,
+      endDate: checkOut,
+      price: strPrice
+    }
+      
+
+    try {
+      const currentReservations = user?.reservation || [] ;
+      const updatedReservations = [...currentReservations, newReservation];
+      await axios.put<User>(`http://localhost:3001/users/${user?.id}`, {
+        ...user,
+        reservation: updatedReservations
+      });
+    navigate('/reservationCheck')
+    } catch (error) {
+      console.error('예약 정보 저장 실패:', error);
+    }
+    
+  }
   
   return (
     <>
@@ -92,7 +115,7 @@ const endDate = parseDateString(reservationInfo.endDate);
           <GroupDiv>
             <PageTitleDiv>
               {/* 링크 다시 설정 상품페이지로 */}
-              <NavLink to={"../"}>
+              <NavLink to={`/detailProduct/${reservationInfo.productId}`}>
               <ArrowBackIcon sx={{ fontSize: "35px", cursor:"pointer"}} />
               </NavLink>
               <Title>예약확인 및 요청</Title> 
@@ -109,7 +132,7 @@ const endDate = parseDateString(reservationInfo.endDate);
           <GroupDiv>
           <SubTitle>예약 정보</SubTitle>
           <InputLabel> 체크인 ~ 체크아웃
-            <InputField value={`${checkIn} - ${CheckOut}`}/>
+            <InputField value={`${checkIn} - ${checkOut}`}/>
             </InputLabel>
             <InputLabel> 인원 수
             <InputField value={reservationInfo.person} readOnly/>
@@ -121,7 +144,7 @@ const endDate = parseDateString(reservationInfo.endDate);
           <KaKaoImg src={KaKaoPay} alt="payment" />
           </GroupDiv>
           <GroupDiv style={{border:"none"}}>
-            <Button>예약하기</Button>
+            <Button onClick={reservationSubmit}>예약하기</Button>
           </GroupDiv>
         </RightDiv>
 

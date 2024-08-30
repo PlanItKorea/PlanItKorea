@@ -44,12 +44,12 @@ export const City = styled.div`
 export const MostUsedBox = styled.div`
   border: none;
   padding: 1% 10%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+  justify-content: center;
   align-items: flex-start;
   width: 100%;
-
 `;
 
 export const MostUsed = styled.a`

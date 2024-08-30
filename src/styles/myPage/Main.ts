@@ -57,6 +57,8 @@ export const NavInnerDiv = styled.ul`
 export const MainDiv = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
   background-color: #fafafa;
   border-radius: 10px;
   width: 100%;
@@ -65,6 +67,19 @@ export const MainDiv = styled.div`
   @media (max-width: 768px) {
     flex-direction: column;
     width: 100%;
+  }
+`;
+
+export const AllProductDiv = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+  padding: 0 10px 120px 10px;
+  position: relative;
+  @media (max-width: 768px) {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
   }
 `;
 
@@ -87,6 +102,18 @@ export const MainInner = styled.div`
   width: 100%;
   box-sizing: border-box;
 `;
+
+export const WishInner = styled.div`
+display: flex;
+flex-direction: row;
+align-items: start;
+padding: 20px;
+border-radius: 10px;
+width: 100%;
+box-sizing: border-box;
+gap: 25px;
+`;
+
 
 export const PageTitle = styled.h1`
   font-weight: bold;
@@ -225,6 +252,7 @@ export const ReserVationProductDiv = styled.div`
   align-items: center;
   flex: 0 1 auto; 
   min-width: 0;
+  cursor: pointer;
   @media (max-width: 850px) {
     width: 100%;
   }
@@ -269,16 +297,16 @@ export const ProductImage = styled.img`
   width: 100%;
   height: 200px;
   object-fit: cover;
-  
 `;
 
 export const ReserVationDetail = styled.div`
+  padding: 0 10px;
   display: flex;
   flex-direction: column;
-  padding: 0 10px;
   justify-content: space-around;
   align-items: flex-start;
   height: 100%;
+  cursor: pointer;
 `;
 
 export const ReservationNumber = styled.h3`
@@ -316,7 +344,7 @@ export const DateDiv = styled.div`
   flex-direction: row;
   justify-content: center;
   background-color: #eee;
-  width: 120px;
+  width: 150px;
   max-width: 80px;
   padding: 5px 0;
   margin-right: 10px;

@@ -13,7 +13,7 @@ function getSeason(date: Date): "spring" | "summer" | "fall" | "winter" {
     return "spring";
   } else if (month >= 6 && month <= 8) {
     return "summer";
-  } else if (month >= 9 && month <= 11) {
+  } else if (month >= 9 && month <= 10) {
     return "fall";
   } else {
     return "winter";
@@ -33,18 +33,17 @@ const ImgDiv = styled.div`
   display: flex;
   justify-content: center;
   align-content: center;
-  
 `;
 
 const MainImg = styled.img`
   width: 100%;
   height: 100%;
   border-radius: 5px;
-
 `;
 
 export default function HomeImg() {
   const currentSeason = getSeason(new Date());
+  console.log("Current Season:", currentSeason);
   return (
     <>
       <ImgDiv>

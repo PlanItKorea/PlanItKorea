@@ -2,34 +2,21 @@
   "users": [
     {
       "id": "dkssud12",
-      "password": "!gktpdy12",
-      "name": "박영준",
-      "birthDate": "19990924",
-      "phoneNumber": "01012345678",
-      "wishList": [
-        "2",
-        "3",
-        "4"
-      ],
-      "reservation": [
-        {
-          "id": "dkssud12",
-          "productId": 1,
-          "productName": "호텔호텔호텔",
-          "price": "100,000",
-          "reservationNumber": 123,
-          "startDate": "08-07",
-          "endDate": "08-10",
-          "person": 3,
-          "img": [
-            "https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/47cb2685-bd0c-473b-9c44-49b5266d2fd8.jpeg?im_w=720",
-            "https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/0e84555f-4ad4-480d-94eb-93b02563e25b.jpeg?im_w=720",
-            "https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/9ba5cd21-fbdc-4311-a13f-61171c0e7097.jpeg?im_w=720",
-            "https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/7c3387d1-72aa-4ec2-a179-7f055dcdef95.jpeg?im_w=720",
-            "https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/38bd14f7-4092-48bf-a11d-7fbcb66e1862.jpeg?im_w=720"
-          ]
-        }
-      ]
+      "password": "!dkssuddkssud12",
+      "name": "각시탈",
+      "birthDate": "19990101",
+      "phoneNumber": "01022223333",
+      "wishList": [],
+      "reservation": []
+    },
+    {
+      "id": "dydekd0924",
+      "password": "!dydekd7511",
+      "name": "전우치",
+      "birthDate": "19290909",
+      "phoneNumber": "01011112222",
+      "wishList": [],
+      "reservation": []
     }
   ],
   "announcement": [
@@ -132,16 +119,7 @@
       "author": "플랜잇코리아"
     }
   ],
-  "Inquiries": [
-    {
-      "id": "1",
-      "userId": null,
-      "category": "결제",
-      "title": "asdsadsads",
-      "content": "dsadasdasdsa",
-      "image": []
-    }
-  ],
+  "Inquiries": [],
   "BerthProduct": [
     {
       "id": "1",
@@ -153,7 +131,7 @@
         "https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/38bd14f7-4092-48bf-a11d-7fbcb66e1862.jpeg?im_w=720"
       ],
       "name": "@@@ 리조트",
-      "price": "100,000",
+      "price": "160,000",
       "address": "서울 중구 을지로6가 58-5",
       "point": {
         "lat": 37.566208,
@@ -225,52 +203,58 @@
     {
       "id": "4",
       "img": [
-        "https://image.goodchoice.kr/affiliate/2023/06/08/11/1647218800884G73MlmDcwapJollcIFB.jpg",
-        "https://image.goodchoice.kr/affiliate/2022/03/07/19/c7fc346fd14c4ffda930ec94dee52590.jpg",
-        "https://image.goodchoice.kr/affiliate/2024/03/12/09/c64d18bed6da4ebdb8574a08e2c444b2.jpg",
-        "https://a0.muscache.com/im/pictures/prohost-api/Hosting-942303140214196011/original/83953c10-3a7b-42a1-8251-3eff7b4d3d66.jpeg?im_w=720",
-        "https://a0.muscache.com/im/pictures/prohost-api/Hosting-942303140214196011/original/756fe6fc-c8a8-42cd-9e07-99a16bd7852a.jpeg?im_w=720"
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTAyMjk3ODQxMDc3MDQ0MTkxMQ%3D%3D/original/c8c10371-511c-41b9-8c87-aeda851a03d9.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-1022978410770441911/original/bb4a7180-524b-40b6-8739-9ef441ef84af.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6MTAyMjk3ODQxMDc3MDQ0MTkxMQ%3D%3D/original/b1179ff5-0653-48e7-a8e6-5fd6bda0ce6a.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/852af0e6-7a05-47b9-94b9-c82f6aace424.jpg?im_w=720",
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-1022978410770441911/original/582bfeeb-32a6-47ae-a7b1-a5c86167bba7.jpeg?im_w=720"
       ],
-      "name": "@@@ 글램핑",
+      "name": "@@@ 펜션",
       "price": "120,000",
-      "address": "경기 가평군 북면 적목리 337",
+      "address": "제주특별자치도 서귀포시 보목포로 177",
       "point": {
-        "lat": 37.668687,
-        "lng": 127.503875
+        "lat": 33.243926,
+        "lng": 126.618479
       },
-      "city": "가평",
+      "city": "제주도",
       "accommodationCategory": [
-        "캠핑&글램핑"
+        "펜션&풀빌라"
       ],
       "facility": [
         "세탁가능",
-        "스파/월풀"
+        "스파/월풀",
+        "에어컨",
+        "사우나",
+        "반려견 동반"
       ],
-      "description": "가평에 위치한 @@@ 캠핑장 입니다, 가평은 아름다운 자연경관 속에서 캠핑을 즐길 수 있는 최고의 장소입니다. 푸른 숲과 맑은 계곡이 어우러져 힐링과 여유를 만끽할 수 있습니다. 다양한 캠핑장들이 마련되어 있어 가족, 친구와 함께하는 추억을 쌓기에 좋습니다. 또한, 가까운 곳에 수상 레저와 트레킹 코스도 있어 다채로운 체험이 가능합니다. 도심에서 벗어나 자연 속에서의 여유로운 시간을 원한다면 가평 캠핑장이 완벽한 선택이 될 것입니다."
+      "description": "제주도에 위치한 @@@ 펜션 입니다, 제주도는 아름다운 자연경관 속에서 자연을 즐길 수 있는 최고의 장소입니다. 푸른 숲과 맑은 바다가 어우러져 힐링과 여유를 만끽할 수 있습니다. 다양한 해수욕장이 마련되어 있어 가족, 친구와 함께하는 추억을 쌓기에 좋습니다. 또한, 가까운 곳에 수상 레저 코스도 있어 다채로운 체험이 가능합니다. 도심에서 벗어나 자연 속에서의 여유로운 시간을 원한다면 완벽한 선택이 될 것입니다."
     },
     {
       "id": "5",
       "img": [
-        "https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/47cb2685-bd0c-473b-9c44-49b5266d2fd8.jpeg?im_w=720",
-        "https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/0e84555f-4ad4-480d-94eb-93b02563e25b.jpeg?im_w=720",
-        "https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/9ba5cd21-fbdc-4311-a13f-61171c0e7097.jpeg?im_w=720",
-        "https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/7c3387d1-72aa-4ec2-a179-7f055dcdef95.jpeg?im_w=720",
-        "https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/38bd14f7-4092-48bf-a11d-7fbcb66e1862.jpeg?im_w=720"
+        "https://a0.muscache.com/im/pictures/miso/Hosting-682462479468020523/original/b9a09781-69c1-40d9-9e89-65c6e481bbf6.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-682462479468020523/original/1a624a82-9521-43a2-8d64-e740a2b5345d.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-682462479468020523/original/7bb27e04-e5f9-40e4-90c0-7309d1eab846.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/hosting/Hosting-U3RheVN1cHBseUxpc3Rpbmc6NjgyNDYyNDc5NDY4MDIwNTIz/original/86397608-0a6b-4ae6-9af1-8d0f0b6f5056.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/miso/Hosting-682462479468020523/original/64fac238-7972-4e22-ba4e-1369d1ebd31f.jpeg?im_w=720"
       ],
-      "name": "@@@ 캠핑",
-      "price": "100,000",
-      "address": "서울 중구 을지로6가 58-5",
+      "name": "@@@ 호텔",
+      "price": "80,000",
+      "address": "경상북도 경주시 보덕동 보문로 484-7",
       "point": {
-        "lat": 37.566208,
-        "lng": 127.004333
+        "lat": 35.839809,
+        "lng": 129.2858
       },
-      "city": "서울",
+      "city": "경주",
       "accommodationCategory": [
-        "캠핑&글램핑"
+        "호텔&리조트"
       ],
       "facility": [
         "스파/월풀",
-        "와이파이"
+        "와이파이",
+        "조식포함",
+        "무료주차",
+        "OTT"
       ],
       "description": "서울에 위치한 @@@ 리조트 입니다, 서울은 세계적인 도시로, 다양한 매력을 가진 호텔들이 있어 여행객들에게 편안한 숙박을 제공합니다. 도심에 위치한 호텔들은 주요 관광지와의 접근성이 뛰어나며, 현대적인 시설과 서비스로 만족스러운 경험을 선사합니다. 한강 전망을 자랑하는 호텔에서는 아름다운 야경을 감상할 수 있으며, 고급스러운 레스토랑과 스파 시설도 함께 이용할 수 있습니다. 비즈니스 출장객부터 가족 여행객까지 다양한 고객층을 만족시킬 수 있는 맞춤형 서비스를 제공합니다. 서울의 전통과 현대를 동시에 느낄 수 있는 특별한 경험을 원하는 이들에게 이상적인 선택입니다. 언제나 편안하고 세련된 휴식을 즐길 수 있는 서울의 호텔에서 완벽한 여행을 완성해보세요.",
       "review": []
@@ -285,7 +269,7 @@
         "https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/38bd14f7-4092-48bf-a11d-7fbcb66e1862.jpeg?im_w=720"
       ],
       "name": "@@@ 펜션",
-      "price": "100,000",
+      "price": "150,000",
       "address": "서울 중구 을지로6가 58-5",
       "point": {
         "lat": 37.566208,
@@ -298,6 +282,67 @@
       "facility": [
         "와이파이",
         "에어컨"
+      ],
+      "description": "서울에 위치한 @@@ 리조트 입니다, 서울은 세계적인 도시로, 다양한 매력을 가진 호텔들이 있어 여행객들에게 편안한 숙박을 제공합니다. 도심에 위치한 호텔들은 주요 관광지와의 접근성이 뛰어나며, 현대적인 시설과 서비스로 만족스러운 경험을 선사합니다. 한강 전망을 자랑하는 호텔에서는 아름다운 야경을 감상할 수 있으며, 고급스러운 레스토랑과 스파 시설도 함께 이용할 수 있습니다. 비즈니스 출장객부터 가족 여행객까지 다양한 고객층을 만족시킬 수 있는 맞춤형 서비스를 제공합니다. 서울의 전통과 현대를 동시에 느낄 수 있는 특별한 경험을 원하는 이들에게 이상적인 선택입니다. 언제나 편안하고 세련된 휴식을 즐길 수 있는 서울의 호텔에서 완벽한 여행을 완성해보세요.",
+      "review": []
+    },
+    {
+      "id": "7",
+      "img": [
+        "https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/47cb2685-bd0c-473b-9c44-49b5266d2fd8.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/0e84555f-4ad4-480d-94eb-93b02563e25b.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/9ba5cd21-fbdc-4311-a13f-61171c0e7097.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/7c3387d1-72aa-4ec2-a179-7f055dcdef95.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/38bd14f7-4092-48bf-a11d-7fbcb66e1862.jpeg?im_w=720"
+      ],
+      "name": "@@@ 풀빌라",
+      "price": "150,000",
+      "address": "서울 중구 을지로6가 58-5",
+      "point": {
+        "lat": 37.566208,
+        "lng": 127.004333
+      },
+      "city": "서울",
+      "accommodationCategory": [
+        "펜션&풀빌라"
+      ],
+      "facility": [
+        "와이파이",
+        "에어컨",
+        "욕실용품",
+        "샤워실",
+        "무료주차"
+      ],
+      "description": "서울에 위치한 @@@ 리조트 입니다, 서울은 세계적인 도시로, 다양한 매력을 가진 호텔들이 있어 여행객들에게 편안한 숙박을 제공합니다. 도심에 위치한 호텔들은 주요 관광지와의 접근성이 뛰어나며, 현대적인 시설과 서비스로 만족스러운 경험을 선사합니다. 한강 전망을 자랑하는 호텔에서는 아름다운 야경을 감상할 수 있으며, 고급스러운 레스토랑과 스파 시설도 함께 이용할 수 있습니다. 비즈니스 출장객부터 가족 여행객까지 다양한 고객층을 만족시킬 수 있는 맞춤형 서비스를 제공합니다. 서울의 전통과 현대를 동시에 느낄 수 있는 특별한 경험을 원하는 이들에게 이상적인 선택입니다. 언제나 편안하고 세련된 휴식을 즐길 수 있는 서울의 호텔에서 완벽한 여행을 완성해보세요.",
+      "review": []
+    },
+    {
+      "id": "8",
+      "img": [
+        "https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/47cb2685-bd0c-473b-9c44-49b5266d2fd8.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/0e84555f-4ad4-480d-94eb-93b02563e25b.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/9ba5cd21-fbdc-4311-a13f-61171c0e7097.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/7c3387d1-72aa-4ec2-a179-7f055dcdef95.jpeg?im_w=720",
+        "https://a0.muscache.com/im/pictures/prohost-api/Hosting-1046134978780211011/original/38bd14f7-4092-48bf-a11d-7fbcb66e1862.jpeg?im_w=720"
+      ],
+      "name": "@@@ 글램핑",
+      "price": "150,000",
+      "address": "서울 중구 을지로6가 58-5",
+      "point": {
+        "lat": 37.566208,
+        "lng": 127.004333
+      },
+      "city": "서울",
+      "accommodationCategory": [
+        "캠핑&글램핑"
+      ],
+      "facility": [
+        "와이파이",
+        "에어컨",
+        "샤워실",
+        "무료주차",
+        "반려견 동반",
+        "객실 내 취사"
       ],
       "description": "서울에 위치한 @@@ 리조트 입니다, 서울은 세계적인 도시로, 다양한 매력을 가진 호텔들이 있어 여행객들에게 편안한 숙박을 제공합니다. 도심에 위치한 호텔들은 주요 관광지와의 접근성이 뛰어나며, 현대적인 시설과 서비스로 만족스러운 경험을 선사합니다. 한강 전망을 자랑하는 호텔에서는 아름다운 야경을 감상할 수 있으며, 고급스러운 레스토랑과 스파 시설도 함께 이용할 수 있습니다. 비즈니스 출장객부터 가족 여행객까지 다양한 고객층을 만족시킬 수 있는 맞춤형 서비스를 제공합니다. 서울의 전통과 현대를 동시에 느낄 수 있는 특별한 경험을 원하는 이들에게 이상적인 선택입니다. 언제나 편안하고 세련된 휴식을 즐길 수 있는 서울의 호텔에서 완벽한 여행을 완성해보세요.",
       "review": []
